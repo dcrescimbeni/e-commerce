@@ -12,7 +12,6 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-//probando commit
 
 app.listen(3001, () => {
   console.log(`Server up on port 3001`);
