@@ -1,10 +1,13 @@
 const express = require('express');
 const volleyball = require('volleyball');
+const Users = require('./routes/Users')
 
 const app = express();
 
 app.use(volleyball);
 app.use(express.json());
+
+app.use('/api',Users)
 
 app.use((err, req, res, next) => {
   console.log('Error');
