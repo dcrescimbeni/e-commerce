@@ -1,6 +1,7 @@
 const express = require('express');
 const volleyball = require('volleyball');
 const db = require('./models/_db');
+require('./models/index');
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-db.sync({ foce: false }).then(() => {
+db.sync({ force: false }).then(() => {
   app.listen(3001, () => {
     console.log(`Server up on port 3001`);
   });
