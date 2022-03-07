@@ -12,9 +12,9 @@ Product.belongsToMany(OrderDetails, { through: 'OrderDetailsProduct' });
 OrderDetails.belongsToMany(Product, { through: 'OrderDetailsProduct' });
 
 Order.hasOne(OrderDetails, { foreignKey: 'orderId' });
-OrderDetails.belongsTo(Order);
+OrderDetails.belongsTo(Order, { foreignKey: 'orderId' });
 
-User.hasMany(Order);
+User.hasMany(Order, { foreignKey: 'userId' });
 Order.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = { Category, Product, User, Order, OrderDetails };
