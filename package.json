@@ -23,6 +23,7 @@
     "client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test-back": "mocha api/test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
