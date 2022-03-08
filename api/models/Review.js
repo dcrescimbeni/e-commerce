@@ -12,7 +12,15 @@ Review.init(
     },
     reviewMessage: {
       type: DataTypes.STRING,
+      defaultValue: null,
+    },
+    score: {
+      type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        min: 0,
+        max: 1,
+      },
     },
   },
   { sequelize: db, modelName: 'reviews' }
