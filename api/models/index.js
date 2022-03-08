@@ -24,4 +24,4 @@ Order.belongsTo(User, { foreignKey: 'userId' });
 User.hasMany(Review, { foreignKey: 'userId' });
 Review.belongsTo(User, { foreignKey: 'userId' });
 
-module.exports = { Category, Product, User, Order, OrderDetails };
+module.exports = { Category, Product, User, Order, OrderDetails, Review };

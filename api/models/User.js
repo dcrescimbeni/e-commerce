@@ -10,6 +10,10 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -26,6 +30,9 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     address: {
       type: DataTypes.STRING,
