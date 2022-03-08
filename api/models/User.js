@@ -14,12 +14,13 @@ User.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    name: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    history: {
+    lastName: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
