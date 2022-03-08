@@ -10,6 +10,10 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
