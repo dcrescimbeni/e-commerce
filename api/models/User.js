@@ -42,8 +42,10 @@ User.init(
   { sequelize: db, modelName: 'users' }
 );
 
+User.beforeCreate((user) => {
+  return bcrypt.hash(user.password, 10).then((hash) => {
+    user.password = hash;
+  });
+});
 
-User.beforeCreate(user => {
-  
-})
 module.exports = User;
