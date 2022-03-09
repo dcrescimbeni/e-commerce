@@ -1,10 +1,13 @@
+import React from "react";
+import "./App.css";
+import ProductList from "./components/ProductList";
+import ProductDetails from "./components/ProductDetails";
+import data from "./fakeDB/data";
 import { Routes, Route } from "react-router-dom";
-import React, { useEffect, useState } from 'react';
-import './App.css';
+import { useEffect, useState } from 'react';
 import HomePage from "./Pages/HomePage";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import ProductsList from "./components/ProductsList";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ShoppingCart from './components/ShoppingCart';
@@ -13,6 +16,7 @@ import ShoppingCart from './components/ShoppingCart';
 
 function App() {
 
+  const { products } = data;
   const locaStorageProducts = JSON.parse(localStorage.getItem("cart-products")) || []
   const [cartItems, setCartItems] = useState(locaStorageProducts);
 
@@ -45,14 +49,14 @@ function App() {
     setCartItems(cartItems.filter(x => x.id !== product.id))
   }
 
+
   return (
     <div >
       <NavBar />
       <br></br>
       <main>
         <Routes >
-          <Route path="/" element={<HomePage />} />
-          <Route path="/products" element={<ProductsList />} />
+
           <Route path="/shoppingcart" element={
             <ShoppingCart
               onAdd={onAdd}
@@ -60,12 +64,15 @@ function App() {
               onDelete={onDelete}
               cartItems={cartItems}
             />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsList products={products} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-        </Routes>
-      </main>
+          <Route path={`/products/:productId`} element={<ProductDetails />} />
+        </Routes >
+      </main >
       <Footer />
-    </div>
+    </div >
   );
 }
 
