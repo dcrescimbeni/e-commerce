@@ -2,7 +2,10 @@
 const User = require('../models/User')
 
 
+
+
 exports.userCreate = (req,res,next) => {
+    console.log("REq.Body =>", req.body)
     User.create(req.body)
     .then(() => res.send(200))
     .catch(err => console.log(err))
