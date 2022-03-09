@@ -34,10 +34,13 @@ User.init(
         isEmail: true,
       },
     },
-    address: {
+    billingAddress: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    shippingAddress: {
+      type: DataTypes.STRING,
+    }
   },
   { sequelize: db, modelName: 'users' }
 );

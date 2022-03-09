@@ -8,12 +8,14 @@ router.post('/register',UsersController.userCreate)
 
 router.post('/login', passport.authenticate('local'), UsersController.userLogin)
 
+router.get('/logout', UsersController.userLogout)
+
 router.put('/edit/:id' , UsersController.userEdit)
 
 router.delete('/admin/user/:id' , UsersController.userDelete)
 
 router.get('/admin/users' , UsersController.getUsers)
 
-router.put('/admin/user/:id', UsersController)
+router.put('/admin/user/:id', UsersController.giveAdmin)
 
 module.exports = router
