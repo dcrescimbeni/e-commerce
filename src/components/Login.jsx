@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-// import { useDispatch } from "react-redux";
-// import useInput from "../Hooks/useInputs";
-// import { sendLoginRequest } from "../state/user";
 import style from "../styles/Login.module.css";
 
 const Login = () => {
+
+
   return (
     <div className={style.masthead}>
       <div className="color-overlay d-flex justify-content-center align-items-center">
