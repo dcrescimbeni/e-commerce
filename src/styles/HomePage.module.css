@@ -1,0 +1,16 @@
+.containerSection{
+   background-color: #f1f1f1;
+   display: flex;
+   justify-content: center;
+}
+
+.imageSection{
+    width: 520px;
+  height: 300px;
+}
+
+.brand{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
