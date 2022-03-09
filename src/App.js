@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import ProductList from "./components/ProductList";
+import ProductDetails from "./components/ProductDetails";
+import { Routes, Route } from "react-router-dom";
+import data from "./fakeDB/data";
 
 function App() {
+  const { products } = data;
+
+  // useEffect(() => {
+  //   setProductsList(products);
+  //   console.log(products);
+  // }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      
+      <Routes>
+      <Route path={"/"} element={<ProductList products={products}/>} />
+        <Route path={`/products/:productId`} element={<ProductDetails />} />
+      </Routes>
     </div>
   );
 }

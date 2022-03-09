@@ -1,0 +1,13 @@
+.container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    padding: 40px;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.image{
+    width: 592px;
+    height: 592px;
+}
