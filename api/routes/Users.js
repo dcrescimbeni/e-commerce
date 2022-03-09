@@ -14,6 +14,6 @@ router.delete('/admin/user/:id' , UsersController.userDelete)
 
 router.get('/admin/users' , UsersController.getUsers)
 
-router.put('/admin/user/:id', UsersController)
+//router.put('/admin/user/:id', UsersController)
 
 module.exports = router
