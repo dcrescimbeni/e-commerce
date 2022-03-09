@@ -1,13 +1,14 @@
 const Products = require("../models/Product")
 
 //Revisar los HTTP Cats
-exports.allProducts = (req,res,next) => {
-    Products.findAll(req.body)
-    .then(() => res.send(200))
+exports.allProducts = (req,res) => {
+    Products.findAll()
+    .then(products => res.send(products))
+    .then(()=> res.send(200))
     .catch(err => console.log(err))
 }
 
-exports.productFind = (req,res,next) => {
+exports.productFind = (req,res) => {
     Products.findOne(req.body, {
         where:{
             id : req.params.id
@@ -17,13 +18,13 @@ exports.productFind = (req,res,next) => {
     .catch(err => console.log(err))
 }
 
-exports.newProduct = (req,res,next) => {
+exports.newProduct = (req,res) => {
     Products.create(req.body)
     .then(() => res.send(201))
     .catch(err => console.log(err))
 }
 
-exports.editProduct = (req, res, next) => {
+exports.editProduct = (req, res) => {
     Products.update(req.body, req.body, {
         where:{
             id : req.params.id
@@ -33,7 +34,7 @@ exports.editProduct = (req, res, next) => {
     .catch(err => console.log(err))
 }
 
-exports.deleteProduct = (req, res, next) => {
+exports.deleteProduct = (req, res) => {
     Products.destroy({where :{
         id : req.params.id
     }})

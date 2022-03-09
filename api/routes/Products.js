@@ -4,7 +4,7 @@ const router = express.Router()
 const ProductsController = require("../controllers/ProductsController")
 
 
-//preguntar por la ruta de delete y update (entiendo que se hace todo desde la ruta del producto que se quiere borrar o eliminar)
+//preguntar por la ruta de delete y update (entiendo que se hace todo desde la ruta del producto que se quiere borrar o editar)
 router.get("/allProducts",ProductsController.allProducts)
 
 router.get("/product/:id" , ProductsController.productEdit)
