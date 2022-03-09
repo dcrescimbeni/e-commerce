@@ -12,9 +12,11 @@ OrderDetails.init(
     },
     quantity: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     price: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
   },
   { sequelize: db, modelName: 'orderDetails' }

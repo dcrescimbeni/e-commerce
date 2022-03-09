@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const db = require('./_db');
+const bcrypt = require('bcrypt')
 
 class User extends Model {}
 
@@ -10,21 +11,28 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    name: {
+    firstName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    history: {
+    lastName: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
+      validate: {
+        isEmail: true,
+      },
     },
     address: {
       type: DataTypes.STRING,
@@ -33,5 +41,11 @@ User.init(
   },
   { sequelize: db, modelName: 'users' }
 );
+
+User.beforeCreate((user) => {
+  return bcrypt.hash(user.password, 10).then((hash) => {
+    user.password = hash;
+  });
+});
 
 module.exports = User;

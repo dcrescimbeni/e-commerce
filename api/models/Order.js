@@ -12,9 +12,11 @@ Order.init(
     },
     total: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   { sequelize: db, modelName: 'orders' }
