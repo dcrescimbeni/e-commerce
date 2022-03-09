@@ -1,12 +1,11 @@
 import React from "react";
-
 import data from "../fakeDB/data";
 import styles from "../styles/ProductList.module.css"
+import {Link} from 'react-router-dom';
 
 
 const ProductsList = () => {
   const { products } = data;
-  console.log(products);
   return (
     <>
   
@@ -14,8 +13,8 @@ const ProductsList = () => {
     <ul className={styles.container}>
       {products.map((product) => {
         return (
-          <div >
-            <img className= {styles.image} src={product.image} alt="imagen"></img>
+          <div key={product.id}>
+           <Link to={`/products/${product.id}`}> <img className= {styles.image} src={product.image1} alt="imagen"></img> </Link>
             <div>{product.name}</div>
             <div>{product.price}</div>
           </div>

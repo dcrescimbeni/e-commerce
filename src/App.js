@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import ProductList from "./components/ProductList";
+import ProductsList from "./components/ProductsList";
 import ProductDetails from "./components/ProductDetails";
 import data from "./fakeDB/data";
 import { Routes, Route } from "react-router-dom";
@@ -14,11 +14,6 @@ import Footer from "./components/Footer";
 
 function App() {
   const { products } = data;
-
-  // useEffect(() => {
-  //   setProductsList(products);
-  //   console.log(products);
-  // }, []);
 
   return (
     <div >
