@@ -12,6 +12,11 @@ exports.userLogin = (req,res,next) => {
     res.send(req.user)
 }
 
+exports.userLogout = (req,res,next)=> {
+    req.logout();
+    res.redirect('/') 
+}
+
 exports.userEdit = (req,res,next) => {
     User.update(req.body, {
         where:{
@@ -21,12 +26,6 @@ exports.userEdit = (req,res,next) => {
     .then(() => res.send(204))
     .catch(err => console.log(err))
 }
-
-exports.userLogOut = (req,res,next)=> {
-    if(!req.user) res.sendStatus(401)
-    res.send(req.user)
-}
-
 
 exports.userDelete = (req,res,next) => {
     User.destroy({where :{
@@ -44,7 +43,9 @@ exports.getUsers = (req,res,next) => {
 }
 
 exports.giveAdmin = (req,res,next) => {
-    User.findOne({where : {
+   User.update({isAdmin : true},
+    {where : {
         userId : req.params.id
     }})
+    .then(user => res.send(user))
 }
