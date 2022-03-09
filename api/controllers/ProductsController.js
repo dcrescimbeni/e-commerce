@@ -55,12 +55,14 @@ exports.deleteProduct = (req, res) => {
 };
 
 exports.searchProduct = (req, res) => {
-  let searchQuery = req.query.search.toLowerCase();
+  let searchQuery = req.query.query.toLowerCase();
+  console.log(searchQuery);
 
   Products.findAll({
     where: { name: { [Op.like]: `%${searchQuery}%` } },
   })
-    .then((res) => res.dataValues)
-    .then((products) => res.send(products))
+    .then((products) => {
+      res.send(products);
+    })
     .catch((err) => console.log(err));
 };

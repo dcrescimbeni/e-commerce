@@ -7,7 +7,7 @@ router.get('/allProducts', ProductsController.allProducts);
 
 router.get('/product/:id', ProductsController.productFind);
 
-router.get('/tag/:tag', ProductsController.allProductsWithTag);
+// router.get('/tag/:tag', ProductsController.allProductsWithTag);
 
 router.post('/newProduct', ProductsController.newProduct);
 
