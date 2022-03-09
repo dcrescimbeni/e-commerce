@@ -20,6 +20,11 @@ exports.userLogout = (req,res,next)=> {
     res.redirect('/') 
 }
 
+exports.getUser = (req,res,next) => {
+    if(!req.user) res.sendStatus(401)
+    res.send(req.user)
+}
+
 exports.userEdit = (req,res,next) => {
     User.update(req.body, {
         where:{

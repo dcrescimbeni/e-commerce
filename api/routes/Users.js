@@ -20,6 +20,8 @@ router.get('/logout', UsersController.userLogout)
 
 router.put('/edit/:id' , UsersController.userEdit)
 
+router.get('/me', UsersController.getUser)
+
 router.get('/admin/users' , UsersController.getUsers)
 
 router.put('/admin/user/:id', UsersController.giveAdmin)
