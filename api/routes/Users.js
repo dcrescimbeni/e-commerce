@@ -5,6 +5,9 @@ const UsersController = require('../controllers/UsersController');
 
 router.post('/register', UsersController.userCreate);
 
+
+
+
 router.post(
   '/login',
   passport.authenticate('local'),
@@ -20,4 +23,6 @@ router.put('/edit/:id' , UsersController.userEdit)
 router.get('/admin/users' , UsersController.getUsers)
 
 router.put('/admin/user/:id', UsersController.giveAdmin)
+
+module.exports = router;
 

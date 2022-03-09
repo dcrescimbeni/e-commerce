@@ -1,19 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import useInput from "../Hooks/useInputs";
+import { sendLoginRequest } from "../state/user";
 import style from "../styles/Login.module.css";
 
 const Login = () => {
 
+  const inputEmail = useInput();
+  const inputPassword = useInput();
+ 
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = {
+        email: inputEmail.value,
+        password: inputPassword.value,
+      }
+   
+    dispatch(sendLoginRequest(form))    
+  };
 
   return (
     <div className={style.masthead}>
       <div className="color-overlay d-flex justify-content-center align-items-center">
           <div className="containerForm">
-        <Form className="rounded p-4 p-sm-3 ">
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form className="rounded p-4 p-sm-3" >
+          <Form.Group onSubmit={handleSubmit} className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email Adress</Form.Label>
-            <Form.Control type="email" placeholder="Enter Email" />
+            <Form.Control  {...inputEmail} type="email" placeholder="Enter Email" />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -21,7 +38,7 @@ const Login = () => {
 
           <Form.Group className="mb-3" controlId="password">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Enter Password" />
+            <Form.Control   {...inputPassword} type="password" placeholder="Enter Password" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
