@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import ProductList from "./components/ProductList";
 import ProductDetails from "./components/ProductDetails";
 import data from "./fakeDB/data";
 import { Routes, Route } from "react-router-dom";
@@ -11,6 +10,7 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ShoppingCart from './components/ShoppingCart';
+import ProductsList from "./components/ProductsList";
 
 
 
