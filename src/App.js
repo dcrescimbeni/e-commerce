@@ -11,7 +11,6 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ShoppingCart from './components/ShoppingCart';
-import ProductsList from "./components/ProductsList";
 
 
 
