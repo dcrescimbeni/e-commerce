@@ -4,9 +4,8 @@ const db = require('./models/_db');
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const passport = require('passport')
+const route = require("./routes")
 require('./config/auth')
-
-const Users = require('./routes/Users')
 
 const app = express();
 
@@ -19,7 +18,7 @@ app.use(session({secret : 'bootcamp'}))
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/api',Users)
+app.use('/api',route)
 
 app.use((err, req, res, next) => {
   console.log('Error');

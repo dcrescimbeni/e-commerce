@@ -4,6 +4,8 @@ import { Form, Button } from "react-bootstrap";
 import style from "../styles/Login.module.css";
 
 const Register = () => {
+
+  
     return (
       <div className={style.masthead}>
       <div className="color-overlay d-flex justify-content-center align-items-center">
@@ -11,7 +13,7 @@ const Register = () => {
             
           <Form className="rounded p-4 p-sm-3 ">
            
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3" >
             <Form.Label>Name</Form.Label>
             <Form.Control type="text" placeholder="Enter Name" />
           </Form.Group>
@@ -29,6 +31,12 @@ const Register = () => {
               We'll never share your email with anyone else.
             </Form.Text>
           </Form.Group>
+
+          <Form.Group className="mb-3" >
+            <Form.Label>Billing Address</Form.Label>
+            <Form.Control type="text" placeholder="Enter Billing Address " />
+          </Form.Group>
+
 
           <Form.Group className="mb-3" controlId="password">
             <Form.Label>Password</Form.Label>

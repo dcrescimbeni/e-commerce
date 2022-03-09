@@ -11,8 +11,8 @@ const NavBar = () => {
       <nav className="navbar navbar-expand-lg navbar-light ">
        <div className= "containerLogo">
   
-        <GiConverseShoe size={32} color={"black"} />{" "}
         <Link to="/">
+        <GiConverseShoe size={32} color={"black"} />{" "}
           <a className="navbar-brand">SNikers</a>
         </Link>
 
@@ -39,7 +39,9 @@ const NavBar = () => {
             <div className={style.adropdown}>
   <button className={style.dropbtn}>Categories</button>
   <div className={style.dropdownContent}>
+  
     <a >Men</a>
+   
     <a >Women</a>
     <a >Kids</a>
   </div>
