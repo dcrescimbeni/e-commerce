@@ -5,9 +5,6 @@ const UsersController = require('../controllers/UsersController');
 
 router.post('/register', UsersController.userCreate);
 
-
-
-
 router.post(
   '/login',
   passport.authenticate('local'),

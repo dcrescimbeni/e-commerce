@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import useInput from "../Hooks/useInputs";
 import { sendRegister } from "../state/user";
-
+import { FcGoogle} from "react-icons/fc";
+import { BsFacebook }  from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import style from "../styles/Login.module.css";
 
@@ -75,7 +76,7 @@ const Register = () => {
           <Link to="/login">
             <p>Login</p>
           </Link>
-  
+          <Link to="/google"><FcGoogle size={32} /></Link> <Link to="/facebook"><BsFacebook size={30}/></Link>
         </Form>
         </div>
       </div>
