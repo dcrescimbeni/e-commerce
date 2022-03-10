@@ -1,36 +1,44 @@
-const passport = require('passport')
-const localStrategy = require('passport-local');
-const {User} = require('../models')
-const bcrypt = require('bcrypt')
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const { User } = require('../models');
+const bcrypt = require('bcrypt');
 
-passport.use(
-    new localStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-    },
-        function (email, password, done) {
-           
-            User.findOne({ where: { email } })
-                .then(user => {
-                    console.log(user)
-                    if (!user) {
-                        return done(null, false)
-                    }
-                    bcrypt.compare(password, user.password).then((isValid) => {
-                        if (isValid) done(null, user);
-                        else done(null, false);
-                      });
-                })
-        })
-)
+const verifyCallback = (email, password, done) => {
+  console.log('email verify callback', email);
+  User.findOne({ where: { email } })
+    .then((res) => {
+      if (!res) {
+        done(null, false);
+        return;
+      }
+      let user = res.dataValues;
+      console.log('res user verifycallback');
+      bcrypt.compare(password, user.password).then((isValid) => {
+        if (isValid) done(null, user);
+        else done(null, false);
+      });
+    })
+    .catch((err) => done(err));
+};
 
-passport.serializeUser(function (user, done) {
-    done(null, user.userId)
-})
+const strategy = new LocalStrategy(
+  {
+    usernameField: 'email',
+    passwordField: 'password',
+  },
+  verifyCallback
+);
 
-passport.deserializeUser(function (id, done) {
-    User.findByPk(id)
-        .then(user => done(null, user))
-        .catch(done)
+passport.use(strategy);
 
-})
+passport.serializeUser((user, done) => {
+  done(null, user.userId);
+});
+
+passport.deserializeUser((userId, done) => {
+  User.findByPk(userId)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((err) => done(err));
+});
