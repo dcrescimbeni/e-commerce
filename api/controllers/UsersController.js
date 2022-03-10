@@ -2,7 +2,10 @@
 const User = require('../models/User')
 
 
+
+
 exports.userCreate = (req,res,next) => {
+    console.log("REq.Body =>", req.body)
     User.create(req.body)
     .then(() => res.send(200))
     .catch(err => console.log(err))
@@ -15,6 +18,11 @@ exports.userLogin = (req,res,next) => {
 exports.userLogout = (req,res,next)=> {
     req.logout();
     res.redirect('/') 
+}
+
+exports.getUser = (req,res,next) => {
+    if(!req.user) res.sendStatus(401)
+    res.send(req.user)
 }
 
 exports.userEdit = (req,res,next) => {

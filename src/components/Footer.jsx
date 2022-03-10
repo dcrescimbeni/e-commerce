@@ -23,7 +23,7 @@ const Footer = () => {
       <Link to="/">
       <GiConverseShoe size={30} color={"white"} /> 
       </Link>
-      SNikers All Rigth Reserved
+      SNikers - All Rights Reserved.
       </div>
     </footer>
     </>
