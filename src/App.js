@@ -1,17 +1,25 @@
 import React from "react";
-import "./App.css";
-import ProductsList from "./components/ProductsList";
-import ProductDetails from "./components/ProductDetails";
 import data from "./fakeDB/data";
 import { Routes, Route } from "react-router-dom";
-
 import { useEffect, useState } from 'react';
+
+
+import "./App.css";
 import HomePage from "./Pages/HomePage";
+import NavBar from "./components/NavBar";
+import ProductsList from "./components/ProductsList";
+import ProductDetails from "./components/ProductDetails";
+import ShoppingCart from './components/ShoppingCart';
 import Register from "./components/Register";
 import Login from "./components/Login";
-import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import ShoppingCart from './components/ShoppingCart';
+import Admin from "./Pages/Admin";
+
+import UsersManagment from "./Pages/UsersManagment";
+import CategoriesManagment from "./Pages/CategoriesManagment";
+
+// import NavbarTest from "./components/NavbarTest";
+import ProductsManagment from "./Pages/ProducstManagment";
 
 
 
@@ -53,7 +61,8 @@ function App() {
 
   return (
     <div >
-      <NavBar />
+     <NavBar />
+     {/* <NavbarTest /> */}
       <br></br>
       <main>
         <Routes >
@@ -70,6 +79,12 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path={`/products/:productId`} element={<ProductDetails />} />
+
+          {/* AGREGUE RUTAS ADMIN */}
+          <Route path="/admin" element={<Admin />}/>
+          <Route path="/productsManagment" element={<ProductsManagment />} />
+          <Route path="/usersManagment" element={<UsersManagment />}/>
+          <Route path="/categoriesManagment" element={<CategoriesManagment />}/>
         </Routes >
       </main >
       <Footer />

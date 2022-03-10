@@ -1,6 +1,4 @@
 import React from "react";
-
-
 import ProductList from "../components/ProductsList";
 import style from "../styles/HomePage.module.css" 
 
@@ -8,10 +6,9 @@ import style from "../styles/HomePage.module.css"
 function HomePage() {
   return (
     <header>
+       
     <div>
-    {/* <div className={style.brand}> 
-    SNikers
-    </div> */}
+   
     <div  >
     <section className={style.containerSection}>
     <div className="post-thumbnail">
