@@ -3,8 +3,7 @@ import "./App.css";
 import ProductsList from "./components/ProductsList";
 import ProductDetails from "./components/ProductDetails";
 import data from "./fakeDB/data";
-import { Routes, Route } from "react-router-dom";
-
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import HomePage from "./Pages/HomePage";
 import Register from "./components/Register";
@@ -12,6 +11,7 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ShoppingCart from './components/ShoppingCart';
+import Checkout from "./components/Checkout";
 import WriteReview from "./components/WriteReview";
 import StarRating from "./components/StarRating";
 
@@ -22,7 +22,7 @@ function App() {
   const { products } = data;
   const locaStorageProducts = JSON.parse(localStorage.getItem("cart-products")) || []
   const [cartItems, setCartItems] = useState(locaStorageProducts);
-
+  const [isLoggedIn] = useState(true);
 
   useEffect(() => {
     localStorage.setItem("cart-products", JSON.stringify(cartItems))
@@ -58,6 +58,7 @@ function App() {
       <NavBar />
       <br></br>
       <main>
+
         <Routes >
 
           <Route path="/shoppingcart" element={
@@ -72,6 +73,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path={`/products/:productId`} element={<ProductDetails />} />
+          <Route path="/checkout" element={isLoggedIn ? <Checkout cartItems={cartItems} /> : <Navigate to="/login" />} />
           <Route path={`/writeReview`} element={<WriteReview />} />
         </Routes >
       </main >
