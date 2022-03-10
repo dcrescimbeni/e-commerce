@@ -25,6 +25,12 @@ Product.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    img: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    },
+    description: {
+      type: DataTypes.STRING,
+    },
   },
   { sequelize: db, modelName: 'products' }
 );

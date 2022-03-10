@@ -15,6 +15,8 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Admin from "./Pages/Admin";
+import WriteReview from "./components/WriteReview";
+
 import UsersManagment from "./Pages/UsersManagment";
 import CategoriesManagment from "./Pages/CategoriesManagment";
 import ProductsManagment from "./Pages/ProducstManagment";
