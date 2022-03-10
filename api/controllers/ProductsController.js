@@ -1,32 +1,32 @@
-const Products = require('../models/Product');
-const { Op } = require('sequelize');
+const Products = require("../models/Product")
 
-exports.allProducts = (req, res) => {
-  Products.findAll()
-    .then((products) => res.send(products))
-    .then(() => res.send(200))
-    .catch((err) => console.log(err));
-};
+//revisar en postman las rutas y seguir con Trello, ver Include
+exports.allProducts = (req,res) => {
+    Products.findAll()
+    .then(products => res.send(products))
+    .then(()=> res.send(200))
+    .catch(err => console.log(err))
+}
 
-exports.productFind = (req, res) => {
-  Products.findOne(req.body, {
-    where: {
-      id: req.params.id,
-    },
-  })
-    .then(() => res.send(200))
-    .catch((err) => console.log(err));
-};
+exports.productFind = (req,res) => {
+    Products.findOne( {
+        where:{
+            productId : req.params.id
+            }
+        })
+    .then((products)=> res.send(products))
+    .catch(err => console.log(err))
+}
 
-// exports.allProductsWithTag = (req,res) => {
-//     Products.findAll(...tag, {
-//         where:{
-//             tag: req.params.tag
-//         }
-//     })
-//     .then(()=> res.send(200))
-//     .catch(err => console.log(err))
-// }
+exports.allProductsWithTag = (req,res) => {
+    Products.findAll(...tag, {
+        where:{
+            tag: req.params.tag
+        }
+    })
+    .then(()=> res.send(200))
+    .catch(err => console.log(err))
+}
 
 exports.newProduct = (req, res) => {
   Products.create(req.body)

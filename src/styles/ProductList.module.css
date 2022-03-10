@@ -3,12 +3,17 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
     padding: 40px;
-    justify-content: center;
     list-style-type: none;
+    text-align: center;
+
 }
 
 .image{
-    width: 300px;
-    height: 300px;
-    border-radius: 8px;
+    width: 400px;
+    height: 400px;
+    border-radius: 15px;
+}
+
+.name{
+    color: brown;
 }
