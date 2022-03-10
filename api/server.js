@@ -16,7 +16,7 @@ app.use(volleyball);
 app.use(express.json());
 
 app.use(cookieParser());
-app.use(session({ secret: 'bootcamp' }));
+app.use(session({ secret: 'bootcamp', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 

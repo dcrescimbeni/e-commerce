@@ -14,7 +14,7 @@ import  axios  from "axios";
   });
 
   export const getSession = createAsyncThunk("GET_SESSION", () => {
-    return axios.get("http://localhost:3001/api/users/me")
+    return axios.get("/api/users/me")
     .then((res) => res.data)
   });
   
