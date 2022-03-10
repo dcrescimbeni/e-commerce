@@ -1,5 +1,6 @@
 const Products = require("../models/Product")
 
+//revisar en postman las rutas y seguir con Trello, ver Include
 exports.allProducts = (req,res) => {
     Products.findAll()
     .then(products => res.send(products))
@@ -8,12 +9,12 @@ exports.allProducts = (req,res) => {
 }
 
 exports.productFind = (req,res) => {
-    Products.findOne(req.body, {
+    Products.findOne( {
         where:{
-            id : req.params.id
+            productId : req.params.id
             }
         })
-    .then(()=> res.send(200))
+    .then((products)=> res.send(products))
     .catch(err => console.log(err))
 }
 
@@ -27,26 +28,41 @@ exports.allProductsWithTag = (req,res) => {
     .catch(err => console.log(err))
 }
 
-exports.newProduct = (req,res) => {
-    Products.create(req.body)
+exports.newProduct = (req, res) => {
+  Products.create(req.body)
     .then(() => res.send(201))
-    .catch(err => console.log(err))
-}
+    .catch((err) => console.log(err));
+};
 
 exports.editProduct = (req, res) => {
-    Products.update(req.body, req.body, {
-        where:{
-            id : req.params.id
-            }
-        })
-    .then(()=> res.send(204))
-    .catch(err => console.log(err))
-}
+  Products.update(req.body, req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then(() => res.send(204))
+    .catch((err) => console.log(err));
+};
 
 exports.deleteProduct = (req, res) => {
-    Products.destroy({where :{
-        id : req.params.id
-    }})
-    .then(()=> res.send(204))
-    .catch(err => console.log(err))
-}
+  Products.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then(() => res.send(204))
+    .catch((err) => console.log(err));
+};
+
+exports.searchProduct = (req, res) => {
+  let searchQuery = req.query.query.toLowerCase();
+  console.log(searchQuery);
+
+  Products.findAll({
+    where: { name: { [Op.like]: `%${searchQuery}%` } },
+  })
+    .then((products) => {
+      res.send(products);
+    })
+    .catch((err) => console.log(err));
+};

@@ -4,7 +4,10 @@ import { Form, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import useInput from "../Hooks/useInputs";
 import { sendLoginRequest } from "../state/user";
+import { FcGoogle} from "react-icons/fc";
+import { BsFacebook }  from "react-icons/bs";
 import style from "../styles/Login.module.css";
+
 
 const Login = () => {
 
@@ -24,7 +27,15 @@ const Login = () => {
   };
 
   return (
+
     <div className={style.masthead}>
+
+      {/* CREE ESTE DIV LINKIADO A ADMIN PARA PODER HACER LAS RUTAS DEL ADMIN  */}
+       <div>
+         <Link to="/admin">
+         Admin
+         </Link>
+         </div>
       <div className="color-overlay d-flex justify-content-center align-items-center">
           <div className="containerForm">
         <Form className="rounded p-4 p-sm-3" >
@@ -55,6 +66,8 @@ const Login = () => {
           <Link to="/register">
             <p>Register</p>
           </Link>
+          <Link to="/google"><FcGoogle size={32} /></Link> <Link to="/facebook"><BsFacebook size={30}/></Link>
+          
         </Form>
         </div>
       </div>
