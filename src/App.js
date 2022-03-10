@@ -9,7 +9,7 @@ import HomePage from "./Pages/HomePage";
 import NavBar from "./components/NavBar";
 import ProductsList from "./components/ProductsList";
 import ProductDetails from "./components/ProductDetails";
-import WriteReview from "./components/WriteReview";
+
 import ShoppingCart from './components/ShoppingCart';
 import Register from "./components/Register";
 import Login from "./components/Login";
