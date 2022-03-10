@@ -4,6 +4,7 @@ import ProductsList from "./components/ProductsList";
 import ProductDetails from "./components/ProductDetails";
 import data from "./fakeDB/data";
 import { Routes, Route } from "react-router-dom";
+
 import { useEffect, useState } from 'react';
 import HomePage from "./Pages/HomePage";
 import Register from "./components/Register";
