@@ -21,3 +21,4 @@ router.get('/admin/users' , UsersController.getUsers)
 
 router.put('/admin/user/:id', UsersController.giveAdmin)
 
+module.exports = router

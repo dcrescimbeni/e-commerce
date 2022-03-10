@@ -1,5 +1,6 @@
 const Products = require("../models/Product")
 
+//revisar en postman las rutas y seguir con Trello, ver Include
 exports.allProducts = (req,res) => {
     Products.findAll()
     .then(products => res.send(products))
@@ -8,12 +9,12 @@ exports.allProducts = (req,res) => {
 }
 
 exports.productFind = (req,res) => {
-    Products.findOne(req.body, {
+    Products.findOne( {
         where:{
-            id : req.params.id
+            productId : req.params.id
             }
         })
-    .then(()=> res.send(200))
+    .then((products)=> res.send(products))
     .catch(err => console.log(err))
 }
 
