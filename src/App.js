@@ -1,6 +1,6 @@
 import React from "react";
 import data from "./fakeDB/data";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
 
@@ -28,7 +28,7 @@ function App() {
   const { products } = data;
   const locaStorageProducts = JSON.parse(localStorage.getItem("cart-products")) || []
   const [cartItems, setCartItems] = useState(locaStorageProducts);
-
+  const [isLoggedIn] = useState(true);
 
   useEffect(() => {
     localStorage.setItem("cart-products", JSON.stringify(cartItems))
@@ -65,6 +65,7 @@ function App() {
      {/* <NavbarTest /> */}
       <br></br>
       <main>
+
         <Routes >
 
           <Route path="/shoppingcart" element={
