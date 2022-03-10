@@ -14,6 +14,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import Footer from "./components/Footer";
 import Admin from "./Pages/Admin";
+import WriteReview from "./components/WriteReview";
 
 import UsersManagment from "./Pages/UsersManagment";
 import CategoriesManagment from "./Pages/CategoriesManagment";
@@ -80,6 +81,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path={`/products/:productId`} element={<ProductDetails />} />
+          <Route path={`/writeReview`} element={<WriteReview/>}/>
 
           {/* AGREGUE RUTAS ADMIN */}
           <Route path="/admin" element={<Admin />}/>

@@ -27,17 +27,17 @@ const ProductsList = () => {
     <>
   
     
-    {/* <ul className={styles.container}>
+    <ul className={styles.container}>
       {products.map((product) => {
         return (
           <div key={product.id}>
-           <Link to={`/products/${product.id}`}> <img className= {styles.image} src={product.imgs[0]} alt="imagen"></img> </Link>
+           <Link to={`/products/${product.productId}`}> <img className= {styles.image} src={product.img[0]} alt="imagen"></img> </Link>
             <div className={styles.name}>{product.name}</div>
             <div>{`${product.price} €`}</div>
           </div>
         );
       })}
-    </ul> */}
+    </ul>
 
     </>
   );
