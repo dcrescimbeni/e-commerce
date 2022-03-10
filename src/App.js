@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import HomePage from "./Pages/HomePage";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import NavBar from "./components/NavBar";
+import NavBar2 from "./components/NavBar2";
 import Footer from "./components/Footer";
 import ShoppingCart from './components/ShoppingCart';
 import Checkout from "./components/Checkout";
@@ -55,7 +55,7 @@ function App() {
 
   return (
     <div >
-      <NavBar />
+      <NavBar2 />
       <br></br>
       <main>
 
