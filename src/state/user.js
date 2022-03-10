@@ -3,7 +3,7 @@ import  axios  from "axios";
 
   
   export const sendLoginRequest = createAsyncThunk("LOGIN", (form) => {
-    return axios.post("/api/users/login", form)
+    return axios.post("http://localhost:3001/api/users/login", form)
     .then((res) => res.data)
     
   });
@@ -14,12 +14,12 @@ import  axios  from "axios";
   });
 
   export const getSession = createAsyncThunk("GET_SESSION", () => {
-    return axios.get("/api/users/me")
+    return axios.get("http://localhost:3001/api/users/me")
     .then((res) => res.data)
   });
   
   export const sendLogoutRequest = createAsyncThunk("SEND_LOGOUT", () => {
-    return axios.post("/api/users/logout")
+    return axios.post("http://localhost:3001/api/users/logout")
     .then((res) => res.data)
   });
   

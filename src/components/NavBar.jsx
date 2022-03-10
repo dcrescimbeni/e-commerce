@@ -19,10 +19,13 @@ const NavBar = () => {
   };
 
   React.useEffect(() => {
-    dispatch(getSession());
+    dispatch(getSession())
   }, [dispatch]);
 
+
   const user = useSelector((state) => state.user);
+
+  console.log("Esto es user =>",user)
 
   return (
     <div >
@@ -92,16 +95,18 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item">
+                <Link to="/shoppingcart">
                 <a className="nav-link" href="#">
                   {" "}
                   <AiOutlineShoppingCart size={25} />
                 </a>
+                </Link>
               </li>
 
              
 
             {/* Search */}
-            <form className="d-flex">
+            <form  className="d-flex">
               <input
                 className="form-control me-2"
                 type="search"
@@ -114,39 +119,72 @@ const NavBar = () => {
             </form>
             {/* Search End*/}
 
-             {/* Profile */}
+             {/* Profile Register/Login*/}
 
-             <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                 <CgProfile size={25}/>
-                </a>
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                  <Link to="/register" >
-                    <a className="dropdown-item" href="#">
-                      Register
-                    </a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/login">
-                    <a className="dropdown-item" href="#">
-                     Login
-                    </a>
-                    </Link>
-                  </li>
-                 
-                </ul>
-              </li>
-            </ul>
-              {/* Profile End */}
+             { user.id? (
+               <>
+               <button className={style.log}>Hi {user.name}!</button>
+               <Link to= "/" className={style.log}> <button onClick = {handleClick}>Logout</button> </Link>    
+             </>
+             ): (
+
+              <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+               <CgProfile size={25}/>
+              </a>
+
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                <Link to="/register" >
+                  <a className="dropdown-item" href="#">
+                    Register
+                  </a>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/login">
+                  <a className="dropdown-item" href="#">
+                   Login
+                  </a>
+                  </Link>
+                </li>
+               
+              </ul>
+
+            </li>
+            )}
+        
+          </ul>
+
+             
+            
+           
+
+              {/* Profile Register/Login End */}
+
+              {/* 
+                  Logica para boton Logout
+              {
+           user.id? ( 
+               <>
+               <button className={style.log}>Hi {user.name}!</button>
+               <Link to= "/" className={style.log}> <button onClick = {handleClick}>Logout</button> </Link>    
+             </>
+           ): (
+             <> 
+            <Link to="/register"className={style.log} >Register</Link>
+          
+            <Link to= "/login" className={style.log}>Login</Link> </>
+           )  } 
+           
+           */}
 
 
 

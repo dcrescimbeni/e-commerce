@@ -38,8 +38,8 @@ const Login = () => {
          </div>
       <div className="color-overlay d-flex justify-content-center align-items-center">
           <div className="containerForm">
-        <Form className="rounded p-4 p-sm-3" >
-          <Form.Group onSubmit={handleSubmit} className="mb-3" controlId="formBasicEmail">
+        <Form onSubmit={handleSubmit} className="rounded p-4 p-sm-3" >
+          <Form.Group  className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email Adress</Form.Label>
             <Form.Control  {...inputEmail} type="email" placeholder="Enter Email" />
             <Form.Text className="text-muted">

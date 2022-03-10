@@ -11,6 +11,7 @@ exports.userCreate = (req,res,next) => {
 
 exports.userLogin = (req,res,next) => {
     res.send(req.user)
+
 }
 
 exports.userLogout = (req,res,next)=> {
@@ -19,6 +20,7 @@ exports.userLogout = (req,res,next)=> {
 }
 
 exports.getUser = (req,res,next) => {
+    console.log("Llegue al server", req.user)
     if(!req.user) res.sendStatus(401)
     res.send(req.user)
 }
