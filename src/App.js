@@ -12,6 +12,8 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ShoppingCart from './components/ShoppingCart';
 import Checkout from "./components/Checkout";
+import WriteReview from "./components/WriteReview";
+import StarRating from "./components/StarRating";
 
 
 
@@ -72,6 +74,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path={`/products/:productId`} element={<ProductDetails />} />
           <Route path="/checkout" element={isLoggedIn ? <Checkout cartItems={cartItems} /> : <Navigate to="/login" />} />
+          <Route path={`/writeReview`} element={<WriteReview />} />
         </Routes >
       </main >
       <Footer />

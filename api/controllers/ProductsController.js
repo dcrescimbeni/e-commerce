@@ -1,6 +1,5 @@
 const Products = require("../models/Product")
 
-//Revisar los HTTP Cats
 exports.allProducts = (req,res) => {
     Products.findAll()
     .then(products => res.send(products))
@@ -14,6 +13,16 @@ exports.productFind = (req,res) => {
             id : req.params.id
             }
         })
+    .then(()=> res.send(200))
+    .catch(err => console.log(err))
+}
+
+exports.allProductsWithTag = (req,res) => {
+    Products.findAll(...tag, {
+        where:{
+            tag: req.params.tag
+        }
+    })
     .then(()=> res.send(200))
     .catch(err => console.log(err))
 }

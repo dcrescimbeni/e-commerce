@@ -1,19 +1,30 @@
-const express = require('express')
-const passport = require('passport')
-const router = express.Router()
-const UsersController = require('../controllers/UsersController')
+const express = require('express');
+const passport = require('passport');
+const router = express.Router();
+const UsersController = require('../controllers/UsersController');
+
+router.post('/register', UsersController.userCreate);
 
 
-router.post('/register',UsersController.userCreate)
 
-router.post('/login', passport.authenticate('local'), UsersController.userLogin)
+
+router.post(
+  '/login',
+  passport.authenticate('local'),
+  UsersController.userLogin
+);
+
+router.put('/edit/:id', UsersController.userEdit);
+
+router.get('/logout', UsersController.userLogout)
 
 router.put('/edit/:id' , UsersController.userEdit)
 
-router.delete('/admin/user/:id' , UsersController.userDelete)
+router.get('/me', UsersController.getUser)
 
 router.get('/admin/users' , UsersController.getUsers)
 
-router.put('/admin/user/:id', UsersController)
+router.put('/admin/user/:id', UsersController.giveAdmin)
 
-module.exports = router
+module.exports = router;
+
