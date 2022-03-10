@@ -28,26 +28,41 @@ exports.allProductsWithTag = (req,res) => {
     .catch(err => console.log(err))
 }
 
-exports.newProduct = (req,res) => {
-    Products.create(req.body)
+exports.newProduct = (req, res) => {
+  Products.create(req.body)
     .then(() => res.send(201))
-    .catch(err => console.log(err))
-}
+    .catch((err) => console.log(err));
+};
 
 exports.editProduct = (req, res) => {
-    Products.update(req.body, req.body, {
-        where:{
-            id : req.params.id
-            }
-        })
-    .then(()=> res.send(204))
-    .catch(err => console.log(err))
-}
+  Products.update(req.body, req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then(() => res.send(204))
+    .catch((err) => console.log(err));
+};
 
 exports.deleteProduct = (req, res) => {
-    Products.destroy({where :{
-        id : req.params.id
-    }})
-    .then(()=> res.send(204))
-    .catch(err => console.log(err))
-}
+  Products.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then(() => res.send(204))
+    .catch((err) => console.log(err));
+};
+
+exports.searchProduct = (req, res) => {
+  let searchQuery = req.query.query.toLowerCase();
+  console.log(searchQuery);
+
+  Products.findAll({
+    where: { name: { [Op.like]: `%${searchQuery}%` } },
+  })
+    .then((products) => {
+      res.send(products);
+    })
+    .catch((err) => console.log(err));
+};
