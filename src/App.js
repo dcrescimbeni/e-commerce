@@ -12,6 +12,8 @@ import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import ShoppingCart from './components/ShoppingCart';
+import WriteReview from "./components/WriteReview";
+import StarRating from "./components/StarRating";
 
 
 
@@ -70,6 +72,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path={`/products/:productId`} element={<ProductDetails />} />
+          <Route path={`/writeReview`} element={<WriteReview />} />
         </Routes >
       </main >
       <Footer />

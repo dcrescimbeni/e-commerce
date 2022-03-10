@@ -1,0 +1,34 @@
+.buttonsContainer{
+    display: flex;
+    justify-content: space-around;
+}
+
+.name{
+    color: brown;
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.image{
+    width: 35%;
+    height: 35%;
+    border: 1px solid #f1f1f1;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.scoreTitle{
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.score{
+    text-align: center;
+    font-size: 2.5rem;
+}
