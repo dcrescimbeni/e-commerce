@@ -18,7 +18,7 @@ const Footer = () => {
 
       </div>
       <div className={style.disclaimer}>
-      © 2020 Copyright: <GiConverseShoe size={30} color={"white"} /> SNikers All Rigth Reserved
+      © 2020 Copyright: <GiConverseShoe size={30} color={"white"} /> SNikers - All rights reserved.
       </div>
     </footer>
     </>
