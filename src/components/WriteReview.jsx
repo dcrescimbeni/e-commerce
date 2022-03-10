@@ -13,22 +13,6 @@ const WriteReview = () => {
       <Form className="call-lg-6 offset-lg-3">
       <StarRating className={styles.star}/>
       <br></br>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Nombre</Form.Label>
-          <Form.Control
-            className={styles.input}
-            type="text"
-            placeholder="Escriba su nombre"
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            className={styles.input}
-            type="email"
-            placeholder="Escriba su email"
-          />
-        </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Review</Form.Label>
           <Form.Control

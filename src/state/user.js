@@ -13,10 +13,10 @@ import  axios  from "axios";
     .then((res) => console.log("RES.DATA =>",res.data))
   });
 
-//   export const getSession = createAsyncThunk("GET_SESSION", () => {
-//     return axios.get("/api/users/me")
-//     .then((res) => res.data)
-//   });
+  export const getSession = createAsyncThunk("GET_SESSION", () => {
+    return axios.get("/api/users/me")
+    .then((res) => res.data)
+  });
   
   export const sendLogoutRequest = createAsyncThunk("SEND_LOGOUT", () => {
     return axios.post("/api/users/logout")
@@ -28,7 +28,7 @@ import  axios  from "axios";
     {
       [sendLoginRequest.fulfilled]: (state, action) => action.payload,
       [sendRegister.fulfilled]: (state, action) => action.payload,
-    //   [getSession.fulfilled]: (state, action) => action.payload,
+      [getSession.fulfilled]: (state, action) => action.payload,
       [sendLogoutRequest.fulfilled]: (state, action) => action.payload,
     }
   );
