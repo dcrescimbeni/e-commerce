@@ -1,48 +1,70 @@
-import React from "react";
-import data from "../fakeDB/data";
+import React, { useEffect, useState } from "react";
+// import data from "../fakeDB/data";
 import styles from "../styles/ProductDetails.module.css";
 import { Card, Button, Carousel, ListGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
-const ProductDetails = () => {
-  const { products } = data;
+const ProductDetails = ({ onAdd }) => {
+  // const { products } = data;
+  const { productId } = useParams();
+  const [product, setProduct] = useState({});
+
+  // console.log(productId)
+
+  useEffect(() => {
+    axios
+      .get(`/api/products/product/${productId}`)
+      .then((res) => res.data)
+      .then((item) => {
+        setProduct(item);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // console.log(product.img);
 
   //obtener id del producto a partir de la url
-  let currentURL = window.location.href;
-  let arrayURL = currentURL.split("/");
-  let reducedURL = [];
+  // let currentURL = window.location.href;
+  // let arrayURL = currentURL.split("/");
+  // let reducedURL = [];
 
-  for (let i = 0; i < arrayURL.length; i++) {
-    if (i === arrayURL.length - 1) {
-      reducedURL.push(arrayURL[i]);
-    }
-  }
+  // for (let i = 0; i < arrayURL.length; i++) {
+  //   if (i === arrayURL.length - 1) {
+  //     reducedURL.push(arrayURL[i]);
+  //   }
+  // }
 
-  let productID = parseInt(reducedURL);
+  // let productId = parseInt(reducedURL);
+  // console.log(reducedURL);
+  // console.log(products[productId]["image4"])
+  // console.log(product)
 
   return (
     <div className={styles.container}>
       <Carousel className={styles.image} fade variant="dark">
         <Carousel.Item>
-          <img
+          {/* <img
             className="d-block w-100"
-            src={products[productID]["image4"]}
+            src={product.img[0]}
             alt="First slide"
-          />
+          /> */}
         </Carousel.Item>
         <Carousel.Item>
-          <img
+          {/* <img
             className="d-block w-100"
-            src={products[productID]["image2"]}
+            src={product.img[1]}
             alt="Second slide"
-          />
+          /> */}
         </Carousel.Item>
         <Carousel.Item>
-          <img
+          {/* <img
             className="d-block w-100"
-            src={products[productID]["image3"]}
+            src={product.img[2]}
             alt="Third slide"
-          />
+          /> */}
         </Carousel.Item>
       </Carousel>
 
@@ -51,7 +73,7 @@ const ProductDetails = () => {
           <Card.Body>
             <br></br>
             <Card.Title className={styles.name}>
-              {products[productID]["name"]}{" "}
+              {product.name}{" "}
               <Link to="/writeReview">
                 <Button variant="warning">Escribir reseña</Button>
               </Link>
@@ -59,16 +81,16 @@ const ProductDetails = () => {
             <br></br>
             <br></br>
             <Card.Text className={styles.description}>
-              {products[productID]["description"]}
+              {product.description}
             </Card.Text>
             <br></br>
             <Card.Text
               className={styles.description}
-            >{`${products[productID]["price"]} € `}</Card.Text>
+            >{`${product.price} € `}</Card.Text>
             <br></br>
             <br></br>
             <div className={styles.buttonsContainer}>
-              <Button variant="primary">Sumar al carrito</Button>
+              <Button variant="primary" onClick={() => onAdd(product)}>Sumar al carrito</Button>
               <Button variant="primary">Quitar del carrito</Button>
             </div>
             <br></br>

@@ -28,10 +28,8 @@ const NavBar = () => {
     <div >
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-        <Link to="/">
-          <a className="navbar-brand" href="#">
-            <GiConverseShoe size={25}/> SNikers
-          </a>
+          <Link to="/" className="navbar-brand">
+            <GiConverseShoe size={25} /> SNikers
           </Link>
           <button
             className="navbar-toggler"
@@ -53,10 +51,8 @@ const NavBar = () => {
                 </a>
               </li> */}
               <li className="nav-item">
-              <Link to="/products">
-                <a className="nav-link" href="#">
+                <Link to="/products" className="nav-link">
                   Producs
-                </a>
                 </Link>
               </li>
 
@@ -92,31 +88,31 @@ const NavBar = () => {
               </li>
 
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/shoppingcart">
                   {" "}
                   <AiOutlineShoppingCart size={25} />
-                </a>
+                </Link>
               </li>
 
-             
 
-            {/* Search */}
-            <form className="d-flex">
-              <input
-                className="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button className="btn btn-outline-success" type="submit">
-              <BiSearchAlt />
-              </button>
-            </form>
-            {/* Search End*/}
 
-             {/* Profile */}
+              {/* Search */}
+              <form className="d-flex">
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button className="btn btn-outline-success" type="submit">
+                  <BiSearchAlt />
+                </button>
+              </form>
+              {/* Search End*/}
 
-             <li className="nav-item dropdown">
+              {/* Profile */}
+
+              <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
                   href="#"
@@ -125,28 +121,28 @@ const NavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                 <CgProfile size={25}/>
+                  <CgProfile size={25} />
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                  <Link to="/register" >
-                    <a className="dropdown-item" href="#">
-                      Register
-                    </a>
+                    <Link to="/register" >
+                      <a className="dropdown-item" href="#">
+                        Register
+                      </a>
                     </Link>
                   </li>
                   <li>
                     <Link to="/login">
-                    <a className="dropdown-item" href="#">
-                     Login
-                    </a>
+                      <a className="dropdown-item" href="#">
+                        Login
+                      </a>
                     </Link>
                   </li>
-                 
+
                 </ul>
               </li>
             </ul>
-              {/* Profile End */}
+            {/* Profile End */}
 
 
 
