@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/ProductDetails.module.css";
 import { Card, Button, Carousel, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const ProductDetails = () => {
+const ProductDetails = ({ onAdd }) => {
 
   //obtener id del producto a partir de la url
   let currentURL = window.location.href;
@@ -19,6 +19,7 @@ const ProductDetails = () => {
 
   let productID = parseInt(reducedURL);
 
+
   const [productInfo, setProductInfo] = useState({});
 
   useEffect(() => {
@@ -27,8 +28,9 @@ const ProductDetails = () => {
         `http://localhost:3001/api/products/product/${productID}`
       )
       .then((res) => {
-        console.log(res.data)
-        setProductInfo(res.data)});
+        // console.log(res.data)
+        setProductInfo(res.data)
+      });
   }, []);
 
   if (!productInfo.img) return <div></div>
@@ -83,7 +85,7 @@ const ProductDetails = () => {
             <br></br>
             <br></br>
             <div className={styles.buttonsContainer}>
-              <Button variant="primary">Sumar al carrito</Button>
+              <Button variant="primary" onClick={() => onAdd(productInfo)}>Sumar al carrito</Button>
               <Button variant="primary">Quitar del carrito</Button>
             </div>
             <br></br>

@@ -5,6 +5,8 @@ const ShoppingCart = ({ onAdd, onRemove, onDelete, cartItems }) => {
 
 
     const subtotal = cartItems.reduce((total, curr) => total + curr.price * curr.qty, 0);
+    const shipping = 0;
+    const total = subtotal + shipping;
 
     const onModify = (e) => {
         console.log(e.target.value)
@@ -33,9 +35,9 @@ const ShoppingCart = ({ onAdd, onRemove, onDelete, cartItems }) => {
 
                                             {cartItems.map(item => {
                                                 return (
-                                                    <div key={item.id} className="row mb-4 d-flex justify-content-between align-items-center">
+                                                    <div key={item.productId} className="row mb-4 d-flex justify-content-between align-items-center">
                                                         <div className="col-md-2 col-lg-2 col-xl-2">
-                                                            <img src={item.image}
+                                                            <img src={item.img[0]}
                                                                 className="img-fluid rounded-3" alt="Cotton T-shirt" />
                                                         </div>
                                                         <div className="col-md-3 col-lg-3 col-xl-3">
@@ -101,7 +103,7 @@ const ShoppingCart = ({ onAdd, onRemove, onDelete, cartItems }) => {
 
                                             <div className="d-flex justify-content-between mb-5">
                                                 <h5 className="text-uppercase">Total price</h5>
-                                                <h5>$ {subtotal.toFixed(2)}</h5>
+                                                <h5>$ {total.toFixed(2)}</h5>
                                             </div>
 
                                             <Link to="/checkout"><button type="button" className="btn btn-dark btn-block btn-lg"
