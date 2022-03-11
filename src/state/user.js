@@ -15,7 +15,7 @@ export const getSession = createAsyncThunk('GET_SESSION', () => {
 });
 
 export const sendLogoutRequest = createAsyncThunk('SEND_LOGOUT', () => {
-  return axios.post('/api/users/logout').then((res) => res.data);
+  return axios.get('/api/users/logout').then((res) => res.data);
 });
 
 export const userReducer = createReducer(
