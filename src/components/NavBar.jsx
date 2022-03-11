@@ -22,7 +22,12 @@ const NavBar = () => {
     dispatch(getSession());
   }, [dispatch]);
 
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => {
+    console.log(state.user);
+    return state.user;
+  });
+
+ 
 
   return (
     <div >
