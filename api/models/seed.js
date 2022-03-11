@@ -63,6 +63,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+    stock: 20,
     size: 40,
   },
   {
@@ -76,6 +77,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+    stock: 50,
     size: 40,
   },
   {
@@ -89,6 +91,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+    stock: 15,
     size: 40,
   },
   {
@@ -102,6 +105,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+    stock: 5,
     size: 40,
   },
   {
@@ -115,6 +119,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+      stock: 45,
     size: 40,
   },
   {
@@ -128,6 +133,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+    stock: 20,
     size: 40,
   },
   {
@@ -141,6 +147,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+    stock: 25,
     size: 40,
   },
   {
@@ -154,6 +161,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+    stock: 10,
     size: 40,
   },
   {
@@ -167,6 +175,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+    stock: 60,
     size: 40,
   },
 ];

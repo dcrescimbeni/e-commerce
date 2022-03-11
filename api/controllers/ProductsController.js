@@ -9,6 +9,7 @@ exports.allProducts = (req,res) => {
 }
 
 exports.productFind = (req,res) => {
+  console.log("estoy aca")
     Products.findOne( {
         where:{
             productId : req.params.id

@@ -8,17 +8,17 @@ const ProductsList = () => {
 
   const [products, setProducts] = useState([]);
 
+  const [productInfo, setProductInfo] = useState([]);
+
 
   useEffect(() => {
     axios
       .get(
         "/api/products/allProducts"
       )
-      
       .then((res) => setProducts(res.data));
   }, []);
 
-  console.log(products)
 
 
 
