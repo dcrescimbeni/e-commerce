@@ -9,6 +9,7 @@ import HomePage from "./Pages/HomePage";
 import NavBar from "./components/NavBar";
 import ProductsList from "./components/ProductsList";
 import ProductDetails from "./components/ProductDetails";
+
 import ShoppingCart from './components/ShoppingCart';
 import Register from "./components/Register";
 import Login from "./components/Login";
@@ -18,8 +19,6 @@ import WriteReview from "./components/WriteReview";
 
 import UsersManagment from "./Pages/UsersManagment";
 import CategoriesManagment from "./Pages/CategoriesManagment";
-
-// import NavbarTest from "./components/NavbarTest";
 import ProductsManagment from "./Pages/ProducstManagment";
 
 
@@ -63,7 +62,7 @@ function App() {
   return (
     <div >
      <NavBar />
-     {/* <NavbarTest /> */}
+  
       <br></br>
       <main>
 
@@ -80,8 +79,10 @@ function App() {
           <Route path="/products" element={<ProductsList products={products} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path={`/products/:productId`} element={<ProductDetails />} />
-          <Route path={`/writeReview`} element={<WriteReview/>}/>
+          <Route path={"/products/:productId"} element={<ProductDetails />} />
+          <Route path={"/writeReview"} element={<WriteReview />} />
+
+     
 
           {/* AGREGUE RUTAS ADMIN */}
           <Route path="/admin" element={<Admin />}/>

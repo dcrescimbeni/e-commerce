@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 
-const ProductsList = () => {
+const ProductsList = ({}) => {
 
   const [products, setProducts] = useState([]);
 
