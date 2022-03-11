@@ -1,5 +1,4 @@
 import React from "react";
-import data from "./fakeDB/data";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import axios from "axios";
@@ -19,8 +18,6 @@ import Checkout from "./Pages/Checkout";
 
 import UsersManagment from "./Pages/UsersManagment";
 import CategoriesManagment from "./Pages/CategoriesManagment";
-
-// import NavbarTest from "./components/NavbarTest";
 import ProductsManagment from "./Pages/ProducstManagment";
 import Thanks from "./Pages/Thanks";
 
@@ -82,7 +79,7 @@ function App() {
   return (
     <div >
       <NavBar />
-      {/* <NavbarTest /> */}
+
       <br></br>
       <main>
 

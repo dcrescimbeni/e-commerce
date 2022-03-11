@@ -1,26 +1,24 @@
-// import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/ProductList.module.css"
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
-import ProductDetails from "./ProductDetails";
+import axios from "axios";
 
 
-const ProductsList = ({ products }) => {
+const ProductsList = ({ }) => {
 
-  // const [products, setProducts] = useState([]);
+  const [productInfo, setProductInfo] = useState([]);
 
 
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "/api/products/allProducts"
-  //     )
 
-  //     .then((res) => setProducts(res.data));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "/api/products/allProducts"
+      )
+      .then((res) => setProductInfo(res.data));
+  }, []);
 
-  // console.log(products)
-
+  console.log(productInfo);
 
 
 
@@ -29,7 +27,7 @@ const ProductsList = ({ products }) => {
 
 
       <ul className={styles.container}>
-        {products.map((product) => {
+        {productInfo.map((product) => {
           return (
             <div key={product.productId}>
               <Link to={`/products/${product.productId}`}> <img className={styles.image} src={product.img[0]} alt="imagen"></img> </Link>

@@ -1,70 +1,62 @@
-import React, { useEffect, useState } from "react";
-// import data from "../fakeDB/data";
+import React, { useState, useEffect } from "react";
 import styles from "../styles/ProductDetails.module.css";
 import { Card, Button, Carousel, ListGroup } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const ProductDetails = ({ onAdd }) => {
-  // const { products } = data;
-  const { productId } = useParams();
-  const [product, setProduct] = useState({});
 
-  // console.log(productId)
+  //obtener id del producto a partir de la url
+  let currentURL = window.location.href;
+  let arrayURL = currentURL.split("/");
+  let reducedURL = [];
+
+  for (let i = 0; i < arrayURL.length; i++) {
+    if (i === arrayURL.length - 1) {
+      reducedURL.push(arrayURL[i]);
+    }
+  }
+
+  let productID = parseInt(reducedURL);
+
+
+  const [productInfo, setProductInfo] = useState({});
 
   useEffect(() => {
     axios
-      .get(`/api/products/product/${productId}`)
-      .then((res) => res.data)
-      .then((item) => {
-        setProduct(item);
-      })
-      .catch((err) => {
-        console.log(err);
+      .get(
+        `http://localhost:3001/api/products/product/${productID}`
+      )
+      .then((res) => {
+        // console.log(res.data)
+        setProductInfo(res.data)
       });
   }, []);
 
-  // console.log(product.img);
-
-  //obtener id del producto a partir de la url
-  // let currentURL = window.location.href;
-  // let arrayURL = currentURL.split("/");
-  // let reducedURL = [];
-
-  // for (let i = 0; i < arrayURL.length; i++) {
-  //   if (i === arrayURL.length - 1) {
-  //     reducedURL.push(arrayURL[i]);
-  //   }
-  // }
-
-  // let productId = parseInt(reducedURL);
-  // console.log(reducedURL);
-  // console.log(products[productId]["image4"])
-  // console.log(product)
-
+  if (!productInfo.img) return <div></div>
   return (
     <div className={styles.container}>
       <Carousel className={styles.image} fade variant="dark">
         <Carousel.Item>
-          {/* <img
+          <img
             className="d-block w-100"
-            src={product.img[0]}
+            src={productInfo.img[1]}
             alt="First slide"
-          /> */}
+          />
         </Carousel.Item>
         <Carousel.Item>
-          {/* <img
+          <img
             className="d-block w-100"
-            src={product.img[1]}
+            src={productInfo.img[2]}
             alt="Second slide"
-          /> */}
+          />
         </Carousel.Item>
         <Carousel.Item>
-          {/* <img
+          <img
             className="d-block w-100"
-            src={product.img[2]}
+            src={productInfo.img[3]}
             alt="Third slide"
-          /> */}
+          />
         </Carousel.Item>
       </Carousel>
 
@@ -73,7 +65,7 @@ const ProductDetails = ({ onAdd }) => {
           <Card.Body>
             <br></br>
             <Card.Title className={styles.name}>
-              {product.name}{" "}
+              {productInfo["name"]}{" "}
               <Link to="/writeReview">
                 <Button variant="warning">Escribir reseña</Button>
               </Link>
@@ -81,16 +73,19 @@ const ProductDetails = ({ onAdd }) => {
             <br></br>
             <br></br>
             <Card.Text className={styles.description}>
-              {product.description}
+              {productInfo["description"]}
             </Card.Text>
             <br></br>
             <Card.Text
               className={styles.description}
-            >{`${product.price} € `}</Card.Text>
+            >{`${productInfo["stock"]} unidades disponibles`}</Card.Text>
+            <Card.Text
+              className={styles.description}
+            >{`${productInfo["price"]} € `}</Card.Text>
             <br></br>
             <br></br>
             <div className={styles.buttonsContainer}>
-              <Button variant="primary" onClick={() => onAdd(product)}>Sumar al carrito</Button>
+              <Button variant="primary" onClick={() => onAdd(productInfo)}>Sumar al carrito</Button>
               <Button variant="primary">Quitar del carrito</Button>
             </div>
             <br></br>
