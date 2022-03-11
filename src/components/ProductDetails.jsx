@@ -85,11 +85,8 @@ const ProductDetails = ({ onAdd }) => {
             <br></br>
             <br></br>
             <div className={styles.buttonsContainer}>
-              <Button variant="primary" onClick={() => onAdd(productInfo)}>Sumar al carrito</Button>
-              <Button variant="primary">Quitar del carrito</Button>
+              <Button variant="dark" onClick={() => onAdd(productInfo)}>Sumar al carrito</Button>
             </div>
-            <br></br>
-            <br></br>
             <br></br>
             <br></br>
             <div className={styles.scoreTitle}>Valoración Promedio</div>
