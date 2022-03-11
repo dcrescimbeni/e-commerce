@@ -20,6 +20,7 @@ import UsersManagment from "./Pages/UsersManagment";
 import CategoriesManagment from "./Pages/CategoriesManagment";
 import ProductsManagment from "./Pages/ProducstManagment";
 import Thanks from "./Pages/Thanks";
+import { useSelector } from "react-redux";
 
 
 
@@ -28,13 +29,15 @@ function App() {
   // const { products } = data;
   const locaStorageProducts = JSON.parse(localStorage.getItem("cart-products")) || []
   const [cartItems, setCartItems] = useState(locaStorageProducts);
-  const [isLoggedIn] = useState(true);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("cart-products", JSON.stringify(cartItems))
   }, [cartItems]);
 
+  const user = useSelector(state => {
+    return state.user;
+  })
 
   useEffect(() => {
     console.log(`Buscando products...`);
@@ -75,6 +78,7 @@ function App() {
     setCartItems(cartItems.filter(x => x.productId !== product.productId))
   }
 
+  console.log("user id", user.userId)
 
   return (
     <div >
@@ -98,7 +102,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path={`/products/:productId`} element={<ProductDetails onAdd={onAdd} />} />
           <Route path={`/writeReview`} element={<WriteReview />} />
-          <Route path={`/checkout`} element={isLoggedIn ? <Checkout cartItems={cartItems} /> : <Navigate to="/login" />} />
+          <Route path={`/checkout`} element={user.userId ? <Checkout cartItems={cartItems} /> : <Navigate to="/login" />} />
           <Route path="/thanks" element={<Thanks />} />
 
           {/* AGREGUE RUTAS ADMIN */}
