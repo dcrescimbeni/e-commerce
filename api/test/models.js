@@ -218,6 +218,22 @@ describe('User model', () => {
             );
           });
       });
+
+      it('Saves the email in lowercase', () => {
+        return User.create({
+          password: testUserDetails.password,
+          firstName: testUserDetails.firstName,
+          lastName: testUserDetails.lastName,
+          email: 'testMailWithUpperCase@testDomain.com',
+          billingAddress: testUserDetails.billingAddress,
+          shippingAddress: testUserDetails.shippingAddress,
+        })
+          .then((res) => res.dataValues)
+          .then((user) => {
+            const lowerCaseEmail = 'testmailwithuppercase@testdomain.com';
+            expect(user).to.have.property('email', lowerCaseEmail);
+          });
+      });
     });
   });
 });
