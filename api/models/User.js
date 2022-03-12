@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
 const db = require('./_db');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 class User extends Model {}
 
@@ -40,7 +40,7 @@ User.init(
     },
     shippingAddress: {
       type: DataTypes.STRING,
-    }
+    },
   },
   { sequelize: db, modelName: 'users' }
 );
@@ -49,6 +49,12 @@ User.beforeCreate((user) => {
   return bcrypt.hash(user.password, 10).then((hash) => {
     user.password = hash;
   });
+});
+
+User.beforeCreate((user) => {
+  if (!user.shippingAddress) {
+    user.shippingAddress = user.billingAddress;
+  }
 });
 
 module.exports = User;

@@ -94,6 +94,39 @@ describe('User model', () => {
             expect(idDifference).to.equal(1);
           });
       });
+
+      it(`If there's no shipping address, it defaults to billing address`, () => {
+        return User.create({
+          password: testUserDetails.password,
+          firstName: testUserDetails.firstName,
+          lastName: testUserDetails.lastName,
+          email: testUserDetails.email,
+          billingAddress: testUserDetails.billingAddress,
+        })
+          .then((res) => res.dataValues)
+          .then((user) => {
+            expect(user).to.have.property(
+              'firstName',
+              testUserDetails.firstName
+            );
+            expect(user).to.have.property('password');
+            expect(user.password).to.not.equals(testUserDetails.password);
+            expect(user).to.have.property(
+              'firstName',
+              testUserDetails.firstName
+            );
+            expect(user).to.have.property('lastName', testUserDetails.lastName);
+            expect(user).to.have.property('email', testUserDetails.email);
+            expect(user).to.have.property(
+              'billingAddress',
+              testUserDetails.billingAddress
+            );
+            expect(user).to.have.property(
+              'shippingAddress',
+              testUserDetails.billingAddress
+            );
+          });
+      });
     });
 
     describe('Not null validations', () => {
