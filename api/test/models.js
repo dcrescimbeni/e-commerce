@@ -192,6 +192,15 @@ describe('Product model', () => {
     price: 500,
     color: 'red',
     size: 40,
+    stock: 10,
+    img: [
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/d8bbfd4d-a3c4-4a04-9900-687285e8a82d/air-jordan-1-retro-high-og-zapatillas.png',
+      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/74195b1e-525e-4c7c-8fa4-651a66445239/air-jordan-1-low-zapatillas-ZdMg83.png',
+      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/197cbaa9-5815-4985-9081-95890d95458e/air-jordan-1-low-zapatillas-ZdMg83.png',
+      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/28b1ea02-d216-4151-8035-7583d125106d/air-max-90-zapatillas-XD9b13.png',
+    ],
+    description:
+      'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
   };
 
   describe('Correct product creation', () => {
@@ -201,13 +210,21 @@ describe('Product model', () => {
         price: testProductDetails.price,
         color: testProductDetails.color,
         size: testProductDetails.size,
+        stock: testProductDetails.stock,
+        img: testProductDetails.img,
+        description: testProductDetails.description,
       })
         .then((res) => res.dataValues)
         .then((product) => {
           expect(product).to.have.property('name', testProductDetails.name);
           expect(product).to.have.property('price', testProductDetails.price);
           expect(product).to.have.property('color', testProductDetails.color);
-          expect(product).to.have.property('size', testProductDetails.size);
+          expect(product).to.have.property('stock', testProductDetails.stock);
+          expect(product.img[0]).to.equal(testProductDetails.img[0]);
+          expect(product).to.have.property(
+            'description',
+            testProductDetails.description
+          );
         });
     });
 
@@ -216,12 +233,55 @@ describe('Product model', () => {
         name: testProductDetails.name,
         price: testProductDetails.price,
         size: testProductDetails.size,
+        stock: testProductDetails.stock,
+        img: testProductDetails.img,
+        description: testProductDetails.description,
       })
         .then((res) => res.dataValues)
         .then((product) => {
           expect(product).to.have.property('name', testProductDetails.name);
           expect(product).to.have.property('price', testProductDetails.price);
           expect(product).to.have.property('size', testProductDetails.size);
+        });
+    });
+
+    it('Can create a product without img', () => {
+      return Product.create({
+        name: testProductDetails.name,
+        price: testProductDetails.price,
+        color: testProductDetails.color,
+        size: testProductDetails.size,
+        stock: testProductDetails.stock,
+        description: testProductDetails.description,
+      })
+        .then((res) => res.dataValues)
+        .then((product) => {
+          expect(product).to.have.property('name', testProductDetails.name);
+          expect(product).to.have.property('price', testProductDetails.price);
+          expect(product).to.have.property('color', testProductDetails.color);
+          expect(product).to.have.property('stock', testProductDetails.stock);
+          expect(product).to.have.property(
+            'description',
+            testProductDetails.description
+          );
+        });
+    });
+    it('Can create a product without description', () => {
+      return Product.create({
+        name: testProductDetails.name,
+        price: testProductDetails.price,
+        color: testProductDetails.color,
+        size: testProductDetails.size,
+        stock: testProductDetails.stock,
+        img: testProductDetails.img,
+      })
+        .then((res) => res.dataValues)
+        .then((product) => {
+          expect(product).to.have.property('name', testProductDetails.name);
+          expect(product).to.have.property('price', testProductDetails.price);
+          expect(product).to.have.property('color', testProductDetails.color);
+          expect(product).to.have.property('stock', testProductDetails.stock);
+          expect(product.img[0]).to.equal(testProductDetails.img[0]);
         });
     });
   });
