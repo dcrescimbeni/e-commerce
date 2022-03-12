@@ -31,9 +31,11 @@ app.use((err, req, res, next) => {
 });
 
 db.sync({ force: false }).then(() => {
-  app.listen(3001, () => {
-    console.log(`Server up on port 3001`);
-  });
+  if (!module.parent) {
+    app.listen(3001, () => {
+      console.log(`Server up on port 3001`);
+    });
+  }
 });
 
 module.exports = app;
