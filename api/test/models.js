@@ -21,7 +21,8 @@ describe('User model', () => {
     firstName: 'Test',
     lastName: 'McTestin',
     email: 'test@example.com',
-    address: 'Testing Street 123',
+    billingAddress: 'Testing Street 123',
+    shippingAddress: 'The Neighbour Address 124',
   };
 
   describe('User creation', () => {
@@ -32,7 +33,7 @@ describe('User model', () => {
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
           email: testUserDetails.email,
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .then((user) => {
@@ -40,14 +41,18 @@ describe('User model', () => {
               'firstName',
               testUserDetails.firstName
             );
-            expect(user).to.have.property('password', testUserDetails.password);
+            expect(user).to.have.property('password');
+            expect(user.password).to.not.equals(testUserDetails.password);
             expect(user).to.have.property(
               'firstName',
               testUserDetails.firstName
             );
             expect(user).to.have.property('lastName', testUserDetails.lastName);
             expect(user).to.have.property('email', testUserDetails.email);
-            expect(user).to.have.property('address', testUserDetails.address);
+            expect(user).to.have.property(
+              'billingAddress',
+              testUserDetails.billingAddress
+            );
           });
       });
 
@@ -60,7 +65,7 @@ describe('User model', () => {
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
           email: 'asdf@asdf.com',
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .then((firstUser) => {
@@ -72,7 +77,7 @@ describe('User model', () => {
               firstName: testUserDetails.firstName,
               lastName: testUserDetails.lastName,
               email: 'anothermail@mail.com',
-              address: testUserDetails.address,
+              billingAddress: testUserDetails.billingAddress,
             });
           })
           .then((res) => res.dataValues)
@@ -89,7 +94,7 @@ describe('User model', () => {
         return User.create({
           lastName: testUserDetails.lastName,
           email: testUserDetails.email,
-          address: testUserDetails.address,
+          address: testUserDetails.billingAddress,
         })
           .then((user) => expect(user).to.not.exist)
           .catch((err) => {
@@ -101,7 +106,7 @@ describe('User model', () => {
         return User.create({
           firstName: testUserDetails.firstName,
           email: testUserDetails.email,
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .catch((err) => {
@@ -109,7 +114,7 @@ describe('User model', () => {
           });
       });
 
-      it(`Cannot create user without address`, () => {
+      it(`Cannot create user without billing address`, () => {
         return User.create({
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
@@ -125,22 +130,10 @@ describe('User model', () => {
         return User.create({
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .then((user) => expect(user).to.not.exist)
-          .catch((err) => {
-            expect(err.errors[0].type).to.equals('notNull Violation');
-          });
-      });
-
-      it(`Cannot create user without address`, () => {
-        return User.create({
-          firstName: testUserDetails.firstName,
-          lastName: testUserDetails.lastName,
-          email: testUserDetails.email,
-        })
-          .then((res) => expect(res).to.not.exist())
           .catch((err) => {
             expect(err.errors[0].type).to.equals('notNull Violation');
           });
@@ -154,7 +147,7 @@ describe('User model', () => {
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
           email: testUserDetails.email,
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .then(() => {
@@ -163,7 +156,7 @@ describe('User model', () => {
               firstName: testUserDetails.firstName,
               lastName: testUserDetails.lastName,
               email: testUserDetails.email,
-              address: testUserDetails.address,
+              billingAddress: testUserDetails.billingAddress,
             });
           })
           .catch((err) => {
@@ -176,7 +169,7 @@ describe('User model', () => {
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
           email: 'notmail.com',
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .catch((err) => {
