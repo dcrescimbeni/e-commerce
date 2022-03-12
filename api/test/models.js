@@ -34,6 +34,7 @@ describe('User model', () => {
           lastName: testUserDetails.lastName,
           email: testUserDetails.email,
           billingAddress: testUserDetails.billingAddress,
+          shippingAddress: testUserDetails.shippingAddress,
         })
           .then((res) => res.dataValues)
           .then((user) => {
@@ -53,6 +54,10 @@ describe('User model', () => {
               'billingAddress',
               testUserDetails.billingAddress
             );
+            expect(user).to.have.property(
+              'shippingAddress',
+              testUserDetails.shippingAddress
+            );
           });
       });
 
@@ -66,6 +71,7 @@ describe('User model', () => {
           lastName: testUserDetails.lastName,
           email: 'asdf@asdf.com',
           billingAddress: testUserDetails.billingAddress,
+          shippingAddress: testUserDetails.shippingAddress,
         })
           .then((res) => res.dataValues)
           .then((firstUser) => {
@@ -78,6 +84,7 @@ describe('User model', () => {
               lastName: testUserDetails.lastName,
               email: 'anothermail@mail.com',
               billingAddress: testUserDetails.billingAddress,
+              shippingAddress: testUserDetails.shippingAddress,
             });
           })
           .then((res) => res.dataValues)
