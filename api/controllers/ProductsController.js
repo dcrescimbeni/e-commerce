@@ -45,9 +45,10 @@ exports.editProduct = (req, res) => {
     where: {
       productId: req.params.id,
     },
+    returning: true,
   })
-    .then((response) => response.dataValues)
-    .then((editedProduct) => res.status(204).send(editedProduct))
+    .then((response) => response[1])
+    .then((editedProduct) => res.status(201).send(editedProduct))
     .catch((err) => console.log(err));
 };
 
