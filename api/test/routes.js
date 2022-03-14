@@ -350,8 +350,8 @@ describe('Admin routes', () => {
           shippingAddress: 'User Street 123',
         };
 
-        let newUsers = [firstUser, secondUser];
-        await User.bulkCreate(newUsers);
+        await User.create(firstUser);
+        await User.create(secondUser);
       });
 
       it('Can get all users', async () => {
@@ -400,17 +400,120 @@ describe('Admin routes', () => {
     });
 
     describe('Admin status', () => {
-      it('Can give admin status', () => {});
-      it('Can revoke admin status', () => {});
-      it('Cannot revoke admin status to itself', () => {});
-      it('Cannot give admin status if not logged in', () => {});
-      it('Cannot give admin status if not admin', () => {});
-    });
+      it('Can give admin status', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
 
-    describe('Edit user', () => {
-      it('Can edit a user', () => {});
-      it('Cannot edit a user if logged out', () => {});
-      it('Cannot edit a user if not admin', () => {});
+        session = loginAdmin.header['set-cookie'];
+
+        const firstUserDetails = await User.findOne({
+          where: { email: 'user1@example.com' },
+        });
+
+        let firstUserId = firstUserDetails.dataValues.userId;
+
+        let promoteUser = await agent
+          .put(`/api/admin/user/${firstUserId}?isAdmin=true`)
+          .set('Cookie', session);
+
+        expect(promoteUser.body[0].isAdmin).to.equals(true);
+      });
+
+      it('Can revoke admin status', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        const firstUserDetails = await User.findOne({
+          where: { email: 'user1@example.com' },
+        });
+
+        let firstUserId = firstUserDetails.dataValues.userId;
+
+        let revokeUser = await agent
+          .put(`/api/admin/user/${firstUserId}?isAdmin=false`)
+          .set('Cookie', session);
+
+        expect(revokeUser.body[0].isAdmin).to.equals(false);
+      });
+
+      it('Cannot revoke admin status to itself', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        const adminDetails = await User.findOne({
+          where: { email: adminUser.email },
+        });
+
+        let adminUserId = adminDetails.dataValues.userId;
+
+        let revokeUser = await agent
+          .put(`/api/admin/user/${adminUserId}?isAdmin=false`)
+          .set('Cookie', session);
+
+        expect(revokeUser.error.status).to.equals(500);
+        expect(revokeUser.error.text).to.equals(
+          'Cannot revoke admin access to itself'
+        );
+      });
+
+      it('Cannot give admin status if not logged in', async () => {
+        const firstUserDetails = await User.findOne({
+          where: { email: 'user1@example.com' },
+        });
+
+        let firstUserId = firstUserDetails.dataValues.userId;
+
+        let promoteUser = await agent.put(
+          `/api/admin/user/${firstUserId}?isAdmin=true`
+        );
+
+        expect(promoteUser.error.status).to.equals(500);
+        expect(promoteUser.error.text).to.equals('User is not authenticated');
+      });
+
+      it('Cannot give admin status if not admin', async () => {
+        let loginNonAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: nonAdmin.email,
+            password: nonAdmin.password,
+          })
+          .expect(200);
+
+        session = loginNonAdmin.header['set-cookie'];
+
+        const firstUserDetails = await User.findOne({
+          where: { email: 'user1@example.com' },
+        });
+
+        let firstUserId = firstUserDetails.dataValues.userId;
+
+        let promoteUser = await agent
+          .put(`/api/admin/user/${firstUserId}?isAdmin=true`)
+          .set('Cookie', session);
+
+        expect(promoteUser.error.status).to.equals(500);
+        expect(promoteUser.error.text).to.equals('User is not an admin');
+      });
     });
   });
 });
