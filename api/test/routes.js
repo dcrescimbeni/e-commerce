@@ -121,20 +121,23 @@ describe('Admin routes', () => {
     });
 
     it('Cannot add a product if not admin', async () => {
-      let loginNonAdmin = await agent
-        .post('/api/users/login')
-        .send({ email: nonAdmin.email, password: nonAdmin.password })
-        .expect(200);
+      try {
+        let loginNonAdmin = await agent
+          .post('/api/users/login')
+          .send({ email: nonAdmin.email, password: nonAdmin.password })
+          .expect(200);
 
-      session = loginNonAdmin.header['set-cookie'];
-      let newProduct = await agent
-        .post('/api/products/newProduct')
-        .set('Cookie', session)
-        .send(product);
+        session = loginNonAdmin.header['set-cookie'];
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(product);
 
-      expect(newProduct.status).to.equals(500);
-      console.log(newProduct);
-      // console.log(newProduct);
+        expect(newProduct.error.status).to.equals(500);
+        expect(newProduct.error.text).to.equals('User is not an admin');
+      } catch (err) {
+        expect(err).to.not.exist();
+      }
     });
   });
 
