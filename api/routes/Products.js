@@ -1,5 +1,4 @@
 const express = require('express');
-const passport = require('passport');
 const router = express.Router();
 const ProductsController = require('../controllers/ProductsController');
 const { isAuth, isAdmin } = require('../utils/authCheck');
@@ -12,7 +11,7 @@ router.get('/product/:id', ProductsController.productFind);
 
 router.post('/newProduct', isAuth, isAdmin, ProductsController.newProduct);
 
-router.put('/product/:id', ProductsController.editProduct);
+router.put('/product/:id', isAuth, isAdmin, ProductsController.editProduct);
 
 router.delete('/product/:id', ProductsController.deleteProduct);
 
