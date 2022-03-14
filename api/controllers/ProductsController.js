@@ -1,5 +1,6 @@
 const Products = require('../models/Product');
 const { Op } = require('sequelize');
+const { response } = require('../server');
 
 //revisar en postman las rutas y seguir con Trello, ver Include
 exports.allProducts = (req, res) => {
@@ -32,17 +33,21 @@ exports.productFind = (req, res) => {
 
 exports.newProduct = (req, res) => {
   Products.create(req.body)
-    .then(() => res.send(201))
+    .then((response) => response.dataValues)
+    .then((createdProduct) => {
+      res.status(201).send(createdProduct);
+    })
     .catch((err) => console.log(err));
 };
 
 exports.editProduct = (req, res) => {
-  Products.update(req.body, req.body, {
+  Products.update(req.body, {
     where: {
-      id: req.params.id,
+      productId: req.params.id,
     },
   })
-    .then(() => res.send(204))
+    .then((response) => response.dataValues)
+    .then((editedProduct) => res.status(204).send(editedProduct))
     .catch((err) => console.log(err));
 };
 
