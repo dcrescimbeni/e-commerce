@@ -13,7 +13,12 @@ router.post('/newProduct', isAuth, isAdmin, ProductsController.newProduct);
 
 router.put('/product/:id', isAuth, isAdmin, ProductsController.editProduct);
 
-router.delete('/product/:id', ProductsController.deleteProduct);
+router.delete(
+  '/product/:id',
+  isAuth,
+  isAdmin,
+  ProductsController.deleteProduct
+);
 
 router.get('/search', ProductsController.searchProduct);
 

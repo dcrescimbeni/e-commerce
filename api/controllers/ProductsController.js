@@ -55,10 +55,13 @@ exports.editProduct = (req, res) => {
 exports.deleteProduct = (req, res) => {
   Products.destroy({
     where: {
-      id: req.params.id,
+      productId: req.params.id,
     },
   })
-    .then(() => res.send(204))
+    .then((response) => {
+      const result = { deletedEntries: response };
+      res.status(202).send(result);
+    })
     .catch((err) => console.log(err));
 };
 
