@@ -1,6 +1,5 @@
 const Products = require('../models/Product');
 const { Op } = require('sequelize');
-const { response } = require('../server');
 
 //revisar en postman las rutas y seguir con Trello, ver Include
 exports.allProducts = (req, res) => {
