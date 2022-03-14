@@ -1,6 +1,6 @@
 const express = require('express');
 const volleyball = require('volleyball');
-const db = require('./models/_db');
+const db = require('./config/db');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');

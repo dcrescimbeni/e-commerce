@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
-const db = require('./_db');
+const db = require('../config/db');
 const bcrypt = require('bcrypt');
 
 class User extends Model {}
