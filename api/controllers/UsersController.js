@@ -1,10 +1,9 @@
 const User = require('../models/User');
 
 exports.userCreate = (req, res, next) => {
-  console.log('REQ.Body =>', req.body);
   User.create(req.body)
     .then(() => res.send(200))
-    .catch((err) => console.log(err));
+    .catch((err) => next(err));
 };
 
 exports.userLogin = (req, res, next) => {
