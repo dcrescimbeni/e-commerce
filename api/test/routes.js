@@ -115,6 +115,16 @@ describe('Admin routes', () => {
           .send(product);
 
         expect(newProduct.status).to.equal(201);
+        expect(newProduct.body).to.have.property('name', product.name);
+        expect(newProduct.body).to.have.property('price', product.price);
+        expect(newProduct.body).to.have.property('color', product.color);
+        expect(newProduct.body).to.have.property('size', product.size);
+        expect(newProduct.body).to.have.property('stock', product.stock);
+        expect(newProduct.body.img).to.have.lengthOf(4);
+        expect(newProduct.body).to.have.property(
+          'description',
+          product.description
+        );
       } catch (err) {
         expect(err).to.not.exist();
       }
@@ -142,7 +152,33 @@ describe('Admin routes', () => {
   });
 
   describe('Edit product', () => {
-    it('Can edit a product', () => {});
+    it('Can edit a product', async () => {
+      try {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({ email: adminUser.email, password: adminUser.password })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(product);
+
+        let productId = await newProduct.body.productId;
+        let newName = 'Edited product';
+
+        let editedProduct = await agent
+          .put(`/api/products/product/${productId}`)
+          .send({ name: newName });
+
+        expect(editedProduct.body[0].name).to.equals(newName);
+        console.log(editedProduct.body[0].name);
+      } catch (err) {
+        expect(err).to.not.exist();
+      }
+    });
     it('Cannot edit a product if not admin', () => {});
   });
 
