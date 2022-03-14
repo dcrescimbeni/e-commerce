@@ -98,9 +98,97 @@ describe('Admin routes', () => {
     return await User.destroy({ where: { email: nonAdmin.email } });
   });
 
-  describe('Add product', () => {
-    it('Can add a product', async () => {
-      try {
+  describe('Product add, edit, delete', () => {
+    describe('Add product', () => {
+      it('Can add a product', async () => {
+        try {
+          let loginAdmin = await agent
+            .post('/api/users/login')
+            .send({ email: adminUser.email, password: adminUser.password })
+            .expect(200);
+
+          session = loginAdmin.header['set-cookie'];
+          let newProduct = await agent
+            .post('/api/products/newProduct')
+            .set('Cookie', session)
+            .send(product);
+
+          expect(newProduct.status).to.equal(201);
+          expect(newProduct.body).to.have.property('name', product.name);
+          expect(newProduct.body).to.have.property('price', product.price);
+          expect(newProduct.body).to.have.property('color', product.color);
+          expect(newProduct.body).to.have.property('size', product.size);
+          expect(newProduct.body).to.have.property('stock', product.stock);
+          expect(newProduct.body.img).to.have.lengthOf(4);
+          expect(newProduct.body).to.have.property(
+            'description',
+            product.description
+          );
+        } catch (err) {
+          expect(err).to.not.exist();
+        }
+      });
+
+      it('Cannot add a product if not admin', async () => {
+        try {
+          let loginNonAdmin = await agent
+            .post('/api/users/login')
+            .send({ email: nonAdmin.email, password: nonAdmin.password })
+            .expect(200);
+
+          session = loginNonAdmin.header['set-cookie'];
+          let newProduct = await agent
+            .post('/api/products/newProduct')
+            .set('Cookie', session)
+            .send(product);
+
+          expect(newProduct.error.status).to.equals(500);
+          expect(newProduct.error.text).to.equals('User is not an admin');
+        } catch (err) {
+          expect(err).to.not.exist();
+        }
+      });
+
+      it('Cannot add a product if not logged in', async () => {
+        let loggedOut = await agent
+          .post('/api/products/newProduct')
+          .send(product);
+
+        expect(loggedOut.error.status).to.equal(500);
+        expect(loggedOut.error.text).to.equal('User is not authenticated');
+      });
+    });
+
+    describe('Edit product', () => {
+      it('Can edit a product', async () => {
+        try {
+          let loginAdmin = await agent
+            .post('/api/users/login')
+            .send({ email: adminUser.email, password: adminUser.password })
+            .expect(200);
+
+          session = loginAdmin.header['set-cookie'];
+
+          let newProduct = await agent
+            .post('/api/products/newProduct')
+            .set('Cookie', session)
+            .send(product);
+
+          let productId = await newProduct.body.productId;
+          let newName = 'Edited product';
+
+          let editedProduct = await agent
+            .put(`/api/products/product/${productId}`)
+            .set('Cookie', session)
+            .send({ name: newName });
+
+          expect(editedProduct.body[0].name).to.equals(newName);
+        } catch (err) {
+          expect(err).to.not.exist();
+        }
+      });
+
+      it('Cannot edit a product if not logged in', async () => {
         let loginAdmin = await agent
           .post('/api/users/login')
           .send({ email: adminUser.email, password: adminUser.password })
@@ -112,55 +200,17 @@ describe('Admin routes', () => {
           .set('Cookie', session)
           .send(product);
 
-        expect(newProduct.status).to.equal(201);
-        expect(newProduct.body).to.have.property('name', product.name);
-        expect(newProduct.body).to.have.property('price', product.price);
-        expect(newProduct.body).to.have.property('color', product.color);
-        expect(newProduct.body).to.have.property('size', product.size);
-        expect(newProduct.body).to.have.property('stock', product.stock);
-        expect(newProduct.body.img).to.have.lengthOf(4);
-        expect(newProduct.body).to.have.property(
-          'description',
-          product.description
-        );
-      } catch (err) {
-        expect(err).to.not.exist();
-      }
-    });
+        let newProductId = newProduct.body.productId;
 
-    it('Cannot add a product if not admin', async () => {
-      try {
-        let loginNonAdmin = await agent
-          .post('/api/users/login')
-          .send({ email: nonAdmin.email, password: nonAdmin.password })
-          .expect(200);
+        let editedProduct = await agent
+          .put(`/api/products/product/${newProductId}`)
+          .send({ name: 'Edited product test' });
 
-        session = loginNonAdmin.header['set-cookie'];
-        let newProduct = await agent
-          .post('/api/products/newProduct')
-          .set('Cookie', session)
-          .send(product);
+        expect(editedProduct.error.status).to.equals(500);
+        expect(editedProduct.error.text).to.equals('User is not authenticated');
+      });
 
-        expect(newProduct.error.status).to.equals(500);
-        expect(newProduct.error.text).to.equals('User is not an admin');
-      } catch (err) {
-        expect(err).to.not.exist();
-      }
-    });
-
-    it('Cannot add a product if not logged in', async () => {
-      let loggedOut = await agent
-        .post('/api/products/newProduct')
-        .send(product);
-
-      expect(loggedOut.error.status).to.equal(500);
-      expect(loggedOut.error.text).to.equal('User is not authenticated');
-    });
-  });
-
-  describe('Edit product', () => {
-    it('Can edit a product', async () => {
-      try {
+      it('Cannot edit a product if not admin', async () => {
         let loginAdmin = await agent
           .post('/api/users/login')
           .send({ email: adminUser.email, password: adminUser.password })
@@ -176,75 +226,51 @@ describe('Admin routes', () => {
         let productId = await newProduct.body.productId;
         let newName = 'Edited product';
 
+        let loginNonAdmin = await agent
+          .post('/api/users/login')
+          .send({ email: nonAdmin.email, password: nonAdmin.password })
+          .expect(200);
+
+        session = loginNonAdmin.header['set-cookie'];
+
         let editedProduct = await agent
           .put(`/api/products/product/${productId}`)
           .set('Cookie', session)
           .send({ name: newName });
 
-        expect(editedProduct.body[0].name).to.equals(newName);
-      } catch (err) {
-        expect(err).to.not.exist();
-      }
+        expect(editedProduct.error.status).to.equals(500);
+        expect(editedProduct.error.text).to.equals('User is not an admin');
+      });
     });
 
-    it('Cannot edit a product if not logged in', async () => {
-      let loginAdmin = await agent
-        .post('/api/users/login')
-        .send({ email: adminUser.email, password: adminUser.password })
-        .expect(200);
+    describe('Delete product', () => {
+      it('Can delete a product', async () => {
+        try {
+          let loginAdmin = await agent
+            .post('/api/users/login')
+            .send({ email: adminUser.email, password: adminUser.password })
+            .expect(200);
 
-      session = loginAdmin.header['set-cookie'];
-      let newProduct = await agent
-        .post('/api/products/newProduct')
-        .set('Cookie', session)
-        .send(product);
+          session = loginAdmin.header['set-cookie'];
 
-      let newProductId = newProduct.body.productId;
+          let newProduct = await agent
+            .post('/api/products/newProduct')
+            .set('Cookie', session)
+            .send(product);
 
-      let editedProduct = await agent
-        .put(`/api/products/product/${newProductId}`)
-        .send({ name: 'Edited product test' });
+          let productId = await newProduct.body.productId;
 
-      expect(editedProduct.error.status).to.equals(500);
-      expect(editedProduct.error.text).to.equals('User is not authenticated');
-    });
+          let deletedProduct = await agent
+            .delete(`/api/products/product/${productId}`)
+            .set('Cookie', session);
 
-    it('Cannot edit a product if not admin', async () => {
-      let loginAdmin = await agent
-        .post('/api/users/login')
-        .send({ email: adminUser.email, password: adminUser.password })
-        .expect(200);
+          expect(deletedProduct.body.deletedEntries).to.equals(1);
+        } catch (err) {
+          expect(err).to.not.exist();
+        }
+      });
 
-      session = loginAdmin.header['set-cookie'];
-
-      let newProduct = await agent
-        .post('/api/products/newProduct')
-        .set('Cookie', session)
-        .send(product);
-
-      let productId = await newProduct.body.productId;
-      let newName = 'Edited product';
-
-      let loginNonAdmin = await agent
-        .post('/api/users/login')
-        .send({ email: nonAdmin.email, password: nonAdmin.password })
-        .expect(200);
-
-      session = loginNonAdmin.header['set-cookie'];
-
-      let editedProduct = await agent
-        .put(`/api/products/product/${productId}`)
-        .set('Cookie', session)
-        .send({ name: newName });
-
-      expect(editedProduct.error.status).to.equals(500);
-      expect(editedProduct.error.text).to.equals('User is not an admin');
-    });
-  });
-
-  describe('Delete product', () => {
-    it('Can delete a product', async () => {
-      try {
+      it('Cannot delete a product if not logged in', async () => {
         let loginAdmin = await agent
           .post('/api/users/login')
           .send({ email: adminUser.email, password: adminUser.password })
@@ -259,70 +285,132 @@ describe('Admin routes', () => {
 
         let productId = await newProduct.body.productId;
 
+        let deletedProduct = await agent.delete(
+          `/api/products/product/${productId}`
+        );
+
+        expect(deletedProduct.error.status).to.equals(500);
+        expect(deletedProduct.error.text).to.equals(
+          'User is not authenticated'
+        );
+      });
+
+      it('Cannot delete a product if not admin', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({ email: adminUser.email, password: adminUser.password })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(product);
+
+        let productId = await newProduct.body.productId;
+
+        let loginNonAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: nonAdmin.email,
+            password: nonAdmin.password,
+          })
+          .expect(200);
+
+        session = loginNonAdmin.header['set-cookie'];
+
         let deletedProduct = await agent
           .delete(`/api/products/product/${productId}`)
           .set('Cookie', session);
 
-        expect(deletedProduct.body.deletedEntries).to.equals(1);
-      } catch (err) {
-        expect(err).to.not.exist();
-      }
+        expect(deletedProduct.error.status).to.equals(500);
+        expect(deletedProduct.error.text).to.equals('User is not an admin');
+      });
+    });
+  });
+
+  describe('User management', () => {
+    describe('Get users', () => {
+      before('Create two more users', async () => {
+        let firstUser = {
+          password: 'test',
+          firstName: 'First',
+          lastName: 'User',
+          email: 'user1@example.com',
+          billingAddress: 'User Street 123',
+          shippingAddress: 'User Street 123',
+        };
+        let secondUser = {
+          password: 'test',
+          firstName: 'Second',
+          lastName: 'User',
+          email: 'user2@example.com',
+          billingAddress: 'User Street 123',
+          shippingAddress: 'User Street 123',
+        };
+
+        let newUsers = [firstUser, secondUser];
+        await User.bulkCreate(newUsers);
+      });
+
+      it('Can get all users', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let allUsers = await agent
+          .get('/api/admin/users/all')
+          .set('Cookie', session);
+
+        expect(allUsers.body).to.have.lengthOf(5);
+      });
+
+      it('Cannot get users if not logged in', async () => {
+        let allUsers = await agent.get('/api/admin/users/all');
+
+        expect(allUsers.error.status).to.equals(500);
+        expect(allUsers.error.text).to.equals('User is not authenticated');
+      });
+
+      it('Cannot get users if not admin', async () => {
+        let loginNonAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: nonAdmin.email,
+            password: nonAdmin.password,
+          })
+          .expect(200);
+
+        session = loginNonAdmin.header['set-cookie'];
+
+        let allUsers = await agent
+          .get('/api/admin/users/all')
+          .set('Cookie', session);
+
+        expect(allUsers.error.status).to.equals(500);
+        expect(allUsers.error.text).to.equals('User is not an admin');
+      });
     });
 
-    it('Cannot delete a product if not logged in', async () => {
-      let loginAdmin = await agent
-        .post('/api/users/login')
-        .send({ email: adminUser.email, password: adminUser.password })
-        .expect(200);
-
-      session = loginAdmin.header['set-cookie'];
-
-      let newProduct = await agent
-        .post('/api/products/newProduct')
-        .set('Cookie', session)
-        .send(product);
-
-      let productId = await newProduct.body.productId;
-
-      let deletedProduct = await agent.delete(
-        `/api/products/product/${productId}`
-      );
-
-      expect(deletedProduct.error.status).to.equals(500);
-      expect(deletedProduct.error.text).to.equals('User is not authenticated');
+    describe('Admin status', () => {
+      it('Can give admin status', () => {});
+      it('Can revoke admin status', () => {});
+      it('Cannot revoke admin status to itself', () => {});
+      it('Cannot give admin status if not logged in', () => {});
+      it('Cannot give admin status if not admin', () => {});
     });
 
-    it('Cannot delete a product if not admin', async () => {
-      let loginAdmin = await agent
-        .post('/api/users/login')
-        .send({ email: adminUser.email, password: adminUser.password })
-        .expect(200);
-
-      session = loginAdmin.header['set-cookie'];
-
-      let newProduct = await agent
-        .post('/api/products/newProduct')
-        .set('Cookie', session)
-        .send(product);
-
-      let productId = await newProduct.body.productId;
-
-      let loginNonAdmin = await agent
-        .post('/api/users/login')
-        .send({
-          email: nonAdmin.email,
-          password: nonAdmin.password,
-        })
-        .expect(200);
-
-      session = loginNonAdmin.header['set-cookie'];
-
-      let deletedProduct = await agent
-        .delete(`/api/products/product/${productId}`)
-        .set('Cookie', session);
-
-      expect(deletedProduct.error.status).to.equals(500);
-      expect(deletedProduct.error.text).to.equals('User is not an admin');
+    describe('Edit user', () => {
+      it('Can edit a user', () => {});
+      it('Cannot edit a user if logged out', () => {});
+      it('Cannot edit a user if not admin', () => {});
     });
   });
 });
