@@ -25,8 +25,13 @@ app.use(passport.session());
 app.use('/api', route);
 
 app.use((err, req, res, next) => {
-  console.log('Error');
-  console.log(err);
+  const logError = false;
+
+  if (logError) {
+    console.log('Error');
+    console.log(err);
+  }
+
   res.status(500).send(err.message);
 });
 
