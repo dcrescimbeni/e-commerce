@@ -4,7 +4,6 @@ const { User } = require('../models');
 const bcrypt = require('bcrypt');
 
 const verifyCallback = (email, password, done) => {
-  console.log('email verify callback', email);
   User.findOne({ where: { email } })
     .then((res) => {
       if (!res) {
@@ -12,7 +11,6 @@ const verifyCallback = (email, password, done) => {
         return;
       }
       let user = res.dataValues;
-      console.log('res user verifycallback');
       bcrypt.compare(password, user.password).then((isValid) => {
         if (isValid) done(null, user);
         else done(null, false);
