@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 const ProductsController = require('../controllers/ProductsController');
 const { isAuth, isAdmin } = require('../utils/authCheck');
