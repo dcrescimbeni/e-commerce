@@ -188,6 +188,7 @@ const categoriesRelationships = [
   { productId: 3, categoryId: 1 },
   { productId: 2, categoryId: 2 },
   { productId: 4, categoryId: 3 },
+  { productId: 1, categoryId: 3 },
 ];
 
 const seedDatabase = async () => {
@@ -195,18 +196,18 @@ const seedDatabase = async () => {
   await Product.bulkCreate(products);
   await Category.bulkCreate(categories);
 
-  console.log('Database seeded!');
+  categoriesRelationships.forEach((relationship) => {
+    assignCategory(relationship);
+  });
 
-  // categoriesRelationships.forEach((relationship) => {
-  //   assignCategory(relationship);
-  // });
+  console.log('Database seeded!');
 };
 
 const assignCategory = async (relationship) => {
   let product = await Product.findByPk(relationship.productId);
-  console.log(product);
   let category = await Category.findByPk(relationship.categoryId);
-  product.setCategory(category);
+
+  await category.addProducts([product]);
 };
 
 seedDatabase();
