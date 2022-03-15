@@ -1,12 +1,13 @@
 import React from "react";
 import ProductList from "../components/ProductsList";
-import style from "../styles/HomePage.module.css"
+import style from "../styles/HomePage.module.css";
+import NavBar from "../components/NavBar";
 
 
 function HomePage({ products }) {
   return (
-    <header>
-
+    <div>
+      <NavBar />
       <div>
 
         <div  >
@@ -19,7 +20,7 @@ function HomePage({ products }) {
         <ProductList products={products} />
 
       </div>
-    </header>
+    </div>
   );
 }
 

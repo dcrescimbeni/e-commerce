@@ -44,7 +44,7 @@ const NavBar = () => {
 
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
       <div className="container ">
-        <li class="nav-item d-flex">
+        <li className="nav-item d-flex">
           <Link to="/">
             <a className="navbar-brand" >
               <GiConverseShoe size={30} />
