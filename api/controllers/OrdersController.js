@@ -1,6 +1,7 @@
 const Order = require("../models/Order");
 const User = require("../models/User");
-const OrderDetails = require('../models/OrderDetails')
+const OrderDetails = require('../models/OrderDetails');
+
 
 exports.createOrder = (req, res, next) => {
   
@@ -11,14 +12,13 @@ exports.createOrder = (req, res, next) => {
             total: req.body.total,
             userId : req.params.id
     };
-    const orderObjDetail = {
-        quantity : req.body.quantity,
-        price : req.body.price,
-    }
     Order.create(orderObj)
       .then((data) => {
-          orderObjDetail['orderId'] = data.dataValues.orderId
-          OrderDetails.create(orderObjDetail)
+       req.body.products.map(product => {
+            product['orderId'] = data.dataValues.orderId
+            OrderDetails.create(product)      
+        }) 
+        
       })
       .then(()=> res.send(202))
       .catch((err) => next(err));
