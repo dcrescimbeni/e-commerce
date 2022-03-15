@@ -1,4 +1,5 @@
 const Products = require("../models/Product")
+const { Op }   = require("sequelize");
 
 //revisar en postman las rutas y seguir con Trello, ver Include
 exports.allProducts = (req,res) => {
@@ -54,7 +55,7 @@ exports.deleteProduct = (req, res) => {
 };
 
 exports.searchProduct = (req, res) => {
-  let searchQuery = req.query.query.toLowerCase();
+  let searchQuery = req.query.query;
   console.log(searchQuery);
 
   Products.findAll({

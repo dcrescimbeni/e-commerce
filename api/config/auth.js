@@ -2,8 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
-require('dotenv').config()
-
+// require('dotenv').config();
 
 // export const config = {
 //   authRequired: false,

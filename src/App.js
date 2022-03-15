@@ -21,6 +21,8 @@ import CategoriesManagment from "./Pages/CategoriesManagment";
 import ProductsManagment from "./Pages/ProducstManagment";
 import Thanks from "./Pages/Thanks";
 import { useSelector } from "react-redux";
+import Profile from "./Pages/Profile";
+import PurchaseHistory from "./Pages/PurchaseHistory.jsx"
 
 function App() {
 

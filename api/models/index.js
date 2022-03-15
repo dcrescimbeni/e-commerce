@@ -6,8 +6,14 @@ const OrderDetails = require('./OrderDetails');
 const Review = require('./Review');
 
 // Relationships
-Product.belongsToMany(Category, { through: 'ProductCategory' });
-Category.belongsToMany(Product, { through: 'ProductCategory' });
+Product.belongsToMany(Category, {
+  through: 'ProductCategory',
+  foreignKey: 'productId',
+});
+Category.belongsToMany(Product, {
+  through: 'ProductCategory',
+  foreignKey: 'categoryId',
+});
 
 Product.hasMany(OrderDetails, { foreignKey: 'productId' });
 OrderDetails.belongsTo(Product, { foreignKey: 'productId' });

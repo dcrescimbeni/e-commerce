@@ -1,0 +1,18 @@
+POST https://localhost:3001/api/categories/category/create
+
+{
+    "name": "kids"
+}
+
+###
+
+POST http://localhost:3001/api/categories/category/create HTTP/1.1
+content-type: application/json
+
+{
+    "name": "woman"
+}
+
+###
+
+GET http://localhost:3001/api/categories/all

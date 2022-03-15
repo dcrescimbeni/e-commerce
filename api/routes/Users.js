@@ -15,19 +15,18 @@ router.post(
 
 router.put('/edit/:id', UsersController.userEdit);
 
-router.get('/logout', UsersController.userLogout)
+router.get('/logout', UsersController.userLogout);
 
-router.put('/edit/:id' , UsersController.userEdit)
+router.put('/edit/:id', UsersController.userEdit);
 
-router.get('/me', UsersController.getUser)
+router.get('/me', UsersController.getUser);
 
-router.get('/admin/users' , UsersController.getUsers)
+router.get('/admin/users', UsersController.getUsers);
 
-router.put('/admin/user/:id', UsersController.giveAdmin)
+router.put('/admin/user/:id', UsersController.giveAdmin);
 
 router.post('/sendMail', UsersController.sendEmail)
 
 router.get('/userOrders/:id', UsersController.getOrders)
 
 module.exports = router;
-
