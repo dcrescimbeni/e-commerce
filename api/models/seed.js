@@ -1,5 +1,4 @@
-const { User } = require('./index');
-const { Product } = require('./index');
+const { User, Product, Category } = require('./index');
 
 // Users
 let users = [
@@ -119,7 +118,7 @@ let products = [
     ],
     description:
       'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
-      stock: 45,
+    stock: 45,
     size: 40,
   },
   {
@@ -180,11 +179,35 @@ let products = [
   },
 ];
 
-User.bulkCreate(users)
-  .then(() => console.log('Users created'))
-  .then(() => Product.bulkCreate(products))
-  .then(() => console.log('Products created'))
-  .then(() => {
-    return;
-  })
-  .catch((err) => console.log(err));
+// Categories
+const categories = [{ name: 'woman' }, { name: 'man' }, { name: 'kids' }];
+
+// Categories relationships
+const categoriesRelationships = [
+  { productId: 1, categoryId: 1 },
+  { productId: 3, categoryId: 1 },
+  { productId: 2, categoryId: 2 },
+  { productId: 4, categoryId: 3 },
+  { productId: 1, categoryId: 3 },
+];
+
+const seedDatabase = async () => {
+  await User.bulkCreate(users);
+  await Product.bulkCreate(products);
+  await Category.bulkCreate(categories);
+
+  categoriesRelationships.forEach((relationship) => {
+    assignCategory(relationship);
+  });
+
+  console.log('Database seeded!');
+};
+
+const assignCategory = async (relationship) => {
+  let product = await Product.findByPk(relationship.productId);
+  let category = await Category.findByPk(relationship.categoryId);
+
+  await category.addProducts([product]);
+};
+
+seedDatabase();

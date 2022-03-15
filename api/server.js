@@ -7,7 +7,7 @@ const passport = require('passport');
 const route = require('./routes');
 const cors = require('cors');
 require('./config/auth');
-
+// const { auth } = require('express-openid-connect');
 const app = express();
 
 app.use(cors());
@@ -21,6 +21,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(auth(config));
 
 app.use('/api', route);
 

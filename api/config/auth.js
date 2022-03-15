@@ -2,6 +2,16 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
+// require('dotenv').config();
+
+// export const config = {
+//   authRequired: false,
+//   auth0Logout: true,
+//   secret: process.env.CLIENT_ID,
+//   baseURL: process.env.URL_BASE,
+//   clientID: process.env.CLIENT_SECRET,
+//   issuerBaseURL: process.env.URL
+// };
 
 const verifyCallback = (email, password, done) => {
   console.log('email verify callback', email);
