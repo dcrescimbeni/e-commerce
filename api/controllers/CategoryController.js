@@ -1,6 +1,12 @@
 const Category = require('../models/Category');
 
+exports.getCategories = async (req, res) => {
+  const allCategories = await Category.findAll();
+  res.send(allCategories);
+};
+
 exports.createCategory = (req, res) => {
+  console.log('entre');
   Category.create(req.body)
     .then((data) => res.send(data))
     .then(() => res.send(201))
