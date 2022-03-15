@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import useScript from '../Hooks/useScript'
+import { useDispatch, useSelector } from 'react-redux';
+import { getSession } from '../state/user';
 
 const Checkout = ({ cartItems }) => {
 
@@ -10,6 +12,16 @@ const Checkout = ({ cartItems }) => {
     const shipping = 0;
     const total = subtotal + shipping;
 
+    const dispatch = useDispatch();
+    React.useEffect(() => {
+        dispatch(getSession())
+    }, [dispatch]);
+
+    const user = useSelector((state) => {
+
+        return state.user;
+      });
+    console.log('USUARIOOO=>>' , user.userId)
     return (
         <div className="container mb-5">
             <div className="window">
@@ -103,7 +115,7 @@ const Checkout = ({ cartItems }) => {
                                 </tr>
                             </tbody>
                         </table>
-                        <Link to="/thanks">
+                        <Link to={`/thanks/${user.userId}`}>
                             <button className="pay-btn">Checkout</button>
                         </Link>
 

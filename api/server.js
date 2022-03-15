@@ -22,7 +22,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(auth(config));
+// app.use(auth(config));
 
 app.use('/api', route);
 

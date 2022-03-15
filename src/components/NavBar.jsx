@@ -24,11 +24,10 @@ const NavBar = () => {
   }, [dispatch]);
 
   const user = useSelector((state) => {
-    console.log(state.user);
+
     return state.user;
   });
 
-  console.log("Esto es user =>", user)
 
   return (
 
