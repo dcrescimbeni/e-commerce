@@ -20,14 +20,10 @@ import UsersManagment from "./Pages/UsersManagment";
 import CategoriesManagment from "./Pages/CategoriesManagment";
 import ProductsManagment from "./Pages/ProducstManagment";
 import Thanks from "./Pages/Thanks";
-<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import { getSession } from "./state/user";
-=======
-import { useSelector } from "react-redux";
 import Profile from "./Pages/Profile";
 import PurchaseHistory from "./Pages/PurchaseHistory.jsx"
->>>>>>> b317475644994f15d052a7b2039a98b9faae5b37
 
 
 
@@ -116,8 +112,8 @@ function App() {
           <Route path={`/checkout`} element={user.userId ? <Checkout cartItems={cartItems} /> : <Navigate to="/login" />} />
           <Route path="/thanks" element={<Thanks />} />
           <Route path="/search" element={<ProductsList />} />
-          <Route path="/profile" element={<Profile />}/>
-          <Route path="/purchaseHistory" element={<PurchaseHistory />}/>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/purchaseHistory" element={<PurchaseHistory />} />
 
           {/* AGREGUE RUTAS ADMIN */}
           <Route path="/admin" element={<Admin />} />

@@ -31,7 +31,7 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-db.sync({ force: true }).then(() => {
+db.sync({ force: false }).then(() => {
   if (!module.parent) {
     app.listen(3001, () => {
       console.log(`Server up on port 3001`);
