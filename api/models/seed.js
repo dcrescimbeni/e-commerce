@@ -205,7 +205,6 @@ const seedDatabase = async () => {
 
 const assignCategory = async (relationship) => {
   let product = await Product.findByPk(relationship.productId);
-  console.log(product);
   let category = await Category.findByPk(relationship.categoryId);
 
   await category.addProducts([product]);
