@@ -12,6 +12,8 @@ const ShoppingCart = ({ onAdd, onRemove, onDelete, cartItems }) => {
         console.log(e.target.value)
     }
 
+
+
     return (
         <div className="container">
             <section className="px-4 py-5 w-100 p-3 mb-5 rounded" style={{ backgroundColor: "#ffffff" }}>
