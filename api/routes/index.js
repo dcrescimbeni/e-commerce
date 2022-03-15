@@ -1,11 +1,12 @@
+const express = require('express');
+const passport = require('passport');
+const router = express.Router();
+const product = require('./Products');
+const user = require('./Users');
+const admin = require('./Admins');
 
-const express = require('express')
-const passport = require('passport')
-const router = express.Router()
-const product = require("./Products")
-const user = require("./Users")
+router.use('/products', product);
+router.use('/users', user);
+router.use('/admin', admin);
 
-router.use("/products", product)
-router.use("/users", user)
-
-module.exports = router
+module.exports = router;

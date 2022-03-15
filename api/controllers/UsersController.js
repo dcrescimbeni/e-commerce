@@ -12,15 +12,12 @@ exports.userCreate = (req, res, next) => {
 // }
 
 exports.userLogin = (req, res, next) => {
-  res.send(req.user)
-  .catch(err => next(err));
-  
+  res.send(req.user).catch((err) => next(err));
 };
 
 exports.userLogout = (req, res, next) => {
   req.logout();
-  res.redirect('/')
-  .catch(err => next(err))
+  res.redirect('/').catch((err) => next(err));
 };
 
 exports.getUser = (req, res, next) => {
@@ -54,8 +51,9 @@ exports.getUsers = (req, res, next) => {
     where: {
       isAdmin: false,
     },
-  }).then((users) => res.send(users))
-    .catch(err => next(err));
+  })
+    .then((users) => res.send(users))
+    .catch((err) => next(err));
 };
 
 exports.giveAdmin = (req, res, next) => {
@@ -66,6 +64,7 @@ exports.giveAdmin = (req, res, next) => {
         userId: req.params.id,
       },
     }
-  ).then((user) => res.send(user))
-   .catch(err => next(err));
+  )
+    .then((user) => res.send(user))
+    .catch((err) => next(err));
 };
