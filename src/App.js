@@ -20,7 +20,8 @@ import UsersManagment from "./Pages/UsersManagment";
 import CategoriesManagment from "./Pages/CategoriesManagment";
 import ProductsManagment from "./Pages/ProducstManagment";
 import Thanks from "./Pages/Thanks";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSession } from "./state/user";
 
 
 
@@ -30,6 +31,8 @@ function App() {
   const locaStorageProducts = JSON.parse(localStorage.getItem("cart-products")) || []
   const [cartItems, setCartItems] = useState(locaStorageProducts);
   const [products, setProducts] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.setItem("cart-products", JSON.stringify(cartItems))
@@ -53,6 +56,11 @@ function App() {
       });
   }, [])
 
+  useEffect(() => {
+    dispatch(getSession())
+  }, [dispatch]);
+
+  console.log("Este es el usuario", user.userId);
 
   const onAdd = (product) => {
     const exist = cartItems.find(x => x.productId === product.productId);
