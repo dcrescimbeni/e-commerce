@@ -5,7 +5,7 @@ const UsersController = require('../controllers/UsersController');
 
 router.post('/register', UsersController.userCreate);
 
-// router.get('/', UsersController.userLoginOAuth);
+router.get('/', UsersController.userLoginOAuth)
 
 router.post(
   '/login',
@@ -15,10 +15,15 @@ router.post(
 
 router.put('/edit/:id', UsersController.userEdit);
 
-router.get('/logout', UsersController.userLogout);
+router.get('/logout', UsersController.userLogout)
 
-router.put('/edit/:id', UsersController.userEdit);
+router.put('/edit/:id' , UsersController.userEdit)
 
-router.get('/me', UsersController.getUser);
+router.get('/me', UsersController.getUser)
+
+router.get('/admin/users' , UsersController.getUsers)
+
+router.put('/admin/user/:id', UsersController.giveAdmin)
 
 module.exports = router;
+

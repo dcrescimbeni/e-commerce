@@ -1,5 +1,0 @@
-GET http://localhost:3001/api/products/allProducts
-
-###
-
-GET http://localhost:3001/api/products/search?query=Air

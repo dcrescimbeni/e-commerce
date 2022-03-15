@@ -1,7 +1,7 @@
 require('mocha');
 const chai = require('chai');
 const expect = chai.expect;
-const db = require('../config/db');
+const db = require('../models/_db');
 const {
   Category,
   Order,
