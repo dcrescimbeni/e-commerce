@@ -1,11 +1,18 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { Button, Alert, Card } from "react-bootstrap";
+// import { Button, Alert, Card } from "react-bootstrap";
+import { ImUserTie } from "react-icons/im"
 
 const Admin = () => {
     return (
+        
         <div>
-            <p>Hello Admin</p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <p><ImUserTie size={45} color="blue"/>Hello Admin</p>
 
             <Link to="/productsManagment">
             <p>Page productsManagment</p>
@@ -14,6 +21,7 @@ const Admin = () => {
             <Link to="/usersManagment" >
             <p>Page usersManagment</p>
             </Link>
+
             <Link to="/categoriesManagment" >
             <p>Page categoriesManagment</p>
             </Link>
@@ -25,3 +33,6 @@ const Admin = () => {
 }
 
 export default Admin
+
+
+
