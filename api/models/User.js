@@ -1,6 +1,6 @@
 const { DataTypes, Model } = require('sequelize');
-const db = require('./_db');
-const bcrypt = require('bcrypt')
+const db = require('../config/db');
+const bcrypt = require('bcrypt');
 
 class User extends Model {}
 
@@ -40,15 +40,27 @@ User.init(
     },
     shippingAddress: {
       type: DataTypes.STRING,
-    }
+    },
   },
   { sequelize: db, modelName: 'users' }
 );
 
+// Password hashing
 User.beforeCreate((user) => {
   return bcrypt.hash(user.password, 10).then((hash) => {
     user.password = hash;
   });
 });
 
+// If shippingAddress is null, sets billingAddress as shippingAddress
+User.beforeCreate((user) => {
+  if (!user.shippingAddress) {
+    user.shippingAddress = user.billingAddress;
+  }
+});
+
+// Sets the email to lowercase
+User.beforeCreate((user) => {
+  user.email = user.email.toLowerCase();
+});
 module.exports = User;

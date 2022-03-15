@@ -25,8 +25,12 @@ const Login = () => {
   };
 
   return (
+    
     <div className={style.masthead}>
       {/* CREE ESTE DIV LINKIADO A ADMIN PARA PODER HACER LAS RUTAS DEL ADMIN  */}
+      <br/>
+      <br/>
+      <br/>
       <div>
         <Link to="/admin">Admin</Link>
       </div>

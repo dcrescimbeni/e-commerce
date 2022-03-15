@@ -21,6 +21,8 @@ import CategoriesManagment from "./Pages/CategoriesManagment";
 import ProductsManagment from "./Pages/ProducstManagment";
 import Thanks from "./Pages/Thanks";
 import { useSelector } from "react-redux";
+import Profile from "./Pages/Profile";
+import PurchaseHistory from "./Pages/PurchaseHistory.jsx"
 
 
 
@@ -101,6 +103,9 @@ function App() {
           <Route path={`/writeReview`} element={<WriteReview />} />
           <Route path={`/checkout`} element={user.userId ? <Checkout cartItems={cartItems} /> : <Navigate to="/login" />} />
           <Route path="/thanks" element={<Thanks />} />
+          <Route path="/search" element={<ProductsList />} />
+          <Route path="/profile" element={<Profile />}/>
+          <Route path="/purchaseHistory" element={<PurchaseHistory />}/>
 
           {/* AGREGUE RUTAS ADMIN */}
           <Route path="/admin" element={<Admin />} />

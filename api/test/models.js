@@ -21,7 +21,8 @@ describe('User model', () => {
     firstName: 'Test',
     lastName: 'McTestin',
     email: 'test@example.com',
-    address: 'Testing Street 123',
+    billingAddress: 'Testing Street 123',
+    shippingAddress: 'The Neighbour Address 124',
   };
 
   describe('User creation', () => {
@@ -32,7 +33,8 @@ describe('User model', () => {
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
           email: testUserDetails.email,
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
+          shippingAddress: testUserDetails.shippingAddress,
         })
           .then((res) => res.dataValues)
           .then((user) => {
@@ -40,14 +42,22 @@ describe('User model', () => {
               'firstName',
               testUserDetails.firstName
             );
-            expect(user).to.have.property('password', testUserDetails.password);
+            expect(user).to.have.property('password');
+            expect(user.password).to.not.equals(testUserDetails.password);
             expect(user).to.have.property(
               'firstName',
               testUserDetails.firstName
             );
             expect(user).to.have.property('lastName', testUserDetails.lastName);
             expect(user).to.have.property('email', testUserDetails.email);
-            expect(user).to.have.property('address', testUserDetails.address);
+            expect(user).to.have.property(
+              'billingAddress',
+              testUserDetails.billingAddress
+            );
+            expect(user).to.have.property(
+              'shippingAddress',
+              testUserDetails.shippingAddress
+            );
           });
       });
 
@@ -60,7 +70,8 @@ describe('User model', () => {
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
           email: 'asdf@asdf.com',
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
+          shippingAddress: testUserDetails.shippingAddress,
         })
           .then((res) => res.dataValues)
           .then((firstUser) => {
@@ -72,7 +83,8 @@ describe('User model', () => {
               firstName: testUserDetails.firstName,
               lastName: testUserDetails.lastName,
               email: 'anothermail@mail.com',
-              address: testUserDetails.address,
+              billingAddress: testUserDetails.billingAddress,
+              shippingAddress: testUserDetails.shippingAddress,
             });
           })
           .then((res) => res.dataValues)
@@ -82,6 +94,39 @@ describe('User model', () => {
             expect(idDifference).to.equal(1);
           });
       });
+
+      it(`If there's no shipping address, it defaults to billing address`, () => {
+        return User.create({
+          password: testUserDetails.password,
+          firstName: testUserDetails.firstName,
+          lastName: testUserDetails.lastName,
+          email: testUserDetails.email,
+          billingAddress: testUserDetails.billingAddress,
+        })
+          .then((res) => res.dataValues)
+          .then((user) => {
+            expect(user).to.have.property(
+              'firstName',
+              testUserDetails.firstName
+            );
+            expect(user).to.have.property('password');
+            expect(user.password).to.not.equals(testUserDetails.password);
+            expect(user).to.have.property(
+              'firstName',
+              testUserDetails.firstName
+            );
+            expect(user).to.have.property('lastName', testUserDetails.lastName);
+            expect(user).to.have.property('email', testUserDetails.email);
+            expect(user).to.have.property(
+              'billingAddress',
+              testUserDetails.billingAddress
+            );
+            expect(user).to.have.property(
+              'shippingAddress',
+              testUserDetails.billingAddress
+            );
+          });
+      });
     });
 
     describe('Not null validations', () => {
@@ -89,7 +134,7 @@ describe('User model', () => {
         return User.create({
           lastName: testUserDetails.lastName,
           email: testUserDetails.email,
-          address: testUserDetails.address,
+          address: testUserDetails.billingAddress,
         })
           .then((user) => expect(user).to.not.exist)
           .catch((err) => {
@@ -101,7 +146,7 @@ describe('User model', () => {
         return User.create({
           firstName: testUserDetails.firstName,
           email: testUserDetails.email,
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .catch((err) => {
@@ -109,7 +154,7 @@ describe('User model', () => {
           });
       });
 
-      it(`Cannot create user without address`, () => {
+      it(`Cannot create user without billing address`, () => {
         return User.create({
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
@@ -125,22 +170,10 @@ describe('User model', () => {
         return User.create({
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .then((user) => expect(user).to.not.exist)
-          .catch((err) => {
-            expect(err.errors[0].type).to.equals('notNull Violation');
-          });
-      });
-
-      it(`Cannot create user without address`, () => {
-        return User.create({
-          firstName: testUserDetails.firstName,
-          lastName: testUserDetails.lastName,
-          email: testUserDetails.email,
-        })
-          .then((res) => expect(res).to.not.exist())
           .catch((err) => {
             expect(err.errors[0].type).to.equals('notNull Violation');
           });
@@ -154,7 +187,7 @@ describe('User model', () => {
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
           email: testUserDetails.email,
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .then(() => {
@@ -163,7 +196,7 @@ describe('User model', () => {
               firstName: testUserDetails.firstName,
               lastName: testUserDetails.lastName,
               email: testUserDetails.email,
-              address: testUserDetails.address,
+              billingAddress: testUserDetails.billingAddress,
             });
           })
           .catch((err) => {
@@ -176,13 +209,29 @@ describe('User model', () => {
           firstName: testUserDetails.firstName,
           lastName: testUserDetails.lastName,
           email: 'notmail.com',
-          address: testUserDetails.address,
+          billingAddress: testUserDetails.billingAddress,
         })
           .then((res) => res.dataValues)
           .catch((err) => {
             expect(err.errors[0].message).to.equals(
               'Validation isEmail on email failed'
             );
+          });
+      });
+
+      it('Saves the email in lowercase', () => {
+        return User.create({
+          password: testUserDetails.password,
+          firstName: testUserDetails.firstName,
+          lastName: testUserDetails.lastName,
+          email: 'testMailWithUpperCase@testDomain.com',
+          billingAddress: testUserDetails.billingAddress,
+          shippingAddress: testUserDetails.shippingAddress,
+        })
+          .then((res) => res.dataValues)
+          .then((user) => {
+            const lowerCaseEmail = 'testmailwithuppercase@testdomain.com';
+            expect(user).to.have.property('email', lowerCaseEmail);
           });
       });
     });
@@ -199,6 +248,15 @@ describe('Product model', () => {
     price: 500,
     color: 'red',
     size: 40,
+    stock: 10,
+    img: [
+      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/d8bbfd4d-a3c4-4a04-9900-687285e8a82d/air-jordan-1-retro-high-og-zapatillas.png',
+      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/74195b1e-525e-4c7c-8fa4-651a66445239/air-jordan-1-low-zapatillas-ZdMg83.png',
+      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/197cbaa9-5815-4985-9081-95890d95458e/air-jordan-1-low-zapatillas-ZdMg83.png',
+      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/28b1ea02-d216-4151-8035-7583d125106d/air-max-90-zapatillas-XD9b13.png',
+    ],
+    description:
+      'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
   };
 
   describe('Correct product creation', () => {
@@ -208,13 +266,21 @@ describe('Product model', () => {
         price: testProductDetails.price,
         color: testProductDetails.color,
         size: testProductDetails.size,
+        stock: testProductDetails.stock,
+        img: testProductDetails.img,
+        description: testProductDetails.description,
       })
         .then((res) => res.dataValues)
         .then((product) => {
           expect(product).to.have.property('name', testProductDetails.name);
           expect(product).to.have.property('price', testProductDetails.price);
           expect(product).to.have.property('color', testProductDetails.color);
-          expect(product).to.have.property('size', testProductDetails.size);
+          expect(product).to.have.property('stock', testProductDetails.stock);
+          expect(product.img[0]).to.equal(testProductDetails.img[0]);
+          expect(product).to.have.property(
+            'description',
+            testProductDetails.description
+          );
         });
     });
 
@@ -223,12 +289,55 @@ describe('Product model', () => {
         name: testProductDetails.name,
         price: testProductDetails.price,
         size: testProductDetails.size,
+        stock: testProductDetails.stock,
+        img: testProductDetails.img,
+        description: testProductDetails.description,
       })
         .then((res) => res.dataValues)
         .then((product) => {
           expect(product).to.have.property('name', testProductDetails.name);
           expect(product).to.have.property('price', testProductDetails.price);
           expect(product).to.have.property('size', testProductDetails.size);
+        });
+    });
+
+    it('Can create a product without img', () => {
+      return Product.create({
+        name: testProductDetails.name,
+        price: testProductDetails.price,
+        color: testProductDetails.color,
+        size: testProductDetails.size,
+        stock: testProductDetails.stock,
+        description: testProductDetails.description,
+      })
+        .then((res) => res.dataValues)
+        .then((product) => {
+          expect(product).to.have.property('name', testProductDetails.name);
+          expect(product).to.have.property('price', testProductDetails.price);
+          expect(product).to.have.property('color', testProductDetails.color);
+          expect(product).to.have.property('stock', testProductDetails.stock);
+          expect(product).to.have.property(
+            'description',
+            testProductDetails.description
+          );
+        });
+    });
+    it('Can create a product without description', () => {
+      return Product.create({
+        name: testProductDetails.name,
+        price: testProductDetails.price,
+        color: testProductDetails.color,
+        size: testProductDetails.size,
+        stock: testProductDetails.stock,
+        img: testProductDetails.img,
+      })
+        .then((res) => res.dataValues)
+        .then((product) => {
+          expect(product).to.have.property('name', testProductDetails.name);
+          expect(product).to.have.property('price', testProductDetails.price);
+          expect(product).to.have.property('color', testProductDetails.color);
+          expect(product).to.have.property('stock', testProductDetails.stock);
+          expect(product.img[0]).to.equal(testProductDetails.img[0]);
         });
     });
   });

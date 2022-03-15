@@ -13,8 +13,6 @@ const Admin = () => {
       return state.user;
     });
 
-  
-
   return (
     <div className={styles.container}>
       <Sidebar />

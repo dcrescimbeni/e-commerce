@@ -1,13 +1,13 @@
 const express = require('express');
 const volleyball = require('volleyball');
-const db = require('./models/_db');
+const db = require('./config/db');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const route = require('./routes');
 const cors = require('cors');
 require('./config/auth');
-
+// const { auth } = require('express-openid-connect');
 const app = express();
 
 app.use(cors());
@@ -21,6 +21,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(auth(config));
 
 app.use('/api', route);
 
@@ -31,9 +32,11 @@ app.use((err, req, res, next) => {
 });
 
 db.sync({ force: false }).then(() => {
-  app.listen(3001, () => {
-    console.log(`Server up on port 3001`);
-  });
+  if (!module.parent) {
+    app.listen(3001, () => {
+      console.log(`Server up on port 3001`);
+    });
+  }
 });
 
 module.exports = app;
