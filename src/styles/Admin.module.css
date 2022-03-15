@@ -1,0 +1,8 @@
+.container{
+    display: flex;
+}
+
+.navBar{
+    height: 50%;
+    width: 100%;
+}

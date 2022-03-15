@@ -58,7 +58,7 @@ exports.deleteProduct = (req, res) => {
 };
 
 exports.searchProduct = (req, res) => {
-  let searchQuery = req.query.query.toLowerCase();
+  let searchQuery = req.query.query;
   console.log(searchQuery);
 
   Products.findAll({
