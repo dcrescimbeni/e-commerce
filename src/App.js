@@ -82,9 +82,6 @@ function App() {
 
   return (
     <div >
-      <NavBar />
-
-      <br></br>
       <main>
 
         <Routes >

@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { getSession, sendLogoutRequest } from '../state/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-
 import { CgProfile } from 'react-icons/cg';
+
+
+
 import { BiSearchAlt } from 'react-icons/bi';
 import { GiConverseShoe } from 'react-icons/gi';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
@@ -34,7 +36,7 @@ const NavBar = () => {
 
     <nav className="navbar navbar-expand-lg navbar-light bg-light ">
       <div className="container ">
-        <li class="nav-item d-flex">
+        <li className="nav-item d-flex">
           <Link to="/">
             <a className="navbar-brand" href="#">
               <GiConverseShoe size={25} /> SNikers
@@ -139,7 +141,7 @@ const NavBar = () => {
 
 
 
-                <li class="nav-item d-flex">
+                <li className="nav-item d-flex">
                   <Link to="/" className={style.log}>
                     {' '}
 
