@@ -25,4 +25,8 @@ router.get('/admin/users', UsersController.getUsers);
 
 router.put('/admin/user/:id', UsersController.giveAdmin);
 
+router.post('/sendMail', UsersController.sendEmail)
+
+router.get('/userOrders/:id', UsersController.getOrders)
+
 module.exports = router;
