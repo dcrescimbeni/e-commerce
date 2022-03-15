@@ -20,15 +20,15 @@ exports.productFind = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-// exports.allProductsWithTag = (req,res) => {
-//     Products.findAll(...tag, {
-//         where:{
-//             tag: req.params.tag
-//         }
-//     })
-//     .then(()=> res.send(200))
-//     .catch(err => console.log(err))
-// }
+// exports.allProductsWithTag = (req, res) => {
+//   Products.findAll(...tag, {
+//     where: {
+//       tag: req.params.tag,
+//     },
+//   })
+//     .then(() => res.send(200))
+//     .catch((err) => console.log(err));
+// };
 
 exports.newProduct = (req, res) => {
   Products.create(req.body)
@@ -65,7 +65,7 @@ exports.deleteProduct = (req, res) => {
 };
 
 exports.searchProduct = (req, res) => {
-  let searchQuery = req.query.query.toLowerCase();
+  let searchQuery = req.query.query;
   console.log(searchQuery);
 
   Products.findAll({
