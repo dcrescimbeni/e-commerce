@@ -21,8 +21,8 @@ const Sidebar = () => {
   };
 
   return (
-    <div>
-      <div className="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark" style={{width: 250}}> <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"> <svg className="bi me-2" width="40" height="32"> </svg> <span className={`${styles.profile} fs-4`}><CgProfile size={25} />Admin Panel </span> </Link>
+    <span>
+      <span className="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark" style={{width: 250}}> <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"> <svg className="bi me-2" width="40" height="32"> </svg> <span className={`${styles.profile} fs-4`}><CgProfile size={25} />Admin Panel </span> </Link>
     <hr/>
     <ul className="nav nav-pills flex-column mb-auto">
         <li> <Link to="/usersManagement" className="nav-link text-white"> <i className="fa fa-user"></i><span className="ms-2">Manage Users</span> </Link> </li>
@@ -37,67 +37,8 @@ const Sidebar = () => {
             </li>
         </ul>
     </div>
-</div>
-      {/* <div
-        className="d-flex vh-50 flex-column flex-shrink-0 p-3 text-white bg-dark"
-        style={{ width: 300, height: 1000 }}
-      >
-        {" "}
-        <Link
-          to="/"
-          className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-        >
-          {" "}
-          <svg className="bi me-2" width="40" height="32">
-            {" "}
-          </svg>{" "}
-          <span className="fs-4">Admin Panel</span>{" "}
-        </Link>
-        <hr />
-        <ul className="nav nav-pills flex-column mb-auto">
-          <li className="nav-item">
-            {" "}
-            <Link
-              to="/usersManagement"
-              className="nav-link active"
-              aria-current="page"
-            >
-              {" "}
-              <i className="fa fa-user"></i>
-              <span className="ms-2">Manage Users</span>{" "}
-            </Link>{" "}
-          </li>
-          <li>
-            {" "}
-            <Link to="/productsManagement" className="nav-link text-white">
-              {" "}
-              <i className="fa fa-briefcase"></i>
-              <span className="ms-2">Manage Products</span>{" "}
-            </Link>{" "}
-          </li>
-          <li>
-            {" "}
-            <Link to="/categoriesManagement" className="nav-link text-white">
-              {" "}
-              <i className="fa fa-window-restore"></i>
-              <span className="ms-2">Manage Categories</span>{" "}
-            </Link>{" "}
-            </li>
-          <li>
-            {" "}
-            <Link
-              to="/categoriesManagement"
-              className="nav-link text-white"
-              style={{ color: "#FFF" }}
-            >
-              {" "}
-              <RiLogoutBoxLine className={styles.logButton} size={23} />
-              <span className="ms-2">Log out</span>{" "}
-            </Link>{" "}
-          </li>
-        </ul>
-      </div> */}
-    </div>
+</span>
+    </span>
   );
 };
 

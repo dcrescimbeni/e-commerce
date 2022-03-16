@@ -109,9 +109,9 @@ function App() {
 
           {/* AGREGUE RUTAS ADMIN */}
           <Route path="/admin" element={<Admin />} />
-          <Route path="/productsManagment" element={<ProductsManagment />} />
-          <Route path="/usersManagment" element={<UsersManagment />} />
-          <Route path="/categoriesManagment" element={<CategoriesManagment />} />
+          <Route path="/productsManagement" element={<Admin />} />
+          <Route path="/usersManagement" element={<Admin />} />
+          <Route path="/categoriesManagement" element={<Admin />} />
         </Routes >
       </main >
       <Footer />
