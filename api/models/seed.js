@@ -208,7 +208,10 @@ const categoriesRelationships = [
 ];
 
 const seedDatabase = async () => {
-  await User.bulkCreate(users);
+  users.forEach((user) => {
+    User.create(user);
+  });
+  // await User.bulkCreate(users);
   await Product.bulkCreate(products);
   await Category.bulkCreate(categories);
 
