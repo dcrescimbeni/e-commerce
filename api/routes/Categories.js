@@ -9,6 +9,11 @@ router.get('/all', CategoryController.getCategories);
 
 router.post('/newCategory', isAuth, isAdmin, CategoryController.createCategory);
 router.put('/category/:id', isAuth, isAdmin, CategoryController.editCategory);
-router.delete('/category/:id', CategoryController.deleteCategory);
+router.delete(
+  '/category/:id',
+  isAuth,
+  isAdmin,
+  CategoryController.deleteCategory
+);
 
 module.exports = router;
