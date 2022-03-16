@@ -6,7 +6,6 @@ const { Op } = require('sequelize');
 exports.allProducts = (req, res) => {
   Products.findAll({ include: Category })
     .then((products) => res.send(products))
-    .then(() => res.send(200))
     .catch((err) => console.log(err));
 };
 

@@ -5,30 +5,36 @@ exports.getCategories = async (req, res) => {
   res.send(allCategories);
 };
 
-exports.createCategory = (req, res) => {
-  console.log('entre');
+exports.createCategory = (req, res, next) => {
   Category.create(req.body)
-    .then((data) => res.send(data))
-    .then(() => res.send(201))
-    .catch((err) => console.log(err));
+    .then((response) => response.dataValues)
+    .then((createdCategory) => {
+      res.status(201).send(createdCategory);
+    })
+    .catch((err) => next(err));
 };
 
-exports.editCategory = (req, res) => {
-  Category.update(req.body, req.body, {
+exports.editCategory = (req, res, next) => {
+  Category.update(req.body, {
     where: {
-      id: req.params.id,
+      categoryId: req.params.id,
     },
+    returning: true,
   })
-    .then(() => res.send(204))
-    .catch((err) => console.log(err));
+    .then((response) => response[1])
+    .then((editedCategory) => res.status(201).send(editedCategory))
+    .catch((err) => next(err));
 };
 
-exports.deleteCategory = (req, res) => {
+exports.deleteCategory = (req, res, next) => {
   Category.destroy({
     where: {
-      id: req.params.id,
+      categoryId: req.params.id,
     },
   })
-    .then(() => res.send(204))
-    .catch((err) => console.log(err));
+    .then((response) => {
+      const result = { deletedEntries: response };
+      res.status(202).send(result);
+    })
+    .catch((err) => next(err));
 };
