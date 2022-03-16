@@ -1,52 +1,44 @@
-import React, { useState }  from "react";
-import { Link , useNavigate} from "react-router-dom";
-import { getSession, sendLogoutRequest } from "../state/user";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-
-import { CgProfile } from "react-icons/cg";
+import { sendLogoutRequest } from "../state/user";
 import { GiConverseShoe } from "react-icons/gi";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 
-import "bootstrap/dist/js/bootstrap.bundle.js";
 
+const SubNavBar = () => {
 
+    let navigate = useNavigate();
 
-import { CgProfile } from 'react-icons/cg';
-import { GiConverseShoe } from 'react-icons/gi';
-import 'bootstrap/dist/js/bootstrap.bundle.js';
+    const dispatch = useDispatch();
 
-const NavBar = () => {
-  // esta es la logica para togglear register y login cuando el user esta logueado
+    const [searchTerm, setSearchTerm] = useState("");
 
-  const dispatch = useDispatch();
+    const handleSearchSubmit = async (e) => {
 
-  const [searchTerm, setSearchTerm] = useState('');
+        e.preventDefault()
+        navigate(`/search?query=${searchTerm}`)
+      
+      };
 
-  let navigate = useNavigate();
+      const handleClick = () => {
+        dispatch(sendLogoutRequest());
+      };
 
-  const handleSearchSubmit = async (e) => {
-    e.preventDefault();
-    navigate(`/search?query=${searchTerm}`);
-  };
+      const user = useSelector((state) => {
+        console.log(state.user);
+        return state.user;
+      });
 
-  const handleClick = () => {
-    dispatch(sendLogoutRequest());
-  };
-
-  React.useEffect(() => {
-    dispatch(getSession());
-  }, [dispatch]);
-
-  const user = useSelector((state) => {
-    return state.user;
-  });
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+      <div>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
       <div className="container ">
         <li className="nav-item d-flex">
           <Link to="/">
-            <a className="navbar-brand">
+            <a className="navbar-brand" >
               <GiConverseShoe size={30} />
               SNikers
             </a>
@@ -64,62 +56,30 @@ const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-      
+
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li className="nav-item d-flex">
-              <Link to="/products">
-                <a className="nav-link">Products</a>
-              </Link>
-            </li>
+           
 
             {/* Drop down Categories */}
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Categories
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item">Men</a>
-                </li>
-                <li>
-                  <a className="dropdown-item">Women</a>
-                </li>
-                <li>
-                  <a className="dropdown-item">Kids</a>
-                </li>
-              </ul>
-            </li>
+           
 
             {/* Search */}
-            <form
-              onSubmit={(e) => {
-                handleSearchSubmit(e);
-              }}
-              className="d-flex"
-            >
-              <input
+            <form onSubmit={(e) => {handleSearchSubmit(e)}} className="d-flex">
+              <input 
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="form-control me-2"
                 aria-label="Search"
-                hint="Search"
+                hint="Search" 
                 type="text"
                 placeholder="Search"
               />
             </form>
             {/* Search End*/}
-      
-
 
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
-                {' '}
+                {" "}
                 <AiOutlineShoppingCart size={25} />
               </Link>
             </li>
@@ -129,10 +89,13 @@ const NavBar = () => {
             {/* {user.adminId? ( <Link to="/admin">Admin</Link>):(
               otra cosa
              )} */}
+           
 
             {user.userId ? (
               <>
-               
+                {/* Test menu dropdown user logueado */}
+                 {/* Test menu dropdown user logueado */}
+
                  <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -142,7 +105,7 @@ const NavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color="blue"/>
+                  <CgProfile size={25} variant="primary"/>
                   {user.firstName}
                 </a>
 
@@ -162,7 +125,7 @@ const NavBar = () => {
                     </Link>
                   </li>
                   <li>
-                  <li  className="dropdown-divider" />
+                  <li  class="dropdown-divider" />
                     <Link to="/">
                     <button onClick={handleClick} className="dropdown-item">
                       Logout
@@ -172,6 +135,9 @@ const NavBar = () => {
                 </ul>
               </li>
               </>
+
+               
+                    
             ) : (
               <li className="nav-item dropdown">
                 <a
@@ -203,12 +169,21 @@ const NavBar = () => {
                 </ul>
               </li>
             )}
+          
           </ul>
           {/* Profile End */}
+
         </div>
       </div>
     </nav>
-  );
-};
 
-export default NavBar;
+    <br/><br/><br/>
+ 
+      </div>
+  )
+  };
+
+ 
+
+
+export default SubNavBar;
