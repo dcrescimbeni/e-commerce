@@ -9,7 +9,7 @@ const [usersList, setUsersList] = useState();
 
 useEffect(() => {
 axios
-.get("/api/users/admin/users")
+.get("/api/users/all")
 .then((res) => res.data)
 .then((users) => setUsersList(users))
 }, [])
