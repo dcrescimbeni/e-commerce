@@ -385,15 +385,13 @@ describe('Admin routes', () => {
 
         session = loginAdmin.header['set-cookie'];
 
-        let allUsers = await agent
-          .get('/api/admin/users/all')
-          .set('Cookie', session);
+        let allUsers = await agent.get('/api/users/all').set('Cookie', session);
 
         expect(allUsers.body).to.have.lengthOf(5);
       });
 
       it('Cannot get users if not logged in', async () => {
-        let allUsers = await agent.get('/api/admin/users/all');
+        let allUsers = await agent.get('/api/users/all');
 
         expect(allUsers.error.status).to.equals(500);
         expect(allUsers.error.text).to.equals('User is not authenticated');
@@ -410,9 +408,7 @@ describe('Admin routes', () => {
 
         session = loginNonAdmin.header['set-cookie'];
 
-        let allUsers = await agent
-          .get('/api/admin/users/all')
-          .set('Cookie', session);
+        let allUsers = await agent.get('/api/users/all').set('Cookie', session);
 
         expect(allUsers.error.status).to.equals(500);
         expect(allUsers.error.text).to.equals('User is not an admin');
@@ -438,7 +434,7 @@ describe('Admin routes', () => {
         let firstUserId = firstUserDetails.dataValues.userId;
 
         let promoteUser = await agent
-          .put(`/api/admin/user/${firstUserId}`)
+          .put(`/api/users/edit/${firstUserId}`)
           .send({
             isAdmin: true,
           })
@@ -465,7 +461,7 @@ describe('Admin routes', () => {
         let firstUserId = firstUserDetails.dataValues.userId;
 
         let revokeUser = await agent
-          .put(`/api/admin/user/${firstUserId}`)
+          .put(`/api/users/edit/${firstUserId}`)
           .send({
             isAdmin: false,
           })
@@ -492,7 +488,7 @@ describe('Admin routes', () => {
         let adminUserId = adminDetails.dataValues.userId;
 
         let revokeUser = await agent
-          .put(`/api/admin/user/${adminUserId}`)
+          .put(`/api/users/edit/${adminUserId}`)
           .send({
             isAdmin: false,
           })
@@ -511,9 +507,11 @@ describe('Admin routes', () => {
 
         let firstUserId = firstUserDetails.dataValues.userId;
 
-        let promoteUser = await agent.put(
-          `/api/admin/user/${firstUserId}?isAdmin=true`
-        );
+        let promoteUser = await agent
+          .put(`/api/users/edit/${firstUserId}`)
+          .send({
+            isAdmin: true,
+          });
 
         expect(promoteUser.error.status).to.equals(500);
         expect(promoteUser.error.text).to.equals('User is not authenticated');
@@ -535,9 +533,13 @@ describe('Admin routes', () => {
         });
 
         let firstUserId = firstUserDetails.dataValues.userId;
+        console.log('User ID =>', firstUserId);
 
         let promoteUser = await agent
-          .put(`/api/admin/user/${firstUserId}?isAdmin=true`)
+          .put(`/api/users/edit/${firstUserId}`)
+          .send({
+            isAdmin: true,
+          })
           .set('Cookie', session);
 
         expect(promoteUser.error.status).to.equals(500);
@@ -564,7 +566,7 @@ describe('Admin routes', () => {
         let firstUserId = firstUserDetails.dataValues.userId;
 
         let editedUser = await agent
-          .put(`/api/admin/user/${firstUserId}`)
+          .put(`/api/users/edit/${firstUserId}`)
           .send({
             firstName: 'Modified First',
           })
@@ -591,7 +593,7 @@ describe('Admin routes', () => {
         let ownUserId = ownUserDetails.dataValues.userId;
 
         let ownUser = await agent
-          .put(`/api/admin/user/${ownUserId}`)
+          .put(`/api/users/edit/${ownUserId}`)
           .send({
             firstName: 'Modified Admin',
           })
