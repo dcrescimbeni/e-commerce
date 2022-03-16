@@ -1,49 +1,40 @@
-import React, { useState }  from "react";
-import { Link , useNavigate} from "react-router-dom";
-import { getSession, sendLogoutRequest } from "../state/user";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-
-import { CgProfile } from "react-icons/cg";
+import { sendLogoutRequest } from "../state/user";
 import { GiConverseShoe } from "react-icons/gi";
-
-import "bootstrap/dist/js/bootstrap.bundle.js";
-
-
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
 
 
-const NavBar = () => {
-  // esta es la logica para togglear register y login cuando el user esta logueado 
-  
-  const dispatch = useDispatch();
+const SubNavBar = () => {
 
-  const [searchTerm, setSearchTerm] = useState("");
+    let navigate = useNavigate();
 
-  let navigate = useNavigate();
+    const dispatch = useDispatch();
 
-  const handleSearchSubmit = async (e) => {
+    const [searchTerm, setSearchTerm] = useState("");
 
-    e.preventDefault()
-    navigate(`/search?query=${searchTerm}`)
-  
-  };
+    const handleSearchSubmit = async (e) => {
 
-  const handleClick = () => {
-    dispatch(sendLogoutRequest());
-  };
+        e.preventDefault()
+        navigate(`/search?query=${searchTerm}`)
+      
+      };
 
-  React.useEffect(() => {
-    dispatch(getSession());
-  }, [dispatch]);
+      const handleClick = () => {
+        dispatch(sendLogoutRequest());
+      };
 
-  const user = useSelector((state) => {
-    console.log(state.user);
-    return state.user;
-  });
+      const user = useSelector((state) => {
+        console.log(state.user);
+        return state.user;
+      });
+
 
   return (
-
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+      <div>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
       <div className="container ">
         <li className="nav-item d-flex">
           <Link to="/">
@@ -65,47 +56,13 @@ const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-      
+
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li className="nav-item d-flex">
-              <Link to="/products">
-                <a className="nav-link" >
-                  Products
-                </a>
-              </Link>
-            </li>
+           
 
             {/* Drop down Categories */}
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Categories
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <a className="dropdown-item" >
-                    Men
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" >
-                    Women
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" >
-                    Kids
-                  </a>
-                </li>
-              </ul>
-            </li>
+           
 
             {/* Search */}
             <form onSubmit={(e) => {handleSearchSubmit(e)}} className="d-flex">
@@ -119,8 +76,6 @@ const NavBar = () => {
               />
             </form>
             {/* Search End*/}
-      
-
 
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
@@ -138,7 +93,9 @@ const NavBar = () => {
 
             {user.userId ? (
               <>
-               
+                {/* Test menu dropdown user logueado */}
+                 {/* Test menu dropdown user logueado */}
+
                  <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -148,7 +105,7 @@ const NavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color="blue"/>
+                  <CgProfile size={25} variant="primary"/>
                   {user.firstName}
                 </a>
 
@@ -168,7 +125,7 @@ const NavBar = () => {
                     </Link>
                   </li>
                   <li>
-                  <li  className="dropdown-divider" />
+                  <li  class="dropdown-divider" />
                     <Link to="/">
                     <button onClick={handleClick} className="dropdown-item">
                       Logout
@@ -215,10 +172,18 @@ const NavBar = () => {
           
           </ul>
           {/* Profile End */}
+
         </div>
       </div>
     </nav>
-  );
-};
 
-export default NavBar;
+    <br/><br/><br/>
+ 
+      </div>
+  )
+  };
+
+ 
+
+
+export default SubNavBar;

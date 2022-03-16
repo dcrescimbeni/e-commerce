@@ -8,6 +8,7 @@ import { BsFacebook }  from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import style from "../styles/Login.module.css";
 
+
 const Register = () => {
 
   const inputFirstName = useInput();
@@ -32,6 +33,7 @@ const Register = () => {
   };
 
     return (
+      <div>
       <div className={style.masthead}>
       <div className="color-overlay d-flex justify-content-center align-items-center">
           <div className="containerForm">
@@ -81,7 +83,8 @@ const Register = () => {
         </div>
       </div>
     </div>
-        
+  
+    </div>
     )
 }
 

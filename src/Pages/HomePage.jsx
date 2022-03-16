@@ -6,10 +6,10 @@ import NavBar from "../components/NavBar";
 
 function HomePage({ products }) {
   return (
-    <div>
+    <div >
       <NavBar />
       <div>
-
+       <br/><br/><br/>
         <div  >
           <section className={style.containerSection}>
             <div className="post-thumbnail">

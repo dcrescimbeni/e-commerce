@@ -106,6 +106,7 @@ function App() {
           <Route path="/search" element={<ProductsList />} />
           <Route path="/profile" element={<Profile />}/>
           <Route path="/purchaseHistory" element={<PurchaseHistory />}/>
+          <Route path="/men" element={<ProductsList />} />
 
           {/* AGREGUE RUTAS ADMIN */}
           <Route path="/admin" element={<Admin />} />
