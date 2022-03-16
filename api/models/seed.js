@@ -140,7 +140,7 @@ let products = [
     size: 36,
   },
   {
-    name: 'NIKE SB ZOOM STEFAN JANOSKI RM PREMIUM',
+    name: 'Nike SB Zoom Stefan Janoski RM Premium',
     price: 120,
     img: [
       'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_906,c_limit/5ac90e14-d9e8-431f-a895-672d6fe1bc18/nike-sb-zoom-stefan-janoski-slip-mid-rm.png',
@@ -153,16 +153,15 @@ let products = [
     size: 40,
   },
   {
-    name: 'W Shoes',
-    price: 1000,
+    name: 'Nike SB Zoom Stefan Janoski Mid Crafted',
+    price: 115,
     img: [
-      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/865f882e-cb6f-4fff-b511-9aeaf37466a7/air-jordan-1-low-zapatillas-PPffMw.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/74195b1e-525e-4c7c-8fa4-651a66445239/air-jordan-1-low-zapatillas-ZdMg83.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/197cbaa9-5815-4985-9081-95890d95458e/air-jordan-1-low-zapatillas-ZdMg83.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/28b1ea02-d216-4151-8035-7583d125106d/air-max-90-zapatillas-XD9b13.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_906,c_limit/5ac90e14-d9e8-431f-a895-672d6fe1bc18/nike-sb-zoom-stefan-janoski-slip-mid-rm.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_906,c_limit/9459dde7-6d67-4a27-b25e-d9af9c76b03b/nike-sb-zoom-stefan-janoski-slip-mid-rm.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_1216,c_limit/b64f4f6f-cae4-4359-84cd-308644b364d9/nike-sb-zoom-stefan-janoski-slip-mid-rm.jpg',
     ],
     description:
-      'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+      'Las zapatillas Nike SB Zoom Stefan Janoski Mid Crafted rinden homenaje al valor que Stefan le otorga al trabajo manual. El diseño minimalista, la puntera cosida a mano y los cordones de piel crean una estética cruda y natural.',
     stock: 25,
     size: 40,
   },
