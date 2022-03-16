@@ -20,3 +20,16 @@ GET http://localhost:3001/api/categories/all
 ###
 
 GET http://localhost:3001/api/products/allProducts
+
+###
+
+POST http://localhost:3001/api/users/login
+content-type: application/json
+
+{
+    "email": "admin@admin.com",
+    "password": "123"
+}
+
+###
+GET http://localhost:3001/api/users/user/3
