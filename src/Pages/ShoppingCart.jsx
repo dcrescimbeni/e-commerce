@@ -13,6 +13,8 @@ const ShoppingCart = ({ onAdd, onRemove, onDelete, cartItems }) => {
         console.log(e.target.value)
     }
 
+
+
     return (
         <>
         <SubNavBar />

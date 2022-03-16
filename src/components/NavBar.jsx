@@ -11,21 +11,22 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 
 
 
+import { CgProfile } from 'react-icons/cg';
+import { GiConverseShoe } from 'react-icons/gi';
+import 'bootstrap/dist/js/bootstrap.bundle.js';
 
 const NavBar = () => {
-  // esta es la logica para togglear register y login cuando el user esta logueado 
-  
+  // esta es la logica para togglear register y login cuando el user esta logueado
+
   const dispatch = useDispatch();
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   let navigate = useNavigate();
 
   const handleSearchSubmit = async (e) => {
-
-    e.preventDefault()
-    navigate(`/search?query=${searchTerm}`)
-  
+    e.preventDefault();
+    navigate(`/search?query=${searchTerm}`);
   };
 
   const handleClick = () => {
@@ -37,17 +38,15 @@ const NavBar = () => {
   }, [dispatch]);
 
   const user = useSelector((state) => {
-    console.log(state.user);
     return state.user;
   });
 
   return (
-
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
       <div className="container ">
         <li className="nav-item d-flex">
           <Link to="/">
-            <a className="navbar-brand" >
+            <a className="navbar-brand">
               <GiConverseShoe size={30} />
               SNikers
             </a>
@@ -70,9 +69,7 @@ const NavBar = () => {
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li className="nav-item d-flex">
               <Link to="/products">
-                <a className="nav-link" >
-                  Products
-                </a>
+                <a className="nav-link">Products</a>
               </Link>
             </li>
 
@@ -80,7 +77,6 @@ const NavBar = () => {
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
-                
                 id="navbarDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -90,30 +86,29 @@ const NavBar = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <a className="dropdown-item" >
-                    Men
-                  </a>
+                  <a className="dropdown-item">Men</a>
                 </li>
                 <li>
-                  <a className="dropdown-item" >
-                    Women
-                  </a>
+                  <a className="dropdown-item">Women</a>
                 </li>
                 <li>
-                  <a className="dropdown-item" >
-                    Kids
-                  </a>
+                  <a className="dropdown-item">Kids</a>
                 </li>
               </ul>
             </li>
 
             {/* Search */}
-            <form onSubmit={(e) => {handleSearchSubmit(e)}} className="d-flex">
-              <input 
+            <form
+              onSubmit={(e) => {
+                handleSearchSubmit(e);
+              }}
+              className="d-flex"
+            >
+              <input
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="form-control me-2"
                 aria-label="Search"
-                hint="Search" 
+                hint="Search"
                 type="text"
                 placeholder="Search"
               />
@@ -124,7 +119,7 @@ const NavBar = () => {
 
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
-                {" "}
+                {' '}
                 <AiOutlineShoppingCart size={25} />
               </Link>
             </li>
@@ -134,7 +129,6 @@ const NavBar = () => {
             {/* {user.adminId? ( <Link to="/admin">Admin</Link>):(
               otra cosa
              )} */}
-           
 
             {user.userId ? (
               <>
@@ -178,9 +172,6 @@ const NavBar = () => {
                 </ul>
               </li>
               </>
-
-               
-                    
             ) : (
               <li className="nav-item dropdown">
                 <a
@@ -212,7 +203,6 @@ const NavBar = () => {
                 </ul>
               </li>
             )}
-          
           </ul>
           {/* Profile End */}
         </div>
