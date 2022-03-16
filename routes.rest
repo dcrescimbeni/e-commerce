@@ -16,3 +16,7 @@ content-type: application/json
 ###
 
 GET http://localhost:3001/api/categories/all
+
+###
+
+GET http://localhost:3001/api/products/allProducts
