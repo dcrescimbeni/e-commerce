@@ -32,7 +32,7 @@ exports.getUser = (req, res, next) => {
   }
 };
 
-exports.userEdit = (req, res, next) => {
+exports.editOwnUser = (req, res, next) => {
   User.update(req.body, {
     where: {
       id: req.params.id,
@@ -102,4 +102,55 @@ exports.getOrders = (req, res, next) => {
     .then((data) => {
       res.send(data)
     })
+  }
+
+
+// Admin controllers
+
+exports.getAllUsers = (req, res, next) => {
+  User.findAll({ attributes: { exclude: ['password'] } })
+    .then((users) => {
+      res.send(users);
+    })
+    .catch((err) => next(err));
+};
+
+exports.editUser = (req, res, next) => {
+  let adminId = req.user.dataValues.userId;
+  let userId = parseInt(req.params.id);
+
+  if (adminId === userId && req.body.isAdmin === false) {
+    let err = new Error('Cannot revoke admin access to itself');
+    return next(err);
+  }
+
+  User.update(req.body, {
+    where: {
+      userId: req.params.id,
+    },
+    returning: true,
+  })
+    .then((user) => res.send(user[1]))
+    .catch((err) => next(err));
+};
+
+exports.deleteUser = (req, res, next) => {
+  let adminId = req.user.dataValues.userId;
+  let userId = parseInt(req.params.id);
+
+  if (adminId === userId) {
+    let err = new Error('Cannot delete own user');
+    return next(err);
+  }
+
+  User.destroy({
+    where: {
+      userId: req.params.id,
+    },
+  })
+    .then((response) => {
+      const result = { deletedEntries: response };
+      res.status(202).send(result);
+    })
+    .catch((err) => next(err));
 };
