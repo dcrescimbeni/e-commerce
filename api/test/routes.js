@@ -385,15 +385,13 @@ describe('Admin routes', () => {
 
         session = loginAdmin.header['set-cookie'];
 
-        let allUsers = await agent
-          .get('/api/admin/users/all')
-          .set('Cookie', session);
+        let allUsers = await agent.get('/api/users/all').set('Cookie', session);
 
         expect(allUsers.body).to.have.lengthOf(5);
       });
 
       it('Cannot get users if not logged in', async () => {
-        let allUsers = await agent.get('/api/admin/users/all');
+        let allUsers = await agent.get('/api/users/all');
 
         expect(allUsers.error.status).to.equals(500);
         expect(allUsers.error.text).to.equals('User is not authenticated');
@@ -410,9 +408,7 @@ describe('Admin routes', () => {
 
         session = loginNonAdmin.header['set-cookie'];
 
-        let allUsers = await agent
-          .get('/api/admin/users/all')
-          .set('Cookie', session);
+        let allUsers = await agent.get('/api/users/all').set('Cookie', session);
 
         expect(allUsers.error.status).to.equals(500);
         expect(allUsers.error.text).to.equals('User is not an admin');
@@ -420,7 +416,7 @@ describe('Admin routes', () => {
     });
 
     describe('Admin status', () => {
-      it('Can give admin status', async () => {
+      it('Can give admin status to another user', async () => {
         let loginAdmin = await agent
           .post('/api/users/login')
           .send({
@@ -438,7 +434,10 @@ describe('Admin routes', () => {
         let firstUserId = firstUserDetails.dataValues.userId;
 
         let promoteUser = await agent
-          .put(`/api/admin/user/${firstUserId}?isAdmin=true`)
+          .put(`/api/users/edit/${firstUserId}`)
+          .send({
+            isAdmin: true,
+          })
           .set('Cookie', session);
 
         expect(promoteUser.body[0].isAdmin).to.equals(true);
@@ -462,7 +461,10 @@ describe('Admin routes', () => {
         let firstUserId = firstUserDetails.dataValues.userId;
 
         let revokeUser = await agent
-          .put(`/api/admin/user/${firstUserId}?isAdmin=false`)
+          .put(`/api/users/edit/${firstUserId}`)
+          .send({
+            isAdmin: false,
+          })
           .set('Cookie', session);
 
         expect(revokeUser.body[0].isAdmin).to.equals(false);
@@ -486,7 +488,10 @@ describe('Admin routes', () => {
         let adminUserId = adminDetails.dataValues.userId;
 
         let revokeUser = await agent
-          .put(`/api/admin/user/${adminUserId}?isAdmin=false`)
+          .put(`/api/users/edit/${adminUserId}`)
+          .send({
+            isAdmin: false,
+          })
           .set('Cookie', session);
 
         expect(revokeUser.error.status).to.equals(500);
@@ -502,9 +507,11 @@ describe('Admin routes', () => {
 
         let firstUserId = firstUserDetails.dataValues.userId;
 
-        let promoteUser = await agent.put(
-          `/api/admin/user/${firstUserId}?isAdmin=true`
-        );
+        let promoteUser = await agent
+          .put(`/api/users/edit/${firstUserId}`)
+          .send({
+            isAdmin: true,
+          });
 
         expect(promoteUser.error.status).to.equals(500);
         expect(promoteUser.error.text).to.equals('User is not authenticated');
@@ -526,14 +533,222 @@ describe('Admin routes', () => {
         });
 
         let firstUserId = firstUserDetails.dataValues.userId;
+        console.log('User ID =>', firstUserId);
 
         let promoteUser = await agent
-          .put(`/api/admin/user/${firstUserId}?isAdmin=true`)
+          .put(`/api/users/edit/${firstUserId}`)
+          .send({
+            isAdmin: true,
+          })
           .set('Cookie', session);
 
         expect(promoteUser.error.status).to.equals(500);
         expect(promoteUser.error.text).to.equals('User is not an admin');
       });
+    });
+
+    describe('Edit user details', () => {
+      it('Admin can edit a user profile', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        const firstUserDetails = await User.findOne({
+          where: { email: 'user1@example.com' },
+        });
+
+        let firstUserId = firstUserDetails.dataValues.userId;
+
+        let editedUser = await agent
+          .put(`/api/users/edit/${firstUserId}`)
+          .send({
+            firstName: 'Modified First',
+          })
+          .set('Cookie', session);
+
+        expect(editedUser.body[0].firstName).to.equals('Modified First');
+      });
+
+      it('Admin can edit its own profile', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        const ownUserDetails = await User.findOne({
+          where: { email: adminUser.email },
+        });
+
+        let ownUserId = ownUserDetails.dataValues.userId;
+
+        let ownUser = await agent
+          .put(`/api/users/edit/${ownUserId}`)
+          .send({
+            firstName: 'Modified Admin',
+          })
+          .set('Cookie', session);
+
+        expect(ownUser.body[0].firstName).to.equals('Modified Admin');
+      });
+    });
+  });
+
+  describe('Category add, edit, delete', () => {
+    describe('Add category', () => {
+      it('Can add a category', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+        let newCategory = await agent
+          .post('/api/categories/newCategory')
+          .set('Cookie', session)
+          .send({ name: 'newCategory' });
+
+        expect(newCategory.status).to.equal(201);
+        expect(newCategory.body).to.have.property('name', 'newCategory');
+      });
+
+      it('Cannot add a category if not admin', async () => {
+        let loginNonAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: nonAdmin.email,
+            password: nonAdmin.password,
+          })
+          .expect(200);
+
+        session = loginNonAdmin.header['set-cookie'];
+        let newCategory = await agent
+          .post('/api/categories/newCategory')
+          .set('Cookie', session)
+          .send({ name: 'nonAdminCat' });
+
+        expect(newCategory.error.status).to.equals(500);
+        expect(newCategory.error.text).to.equals('User is not an admin');
+      });
+
+      it('Cannot add a category if not logged in', async () => {
+        let newCategory = await agent
+          .post('/api/categories/newCategory')
+          .send({ name: 'notLoggedInCat' });
+
+        expect(newCategory.error.status).to.equals(500);
+        expect(newCategory.error.text).to.equal('User is not authenticated');
+      });
+    });
+
+    describe('Edit category', () => {
+      it('Can edit a category', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let newCategory = await agent
+          .post('/api/categories/newCategory')
+          .set('Cookie', session)
+          .send({ name: 'categoryToEdit' });
+
+        let editedCategory = await agent
+          .put(`/api/categories/category/${newCategory.body.categoryId}`)
+          .set('Cookie', session)
+          .send({ name: 'editedCategory' });
+
+        expect(editedCategory.status).to.equal(201);
+        expect(editedCategory.body[0]).to.have.property(
+          'name',
+          'editedCategory'
+        );
+      });
+
+      it('Cannot edit a category if not admin', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let newCategory = await agent
+          .post('/api/categories/newCategory')
+          .set('Cookie', session)
+          .send({ name: 'userNotAdmin' });
+
+        let loginNonAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: nonAdmin.email,
+            password: nonAdmin.password,
+          })
+          .expect(200);
+
+        session = loginNonAdmin.header['set-cookie'];
+
+        let editedCategory = await agent
+          .put(`/api/categories/category/${newCategory.body.categoryId}`)
+          .set('Cookie', session)
+          .send({ name: 'userNotAdminEdited' });
+
+        expect(editedCategory.error.status).to.equals(500);
+        expect(editedCategory.error.text).to.equals('User is not an admin');
+      });
+
+      it('Cannot edit a category if not logged in', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let newCategory = await agent
+          .post('/api/categories/newCategory')
+          .set('Cookie', session)
+          .send({ name: 'userNotLoggedIn' });
+
+        let editedCategory = await agent
+          .put(`/api/categories/category/${newCategory.body.categoryId}`)
+          .send({ name: 'userNotLoggedInEdited' });
+
+        expect(editedCategory.error.status).to.equals(500);
+        expect(editedCategory.error.text).to.equals(
+          'User is not authenticated'
+        );
+      });
+    });
+
+    describe('Delete category', () => {
+      it('Can delete a category', async () => {});
+      it('Cannot delete a category if not admin', async () => {});
+      it('Cannot delete a category if not logged in', async () => {});
     });
   });
 });

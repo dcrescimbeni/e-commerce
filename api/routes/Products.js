@@ -9,6 +9,10 @@ router.get('/product/:id', ProductsController.productFind);
 
 // router.get('/tag/:tag', ProductsController.allProductsWithTag);
 
+router.get('/search', ProductsController.searchProduct);
+
+// Admin routes
+
 router.post('/newProduct', isAuth, isAdmin, ProductsController.newProduct);
 
 router.put('/product/:id', isAuth, isAdmin, ProductsController.editProduct);
@@ -19,7 +23,5 @@ router.delete(
   isAdmin,
   ProductsController.deleteProduct
 );
-
-router.get('/search', ProductsController.searchProduct);
 
 module.exports = router;
