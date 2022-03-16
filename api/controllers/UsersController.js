@@ -103,6 +103,15 @@ exports.getOrders = (req, res, next) => {
 
 // Admin controllers
 
+exports.getOneUser = async (req, res, next) => {
+  try {
+    let user = await User.findOne({ where: { userId: req.params.id } });
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.getAllUsers = (req, res, next) => {
   User.findAll({ attributes: { exclude: ['password'] } })
     .then((users) => {

@@ -70,6 +70,7 @@ let users = [
 // Product
 let products = [
   {
+    //ID: 1
     name: 'Air Jordan Max 200',
     price: 134.99,
     img: [
@@ -84,6 +85,7 @@ let products = [
     size: 41,
   },
   {
+    //ID: 2
     name: 'Air Max Dawn Mujer',
     price: 120,
     img: [
@@ -98,6 +100,7 @@ let products = [
     size: 36,
   },
   {
+    //ID: 3
     name: 'Air Max Dawn Hombre',
     price: 120,
     img: [
@@ -112,6 +115,7 @@ let products = [
     size: 40,
   },
   {
+    //ID: 4
     name: 'Nike React Infinity Run',
     price: 139.99,
     img: [
@@ -126,6 +130,7 @@ let products = [
     size: 37,
   },
   {
+    //ID: 5
     name: 'Nike Joyride Dual Run',
     price: 159.99,
     img: [
@@ -140,58 +145,63 @@ let products = [
     size: 36,
   },
   {
-    name: 'Nike SB Zoom Stefan Janoski RM Premium',
+    //ID: 6
+    name: 'Nike Dunk Low Retro Halloween',
     price: 120,
     img: [
-      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_906,c_limit/5ac90e14-d9e8-431f-a895-672d6fe1bc18/nike-sb-zoom-stefan-janoski-slip-mid-rm.png',
-      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_906,c_limit/9459dde7-6d67-4a27-b25e-d9af9c76b03b/nike-sb-zoom-stefan-janoski-slip-mid-rm.png',
-      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_1216,c_limit/b64f4f6f-cae4-4359-84cd-308644b364d9/nike-sb-zoom-stefan-janoski-slip-mid-rm.jpg',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/bcd3ed66-6efb-4351-8355-6f62a95063b0/nike-dunk-low-retro-prm-halloween.jpg',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/6e739f74-3b00-46b5-9920-51b0297a2f24/nike-dunk-low-retro-prm-halloween.jpg',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/2270db00-3088-4281-96f9-930829aeef9f/nike-dunk-low-retro-prm-halloween.jpg',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/67c56739-5e4a-4792-8b44-a192f1911409/nike-dunk-low-retro-prm-halloween.jpg',
     ],
     description:
-      'Las Nike SB Zoom Stefan Janoski RM Premium estilizan tus clásicas zapatillas de skate con un toque de color. La plantilla de felpa y la suela con amortiguación remasterizada ofrecen el rendimiento que se necesita para andar.',
+      'Creadas originalmente para las canchas, las Dunk salieron a la calle y, como dicen, el resto es historia. Más de 35 años después de su debut, la silueta aún ofrece un estilo audaz y desafiante.',
     stock: 20,
     size: 40,
   },
   {
-    name: 'Nike SB Zoom Stefan Janoski Mid Crafted',
+    //ID: 7
+    name: 'Wmns Nike Dunk Low Next Nature',
     price: 115,
     img: [
-      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_906,c_limit/5ac90e14-d9e8-431f-a895-672d6fe1bc18/nike-sb-zoom-stefan-janoski-slip-mid-rm.png',
-      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_906,c_limit/9459dde7-6d67-4a27-b25e-d9af9c76b03b/nike-sb-zoom-stefan-janoski-slip-mid-rm.png',
-      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/h_1216,c_limit/b64f4f6f-cae4-4359-84cd-308644b364d9/nike-sb-zoom-stefan-janoski-slip-mid-rm.jpg',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/be6b6fae-9301-4a5a-a249-819a9b50f5e4/wmns-nike-dunk-low-next-nature.jpg',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/6d781be8-810f-49ff-8378-48d75be33d94/wmns-nike-dunk-low-next-nature.jpg',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/4d5e766e-89cf-4144-8ed0-ea9daa6c4249/wmns-nike-dunk-low-next-nature.jpg',
     ],
     description:
-      'Las zapatillas Nike SB Zoom Stefan Janoski Mid Crafted rinden homenaje al valor que Stefan le otorga al trabajo manual. El diseño minimalista, la puntera cosida a mano y los cordones de piel crean una estética cruda y natural.',
+      'Creada para la cancha pero llevado a las calles, el ícono de los años 80 regresa para que hagas el bien luciendo bien.',
     stock: 25,
-    size: 40,
+    size: 37,
   },
   {
-    name: 'W Shoes',
-    price: 1000,
+    //ID: 8
+    name: 'Crater Impact',
+    price: 119,
     img: [
-      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/247838ab-7f64-4003-b409-832d1ac04b8b/air-jordan-1-low-zapatillas-ZdMg83.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/74195b1e-525e-4c7c-8fa4-651a66445239/air-jordan-1-low-zapatillas-ZdMg83.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/197cbaa9-5815-4985-9081-95890d95458e/air-jordan-1-low-zapatillas-ZdMg83.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/28b1ea02-d216-4151-8035-7583d125106d/air-max-90-zapatillas-XD9b13.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/fe15cca3-b707-4377-b059-268f92162922/crater-impact.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/7307eccc-5472-49d9-ac4f-57aa61275b21/crater-impact.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/5d8bb4db-38eb-4899-b6a0-2cc020ce1d11/crater-impact.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_600,c_limit/ebfd31e9-a2ff-4080-b59b-aa5cd8f6e382/crater-impact.png',
     ],
     description:
-      'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+      'Nike Crater Impact forma parte de nuestro viaje de sustentabilidad para transformar los desechos en un calzado que se siente un poco más ligero.',
     stock: 10,
-    size: 40,
+    size: 39,
   },
   {
-    name: 'W Shoes',
-    price: 1000,
+    //ID: 9
+    name: 'Blazer',
+    price: 99,
     img: [
-      'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/247838ab-7f64-4003-b409-832d1ac04b8b/air-jordan-1-low-zapatillas-ZdMg83.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/74195b1e-525e-4c7c-8fa4-651a66445239/air-jordan-1-low-zapatillas-ZdMg83.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/197cbaa9-5815-4985-9081-95890d95458e/air-jordan-1-low-zapatillas-ZdMg83.png',
-      'https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/28b1ea02-d216-4151-8035-7583d125106d/air-max-90-zapatillas-XD9b13.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_594,c_limit/a26d4947-1e7d-4e57-bf21-96d5278ab7f0/nike-blazer.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_594,c_limit/53d52799-cecd-47b8-9b46-14c42cdb7ee0/nike-blazer.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_594,c_limit/eb068052-55c8-403a-b91e-6bc0f1d15cc7/nike-blazer.png',
+      'https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_594,c_limit/75d79453-07ba-4424-b439-4c27218b8ce0/nike-blazer.png',
     ],
     description:
-      'Esta versión robusta de las Air Jordan 1 Low SE está inspirada en la ropa de trabajo. Está confeccionada con revestimientos de lona y revestimientos de ante de imitación para ofrecer un look resistente.',
+      'Las Blazer lo vieron todo. Desde las canchas de la NBA hasta rampas de skate y mucho más. Siempre están listas para más. En casa, en cualquier lugar y momento, tan diversas como las personas que las usan.',
     stock: 60,
-    size: 40,
+    size: 37,
   },
 ];
 
@@ -200,11 +210,17 @@ const categories = [{ name: 'woman' }, { name: 'man' }, { name: 'kids' }];
 
 // Categories relationships
 const categoriesRelationships = [
-  { productId: 1, categoryId: 1 },
-  { productId: 3, categoryId: 1 },
-  { productId: 2, categoryId: 2 },
-  { productId: 4, categoryId: 3 },
-  { productId: 1, categoryId: 3 },
+  { productId: 1, categoryId: 2 },
+  { productId: 2, categoryId: 1 },
+  { productId: 3, categoryId: 2 },
+  { productId: 4, categoryId: 1 },
+  { productId: 4, categoryId: 2 },
+  { productId: 5, categoryId: 3 },
+  { productId: 6, categoryId: 2 },
+  { productId: 6, categoryId: 3 },
+  { productId: 7, categoryId: 1 },
+  { productId: 8, categoryId: 1 },
+  { productId: 9, categoryId: 1 },
 ];
 
 const seedDatabase = async () => {
