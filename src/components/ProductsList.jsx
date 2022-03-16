@@ -15,7 +15,19 @@ const ProductsList = () => {
         .get(`/api/products/search?query=${searchProduct}`)
         .then((res) => setProductInfo(res.data));
     } else if(window.location.href.includes("men")){
-
+      axios
+      .get(`/api/products/allProducts/2`)
+      .then((res) => setProductInfo(res.data));
+     
+    }else if(window.location.href.includes("women")){
+      axios
+      .get(`/api/products/allProducts/1`)
+      .then((res) => setProductInfo(res.data));
+     
+    }else if(window.location.href.includes("kids")){
+      axios
+      .get(`/api/products/allProducts/3`)
+      .then((res) => setProductInfo(res.data));
      
     }
     else{
@@ -23,7 +35,7 @@ const ProductsList = () => {
         .get("/api/products/allProducts")
         .then((res) => setProductInfo(res.data));
     }
-  }, [searchProduct]);
+  }, [window.location.href]);
 
   console.log(productInfo);
 

@@ -5,13 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import { CgProfile } from "react-icons/cg";
-import { GiConverseShoe } from "react-icons/gi";
-
-import "bootstrap/dist/js/bootstrap.bundle.js";
-
-
-
-import { CgProfile } from 'react-icons/cg';
 import { GiConverseShoe } from 'react-icons/gi';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
@@ -85,15 +78,21 @@ const NavBar = () => {
                 Categories
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link to="/men" >
                 <li>
                   <a className="dropdown-item">Men</a>
                 </li>
+                </Link>
+                <Link to="/women" >
                 <li>
                   <a className="dropdown-item">Women</a>
                 </li>
+                </Link>
+                <Link to="/kids">
                 <li>
                   <a className="dropdown-item">Kids</a>
                 </li>
+                </Link>
               </ul>
             </li>
 
