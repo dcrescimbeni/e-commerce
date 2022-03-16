@@ -1,8 +1,9 @@
 const Products = require('../models/Product');
 const Category = require('../models/Category');
 const { Op } = require('sequelize');
+const id = require('volleyball/lib/id');
 
-//revisar en postman las rutas y seguir con Trello, ver Include
+
 exports.allProducts = (req, res) => {
   Products.findAll({ include: Category })
     .then((products) => res.send(products))
@@ -10,7 +11,7 @@ exports.allProducts = (req, res) => {
 };
 
 exports.productFind = (req, res) => {
-  console.log('estoy aca');
+  console.log("");
   Products.findOne({
     where: {
       productId: req.params.id,
@@ -20,15 +21,14 @@ exports.productFind = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-// exports.allProductsWithTag = (req, res) => {
-//   Products.findAll(...tag, {
-//     where: {
-//       tag: req.params.tag,
-//     },
-//   })
-//     .then(() => res.send(200))
-//     .catch((err) => console.log(err));
-// };
+exports.productFindCategory = (req, res) => {
+  Products.findAll({ include: [{
+    model: Category,
+    where: {categoryId: req.params.id}
+  }]})
+    .then((products) => res.send(products))
+    .catch((err) => console.log(err));
+};
 
 exports.newProduct = (req, res) => {
   Products.create(req.body)

@@ -5,9 +5,9 @@ const { isAuth, isAdmin } = require('../utils/authCheck');
 
 router.get('/allProducts', ProductsController.allProducts);
 
-router.get('/product/:id', ProductsController.productFind);
+router.get('/allProducts/:id', ProductsController.productFindCategory);
 
-// router.get('/tag/:tag', ProductsController.allProductsWithTag);
+router.get('/product/:id', ProductsController.productFind);
 
 router.get('/search', ProductsController.searchProduct);
 
