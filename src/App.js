@@ -16,14 +16,15 @@ import Admin from './Pages/Admin';
 import WriteReview from './components/WriteReview';
 import Checkout from './Pages/Checkout';
 
-import UsersManagment from './Pages/UsersManagment';
-import CategoriesManagment from './Pages/CategoriesManagment';
-import ProductsManagment from './Pages/ProducstManagment';
+import UsersManagement from './Pages/UsersManagement';
+import CategoriesManagement from './Pages/CategoriesManagement';
+import ProductsManagement from './Pages/ProductsManagement';
 import Thanks from './Pages/Thanks';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSession } from './state/user';
 import Profile from './Pages/Profile';
 import PurchaseHistory from './Pages/PurchaseHistory.jsx';
+import NewProduct from './Pages/NewProduct';
 
 function App() {
   // const { products } = data;
@@ -145,6 +146,8 @@ function App() {
           <Route path="/productsManagement" element={<Admin />} />
           <Route path="/usersManagement" element={<Admin />} />
           <Route path="/categoriesManagement" element={<Admin />} />
+          <Route path="/users/:id" element={<UsersManagement/>}/>
+          <Route path="/newProduct" element={<NewProduct/>}/>
         </Routes >
       </main >
       <Footer />

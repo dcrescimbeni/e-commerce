@@ -26,16 +26,13 @@ const ProductsList = () => {
  
   }, [searchProduct]);
 
-  console.log(productInfo);
-
-  console.log(window.location.href)
   return (
     <>
       <ul className={styles.container}>
         {productInfo.map((product) => {
           return (
             <div key={product.productId}>
-              <Link to={`/products/${product.productId}`}> <img className={styles.image} src={product.img[0]} alt="imagen"></img> </Link>
+              <Link to={`/products/${product.productId}`}> <img className={styles.image}  alt="imagen"></img> </Link>
               <div className={styles.name}>{product.name}</div>
               <div>{`${product.price} €`}</div>
             </div>
