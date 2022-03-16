@@ -37,9 +37,6 @@ const ProductsList = () => {
     }
   }, [window.location.href]);
 
-  console.log(productInfo);
-
-  console.log(window.location.href);
   return (
     <>
       <div>

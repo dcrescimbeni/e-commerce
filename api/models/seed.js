@@ -227,7 +227,6 @@ const seedDatabase = async () => {
   users.forEach((user) => {
     User.create(user);
   });
-
   await Product.bulkCreate(products);
   await Category.bulkCreate(categories);
 
