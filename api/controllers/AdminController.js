@@ -8,24 +8,22 @@ exports.getUsers = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-exports.setAdmin = (req, res, next) => {
-  const { isAdmin } = req.query;
-
+exports.editUser = (req, res, next) => {
   let adminId = req.user.dataValues.userId;
   let userId = parseInt(req.params.id);
 
-  if (adminId === userId) {
+  console.log(req.body.isAdmin);
+  if (adminId === userId && req.body.isAdmin === false) {
     let err = new Error('Cannot revoke admin access to itself');
     return next(err);
   }
 
-  User.update(
-    { isAdmin },
-    {
-      where: {
-        userId: req.params.id,
-      },
-      returning: true,
-    }
-  ).then((user) => res.send(user[1]));
+  User.update(req.body, {
+    where: {
+      userId: req.params.id,
+    },
+    returning: true,
+  })
+    .then((user) => res.send(user[1]))
+    .catch((err) => next(err));
 };

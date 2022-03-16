@@ -420,7 +420,7 @@ describe('Admin routes', () => {
     });
 
     describe('Admin status', () => {
-      it('Can give admin status', async () => {
+      it('Can give admin status to another user', async () => {
         let loginAdmin = await agent
           .post('/api/users/login')
           .send({
@@ -438,7 +438,10 @@ describe('Admin routes', () => {
         let firstUserId = firstUserDetails.dataValues.userId;
 
         let promoteUser = await agent
-          .put(`/api/admin/user/${firstUserId}?isAdmin=true`)
+          .put(`/api/admin/user/${firstUserId}`)
+          .send({
+            isAdmin: true,
+          })
           .set('Cookie', session);
 
         expect(promoteUser.body[0].isAdmin).to.equals(true);
@@ -462,7 +465,10 @@ describe('Admin routes', () => {
         let firstUserId = firstUserDetails.dataValues.userId;
 
         let revokeUser = await agent
-          .put(`/api/admin/user/${firstUserId}?isAdmin=false`)
+          .put(`/api/admin/user/${firstUserId}`)
+          .send({
+            isAdmin: false,
+          })
           .set('Cookie', session);
 
         expect(revokeUser.body[0].isAdmin).to.equals(false);
@@ -486,7 +492,10 @@ describe('Admin routes', () => {
         let adminUserId = adminDetails.dataValues.userId;
 
         let revokeUser = await agent
-          .put(`/api/admin/user/${adminUserId}?isAdmin=false`)
+          .put(`/api/admin/user/${adminUserId}`)
+          .send({
+            isAdmin: false,
+          })
           .set('Cookie', session);
 
         expect(revokeUser.error.status).to.equals(500);
@@ -533,6 +542,62 @@ describe('Admin routes', () => {
 
         expect(promoteUser.error.status).to.equals(500);
         expect(promoteUser.error.text).to.equals('User is not an admin');
+      });
+    });
+
+    describe('Edit user details', () => {
+      it('Admin can edit a user profile', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        const firstUserDetails = await User.findOne({
+          where: { email: 'user1@example.com' },
+        });
+
+        let firstUserId = firstUserDetails.dataValues.userId;
+
+        let editedUser = await agent
+          .put(`/api/admin/user/${firstUserId}`)
+          .send({
+            firstName: 'Modified First',
+          })
+          .set('Cookie', session);
+
+        expect(editedUser.body[0].firstName).to.equals('Modified First');
+      });
+
+      it('Admin can edit its own profile', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        const ownUserDetails = await User.findOne({
+          where: { email: adminUser.email },
+        });
+
+        let ownUserId = ownUserDetails.dataValues.userId;
+
+        let ownUser = await agent
+          .put(`/api/admin/user/${ownUserId}`)
+          .send({
+            firstName: 'Modified Admin',
+          })
+          .set('Cookie', session);
+
+        expect(ownUser.body[0].firstName).to.equals('Modified Admin');
       });
     });
   });
