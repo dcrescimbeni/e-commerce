@@ -29,5 +29,6 @@ router.get('/userOrders/:id', UsersController.getOrders);
 // Admin routes
 router.get('/all', isAuth, isAdmin, UsersController.getAllUsers);
 router.put('/edit/:id', isAuth, isAdmin, UsersController.editUser);
+router.delete('/delete/:id', isAuth, isAdmin, UsersController.deleteUser);
 
 module.exports = router;

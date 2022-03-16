@@ -115,7 +115,6 @@ exports.editUser = (req, res, next) => {
   let adminId = req.user.dataValues.userId;
   let userId = parseInt(req.params.id);
 
-  console.log(req.body.isAdmin);
   if (adminId === userId && req.body.isAdmin === false) {
     let err = new Error('Cannot revoke admin access to itself');
     return next(err);
@@ -128,5 +127,26 @@ exports.editUser = (req, res, next) => {
     returning: true,
   })
     .then((user) => res.send(user[1]))
+    .catch((err) => next(err));
+};
+
+exports.deleteUser = (req, res, next) => {
+  let adminId = req.user.dataValues.userId;
+  let userId = parseInt(req.params.id);
+
+  if (adminId === userId) {
+    let err = new Error('Cannot delete own user');
+    return next(err);
+  }
+
+  User.destroy({
+    where: {
+      userId: req.params.id,
+    },
+  })
+    .then((response) => {
+      const result = { deletedEntries: response };
+      res.status(202).send(result);
+    })
     .catch((err) => next(err));
 };
