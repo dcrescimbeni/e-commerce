@@ -40,10 +40,6 @@ const NavBar = () => {
     return state.user;
   });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 08d724707665e15ae30a63c781f6f579820a26c3
   return (
 
     <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">

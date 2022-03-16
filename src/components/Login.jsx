@@ -7,6 +7,7 @@ import { sendLoginRequest } from '../state/user';
 import { FcGoogle } from 'react-icons/fc';
 import { BsFacebook } from 'react-icons/bs';
 import style from '../styles/Login.module.css';
+import axios from 'axios';
 
 const Login = () => {
   const inputEmail = useInput();
@@ -23,6 +24,13 @@ const Login = () => {
 
     dispatch(sendLoginRequest(form));
   };
+
+  const handleGoogle = (e) => {
+    e.preventDefault();
+    axios
+        .get("http://localhost:3001/api/google")
+        .then(res => console.log(res))
+  }
 
   return (
     
@@ -76,11 +84,15 @@ const Login = () => {
             </Link>
             <Link to="/google">
               <FcGoogle size={32} />
+  
             </Link>{' '}
+            
             <Link to="/facebook">
               <BsFacebook size={30} />
             </Link>
           </Form>
+
+          <button onClick={handleGoogle}></button>
         </div>
       </div>
     </div>
