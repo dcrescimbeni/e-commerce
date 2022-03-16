@@ -69,7 +69,7 @@ exports.searchProduct = (req, res) => {
   console.log(searchQuery);
 
   Products.findAll({
-    where: { name: { [Op.like]: `%${searchQuery}%` } },
+    where: { name: { [Op.iLike]: `%${searchQuery}%` } },
   })
     .then((products) => {
       res.send(products);
