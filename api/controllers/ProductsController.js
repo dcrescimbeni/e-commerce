@@ -55,10 +55,16 @@ exports.newProduct = async (req, res, next) => {
 
     // Adding categories
     if (req.body.categories) {
-      let categoryArray = req.body.categories.split(',');
-      let parsedArray = categoryArray.map((category) =>
-        parseInt(category.trim())
-      );
+      let parsedArray;
+
+      if (typeof req.body.categories === 'number') {
+        parsedArray = [req.body.categories];
+      } else {
+        let categoryArray = req.body.categories.split(',');
+        parsedArray = categoryArray.map((category) =>
+          parseInt(category.trim())
+        );
+      }
 
       let foundCategories = await Promise.all(
         parsedArray.map(
@@ -66,7 +72,7 @@ exports.newProduct = async (req, res, next) => {
         )
       );
 
-      await createdProduct.addCategories(foundCategories);
+      await createdProduct.setCategories(foundCategories);
     }
 
     res.status(201).send(createdProduct.dataValues);
@@ -77,14 +83,48 @@ exports.newProduct = async (req, res, next) => {
 
 exports.editProduct = async (req, res, next) => {
   try {
-    let editedProduct = await Products.update(req.body, {
+    await Products.update(req.body, {
       where: {
         productId: req.params.id,
       },
       returning: true,
     });
 
-    res.status(201).send(editedProduct[1]);
+    if (req.body.categories) {
+      let parsedArray;
+
+      if (typeof req.body.categories === 'number') {
+        parsedArray = [req.body.categories];
+      } else {
+        let categoryArray = req.body.categories.split(',');
+        parsedArray = categoryArray.map((category) =>
+          parseInt(category.trim())
+        );
+      }
+
+      let foundCategories = await Promise.all(
+        parsedArray.map(
+          async (categoryId) => await Category.findByPk(categoryId)
+        )
+      );
+
+      let product = await Products.findByPk(req.params.id);
+
+      await product.setCategories(foundCategories);
+
+      let modified = await Products.findOne({
+        where: { productId: req.params.id },
+        include: Category,
+      });
+      console.log(modified);
+    }
+
+    let productResult = await Products.findOne({
+      where: { productId: req.params.id },
+      include: Category,
+    });
+
+    res.status(201).send([productResult]);
   } catch (err) {
     next(err);
   }

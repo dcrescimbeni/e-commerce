@@ -26,7 +26,7 @@ app.use(passport.session());
 app.use('/api', route);
 
 app.use((err, req, res, next) => {
-  let enableConsoleLog = false;
+  let enableConsoleLog = true;
 
   if (enableConsoleLog) {
     console.log('Error');
@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-db.sync({ force: false}).then(() => {
+db.sync({ force: false }).then(() => {
   if (!module.parent) {
     app.listen(3001, () => {
       console.log(`Server up on port 3001`);

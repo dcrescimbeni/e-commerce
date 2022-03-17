@@ -182,8 +182,6 @@ describe('Admin routes', () => {
         );
       });
 
-      it('Can add one category to a product', async () => {});
-
       it('Can add more than one category to a product', async () => {
         let loginAdmin = await agent
           .post('/api/users/login')
@@ -205,21 +203,10 @@ describe('Admin routes', () => {
 
         expect(newProduct.status).to.equal(201);
 
-        // let category = await Category.findOne({
-        //   where: { name: 'Category 1' },
-        // });
-
         let foundProduct = await Product.findOne({
           where: { productId: newProduct.body.productId },
           include: Category,
         });
-
-        // await foundProduct.addCategory(category);
-
-        // let productAgain = await Product.findOne({
-        //   where: { productId: newProduct.body.productId },
-        //   include: Category,
-        // });
 
         expect(foundProduct.dataValues).to.have.property(
           'name',
@@ -247,12 +234,116 @@ describe('Admin routes', () => {
           modifiedProduct.description
         );
         expect(foundProduct.dataValues.categories).to.have.lengthOf(2);
-        // expect(
-        //   foundProduct.dataValues.categories[0].dataValues
-        // ).to.have.property('name', 'Category 1');
       });
 
-      it('Handles categories as numbers instead of strings', async () => {});
+      it('Can add one category to a product', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({ email: adminUser.email, password: adminUser.password })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let modifiedProduct = { ...product };
+        modifiedProduct.categories = '1';
+
+        await Category.create({ name: 'Category 3' });
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(modifiedProduct);
+
+        expect(newProduct.status).to.equal(201);
+
+        let foundProduct = await Product.findOne({
+          where: { productId: newProduct.body.productId },
+          include: Category,
+        });
+
+        expect(foundProduct.dataValues).to.have.property(
+          'name',
+          modifiedProduct.name
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'price',
+          modifiedProduct.price
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'color',
+          modifiedProduct.color
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'size',
+          modifiedProduct.size
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'stock',
+          modifiedProduct.stock
+        );
+        expect(foundProduct.dataValues.img).to.have.lengthOf(4);
+        expect(foundProduct.dataValues).to.have.property(
+          'description',
+          modifiedProduct.description
+        );
+        expect(foundProduct.dataValues.categories).to.have.lengthOf(1);
+      });
+
+      it('Handles categories as numbers instead of strings', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let modifiedProduct = { ...product };
+        modifiedProduct.categories = 1;
+
+        await Category.create({ name: 'Category 4' });
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(modifiedProduct);
+
+        expect(newProduct.status).to.equal(201);
+
+        let foundProduct = await Product.findOne({
+          where: { productId: newProduct.body.productId },
+          include: Category,
+        });
+
+        expect(foundProduct.dataValues).to.have.property(
+          'name',
+          modifiedProduct.name
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'price',
+          modifiedProduct.price
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'color',
+          modifiedProduct.color
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'size',
+          modifiedProduct.size
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'stock',
+          modifiedProduct.stock
+        );
+        expect(foundProduct.dataValues.img).to.have.lengthOf(4);
+        expect(foundProduct.dataValues).to.have.property(
+          'description',
+          modifiedProduct.description
+        );
+        expect(foundProduct.dataValues.categories).to.have.lengthOf(1);
+      });
 
       it('Cannot add a product if not admin', async () => {
         try {
@@ -312,6 +403,107 @@ describe('Admin routes', () => {
           expect(err).to.not.exist();
         }
       });
+
+      it('Can edit a product with 2 categories', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({ email: adminUser.email, password: adminUser.password })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let modifiedProduct = { ...product };
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(modifiedProduct);
+
+        let productId = await newProduct.body.productId;
+        console.log('New product ID: ', productId);
+
+        await agent
+          .put(`/api/products/product/${productId}`)
+          .set('Cookie', session)
+          .send({ categories: '1,2' });
+
+        let foundProduct = await Product.findOne({
+          where: { productId: newProduct.body.productId },
+          include: Category,
+        });
+
+        expect(foundProduct.dataValues.categories).to.have.lengthOf(2);
+      });
+
+      it('Can edit a product with 1 category', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let modifiedProduct = { ...product };
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(modifiedProduct);
+
+        let productId = await newProduct.body.productId;
+        console.log('New product ID: ', productId);
+
+        await agent
+          .put(`/api/products/product/${productId}`)
+          .set('Cookie', session)
+          .send({ categories: '1' });
+
+        let foundProduct = await Product.findOne({
+          where: { productId: newProduct.body.productId },
+          include: Category,
+        });
+
+        expect(foundProduct.dataValues.categories).to.have.lengthOf(1);
+      });
+
+      it('Can edit a product with 1 category (number)', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let modifiedProduct = { ...product };
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(modifiedProduct);
+
+        let productId = await newProduct.body.productId;
+        console.log('New product ID: ', productId);
+
+        await agent
+          .put(`/api/products/product/${productId}`)
+          .set('Cookie', session)
+          .send({ categories: 1 });
+
+        let foundProduct = await Product.findOne({
+          where: { productId: newProduct.body.productId },
+          include: Category,
+        });
+
+        expect(foundProduct.dataValues.categories).to.have.lengthOf(1);
+      });
+
+      it('Can edit images', async () => {});
 
       it('Cannot edit a product if not logged in', async () => {
         let loginAdmin = await agent
