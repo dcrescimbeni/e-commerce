@@ -1,67 +1,40 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import useInput from '../Hooks/useInputs';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { sendLogoutRequest } from "../state/user";
-import { sendLoginRequest } from '../state/user';
-import { FcGoogle } from 'react-icons/fc';
-import { BsFacebook } from 'react-icons/bs';
-import { GiConverseShoe } from "react-icons/gi"
+import { GiConverseShoe } from "react-icons/gi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import style from '../styles/Login.module.css';
-import axios from 'axios';
-import { getSession } from '../state/user';
 
 
-const Login = () => {
+const SubNavBar = () => {
 
-  const inputEmail = useInput();
-  const inputPassword = useInput();
-  const navigate = useNavigate()
-  const dispatch = useDispatch();
-  const [searchTerm, setSearchTerm] = useState("");
+    let navigate = useNavigate();
 
-  const handleClick = () => {
-    dispatch(sendLogoutRequest());
-  };
+    const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    dispatch(getSession());
-  }, [dispatch]);
+    const [searchTerm, setSearchTerm] = useState("");
 
-  const user = useSelector((state) => {
-    return state.user;
-  });
+    const handleSearchSubmit = async (e) => {
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = {
-      email: inputEmail.value,
-      password: inputPassword.value,
-    };
-    dispatch(sendLoginRequest(form));
-    if(user) navigate('/')
-  };
+        e.preventDefault()
+        navigate(`/search?query=${searchTerm}`)
+      
+      };
 
-  const handleSearchSubmit = async (e) => {
+      const handleClick = () => {
+        dispatch(sendLogoutRequest());
+      };
 
-    e.preventDefault()
-    navigate(`/search?query=${searchTerm}`)
-  
-  };
+      const user = useSelector((state) => {
+        console.log(state.user);
+        return state.user;
+      });
 
-  // const Submit = (e) => {
-  //   e.preventDefault();
-  //   navigate("/")
-  // };
 
   return (
-    
-    <div className={style.masthead}>  
-
-<nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+      <div>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
       <div className="container ">
         <li className="nav-item d-flex">
           <Link to="/">
@@ -120,9 +93,6 @@ const Login = () => {
 
             {user.userId ? (
               <>
-                {/* Test menu dropdown user logueado */}
-                 {/* Test menu dropdown user logueado */}
-
                  <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -132,9 +102,8 @@ const Login = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color="black"/>{" "}{" "}
-                  <b>{user.firstName}</b>
-                 
+                   <CgProfile size={25} color="black"/>
+                  {user.firstName}
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -155,7 +124,7 @@ const Login = () => {
                   <li>
                   <li  class="dropdown-divider" />
                     <Link to="/">
-                    <button  className="dropdown-item">
+                    <button onClick={handleClick} className="dropdown-item">
                       Logout
                     </button>
                     </Link>
@@ -173,7 +142,7 @@ const Login = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color= "black"/>
+                  <CgProfile size={25} color= "black" />
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -197,80 +166,15 @@ const Login = () => {
           
           </ul>
           {/* Profile End */}
-        {user.isAdmin?(
-          <div>
-          <Link to="/admin">Admin</Link>
-          </div>
-        ):(console.log("Hola"))}
-       
-       <div>
-          <Link to="/admin">
-            <Button>
-             Admin
-            </Button>
-           
-          </Link>
-          </div>
+
         </div>
       </div>
     </nav>
 
     <br/><br/><br/>
  
-      <div className="color-overlay d-flex justify-content-center align-items-center">
-        <div className="containerForm">
-          <Form onSubmit={handleSubmit} className="rounded p-4 p-sm-3">
-            <Form.Group
-              onSubmit={handleSubmit}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Email Adress</Form.Label>
-              <Form.Control
-                {...inputEmail}
-                type="email"
-                placeholder="Enter Email"
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                {...inputPassword}
-                type="password"
-                placeholder="Enter Password"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check tupe="checkbox" label="Remember Me"></Form.Check>
-            </Form.Group>
-            <div className="d-grid gap-2">
-              <Button variant="primary" size="lg"  type="submit">
-                Submit
-              </Button>
-            </div>
-            <br></br>
-            <p>You don't have an account?</p>
-            <Link to="/register">
-            <div className="d-flex justify-content-center"><b>Register</b></div> 
-            </Link>
-            <Link to="/google">
-              <FcGoogle size={32} />
-  
-            </Link>{' '}
-            
-            <Link to="/facebook">
-              <BsFacebook size={30} />
-            </Link>
-          </Form>
-
-          <button></button>
-        </div>
       </div>
-    </div>
-  );
-};
-
-export default Login;
+  )
+  };
+  
+export default SubNavBar;

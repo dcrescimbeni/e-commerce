@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavBar from '../components/NavBar';
+
 
 const ShoppingCart = ({ onAdd, onRemove, onDelete, cartItems }) => {
 
@@ -15,6 +17,9 @@ const ShoppingCart = ({ onAdd, onRemove, onDelete, cartItems }) => {
 
 
     return (
+        <>
+        <NavBar />
+         <br/><br/>
         <div className="container">
             <section className="px-4 py-5 w-100 p-3 mb-5 rounded" style={{ backgroundColor: "#ffffff" }}>
 
@@ -120,7 +125,7 @@ const ShoppingCart = ({ onAdd, onRemove, onDelete, cartItems }) => {
                 </div>
             </section>
         </div>
-
+        </>
     )
 }
 
