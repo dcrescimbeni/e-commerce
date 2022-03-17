@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getSession, sendLogoutRequest } from "../state/user";
-import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { getSession, sendLogoutRequest } from '../state/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { BsFillKeyFill } from 'react-icons/bs';
 
-import { CgProfile } from "react-icons/cg";
+import { CgProfile } from 'react-icons/cg';
 import { GiConverseShoe } from 'react-icons/gi';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
@@ -78,12 +79,12 @@ const NavBar = () => {
                 Categories
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link to="/men" >
+                <Link to="/men">
                   <li>
                     <a className="dropdown-item">Men</a>
                   </li>
                 </Link>
-                <Link to="/women" >
+                <Link to="/women">
                   <li>
                     <a className="dropdown-item">Women</a>
                   </li>
@@ -114,8 +115,6 @@ const NavBar = () => {
             </form>
             {/* Search End*/}
 
-
-
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
                 {' '}
@@ -126,7 +125,7 @@ const NavBar = () => {
             {/* Inicio Enlace Temporal === Borrar */}
             <li className="nav-item">
               <Link className="nav-link" to="/admin">
-                {" "}
+                {' '}
                 <BsFillKeyFill size={25} />
               </Link>
             </li>
@@ -140,11 +139,9 @@ const NavBar = () => {
 
             {user.userId ? (
               <>
-
                 <li className="nav-item dropdown">
                   <a
                     className="nav-link dropdown-toggle"
-
                     id="navbarDropdown"
                     role="button"
                     data-bs-toggle="dropdown"
@@ -154,19 +151,18 @@ const NavBar = () => {
                     {user.firstName}
                   </a>
 
-                  <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
                     <li>
                       <Link to="/profile">
-                        <a className="dropdown-item" >
-                          Profile
-                        </a>
+                        <a className="dropdown-item">Profile</a>
                       </Link>
                     </li>
                     <li>
                       <Link to="/purchaseHistory">
-                        <a className="dropdown-item" >
-                          Purchase History
-                        </a>
+                        <a className="dropdown-item">Purchase History</a>
                       </Link>
                     </li>
                     <li>
@@ -211,11 +207,11 @@ const NavBar = () => {
                 </ul>
               </li>
             )}
-          </ul >
+          </ul>
           {/* Profile End */}
-        </div >
-      </div >
-    </nav >
+        </div>
+      </div>
+    </nav>
   );
 };
 
