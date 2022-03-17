@@ -7,8 +7,7 @@ export const getOrder = createAsyncThunk('GET_ORDERS', () => {
 });
 
 export const saveOrder = createAsyncThunk('SAVE_ORDERS', (id, order) => {
-    // console.log("Este es el id", id);
-    console.log("order desde orders");
+    console.log("Orden desde Thunk")
     console.log(order)
     return axios.post(`/api/orders/thanks/${id}`, order).then((res) => res.data);
     // return axios.post(`/api/orders/thanks/${id}`, { address: "Argentina", total: 1000, products: [1, 2] }).then((res) => res.data);

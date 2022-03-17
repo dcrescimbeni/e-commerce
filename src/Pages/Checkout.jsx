@@ -13,8 +13,8 @@ const Checkout = ({ cartItems }) => {
   //Ve el usuario que esta conectado
   const user = useSelector((state) => state.user);
 
-  console.log("Articulos Checkout")
-  console.log(cartItems)
+  // console.log("Articulos Checkout")
+  // console.log(cartItems)
 
   // console.log("Usuario en Checkout")
   // console.log(user);
@@ -32,9 +32,10 @@ const Checkout = ({ cartItems }) => {
     const myorder = {
       address: user.shippingAddress,
       total,
-      products: cartItems,
+      products: order,
     }
 
+    console.log("MyOrder")
     console.log(myorder);
 
     // console.log(id)
