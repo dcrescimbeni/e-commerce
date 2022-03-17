@@ -1,14 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Table } from "react-bootstrap";
-
+import axios from "axios";
 import NavBar from "../components/NavBar";
-// import Product from "../../api/models/Product";
 
 const PurchaseHistory = () => {
 
+  useEffect(() => {
 
-
+    axios.get(`http://localhost:3001/api/users/userOrders/8`)
+    .then((res) => console.log("Res.Data => ",res.data) )
+   
+  }, [])
+  
 
   return (
     <div>
