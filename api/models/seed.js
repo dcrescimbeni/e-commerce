@@ -232,55 +232,141 @@ const categoriesRelationships = [
 
 const orders = [
   {
-    userId: 2,
-    address: users[1].shippingAddress,
-    total: 500,
+    userId: 5,
+    address: users[4].shippingAddress,
+    total: 1,
     products: [
       {
-        productId: 1,
-        quantity: 10,
-        price: 50,
+        productId: 9,
+        quantity: 5,
+        price: 108,
       },
       {
-        productId: 2,
-        quantity: 10,
-        price: 50,
+        productId: 5,
+        quantity: 5,
+        price: 108,
       },
       {
         productId: 3,
-        quantity: 10,
-        price: 50,
+        quantity: 4,
+        price: 117,
+      },
+      {
+        productId: 8,
+        quantity: 4,
+        price: 134,
+      },
+      {
+        productId: 3,
+        quantity: 3,
+        price: 112,
+      },
+    ],
+  },
+  {
+    userId: 6,
+    address: users[5].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 7,
+        quantity: 3,
+        price: 128,
+      },
+    ],
+  },
+  {
+    userId: 5,
+    address: users[4].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 4,
+        quantity: 1,
+        price: 103,
+      },
+      {
+        productId: 8,
+        quantity: 4,
+        price: 137,
+      },
+    ],
+  },
+  {
+    userId: 4,
+    address: users[3].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 8,
+        quantity: 5,
+        price: 126,
+      },
+      {
+        productId: 7,
+        quantity: 1,
+        price: 137,
+      },
+      {
+        productId: 2,
+        quantity: 5,
+        price: 102,
       },
     ],
   },
   {
     userId: 3,
     address: users[2].shippingAddress,
-    total: 700,
+    total: 1,
     products: [
       {
-        productId: 4,
-        quantity: 10,
-        price: 50,
+        productId: 8,
+        quantity: 3,
+        price: 140,
+      },
+      {
+        productId: 8,
+        quantity: 3,
+        price: 105,
+      },
+      {
+        productId: 7,
+        quantity: 2,
+        price: 121,
       },
       {
         productId: 5,
-        quantity: 10,
-        price: 50,
+        quantity: 1,
+        price: 102,
+      },
+    ],
+  },
+  {
+    userId: 5,
+    address: users[4].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 5,
+        quantity: 4,
+        price: 138,
       },
       {
-        productId: 6,
-        quantity: 10,
-        price: 50,
+        productId: 8,
+        quantity: 1,
+        price: 134,
       },
     ],
   },
 ];
 
 const seedDatabase = async () => {
-  users.forEach((user) => {
-    User.create(user);
-  });
+  await Promise.all(
+    users.map(async (user) => {
+      return await User.create(user);
+    })
+  );
+
   await Product.bulkCreate(products);
   await Category.bulkCreate(categories);
 
@@ -288,9 +374,9 @@ const seedDatabase = async () => {
     assignCategory(relationship);
   });
 
-  Promise.all(
-    orders.forEach((order) => {
-      createOrder(order);
+  await Promise.all(
+    orders.map(async (order) => {
+      return await createOrder(order);
     })
   );
 
@@ -300,27 +386,21 @@ const seedDatabase = async () => {
 const assignCategory = async (relationship) => {
   let product = await Product.findByPk(relationship.productId);
   let category = await Category.findByPk(relationship.categoryId);
-
   await category.addProducts([product]);
 };
 
 const createOrder = async (order) => {
   let { userId, address, total } = order;
-
   let newOrder = await Order.create({ userId, address, total });
-  return newOrder;
+
+  order.products.forEach(async (product) => {
+    await fillOrderItems(newOrder.dataValues.orderId, product);
+  });
 };
 
-const fillOrderItems = async (items) => {
-  // Items => array
-  items.map(async (details) => {
-    let product = await Product.findByPk(details.productId);
-    let orderDetails = await OrderDetails.create({
-      quantity: details.quantity,
-      price: details.price,
-    });
-    await orderDetails.addProduct(product);
-  });
+const fillOrderItems = async (orderId, items) => {
+  const { productId, quantity, price } = items;
+  await OrderDetails.create({ orderId, productId, quantity, price });
 };
 
 seedDatabase();
