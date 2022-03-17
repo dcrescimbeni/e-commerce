@@ -1,62 +1,40 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import useInput from '../Hooks/useInputs';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { sendLogoutRequest } from "../state/user";
-import { sendLoginRequest } from '../state/user';
-import { FcGoogle } from 'react-icons/fc';
-import { BsFacebook } from 'react-icons/bs';
-import { GiConverseShoe } from "react-icons/gi"
+import { GiConverseShoe } from "react-icons/gi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
-import style from '../styles/Login.module.css';
 
-const Login = () => {
 
-  const inputEmail = useInput();
-  const inputPassword = useInput();
+const SubNavBar = () => {
 
-  const dispatch = useDispatch();
-  let navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
+    let navigate = useNavigate();
 
-  const handleClick = () => {
-    dispatch(sendLogoutRequest());
-  };
+    const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = {
-      email: inputEmail.value,
-      password: inputPassword.value,
-    };
+    const [searchTerm, setSearchTerm] = useState("");
 
-    dispatch(sendLoginRequest(form));
-  };
+    const handleSearchSubmit = async (e) => {
 
-  const handleSearchSubmit = async (e) => {
+        e.preventDefault()
+        navigate(`/search?query=${searchTerm}`)
+      
+      };
 
-    e.preventDefault()
-    navigate(`/search?query=${searchTerm}`)
-  
-  };
+      const handleClick = () => {
+        dispatch(sendLogoutRequest());
+      };
 
-  // const Submit = (e) => {
-  //   e.preventDefault();
-  //   navigate("/")
-  // };
+      const user = useSelector((state) => {
+        console.log(state.user);
+        return state.user;
+      });
 
-  const user = useSelector((state) => {
-    console.log(state.user);
-    return state.user;
-  });
 
   return (
-    
-    <div className={style.masthead}>  
-
-<nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+      <div>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
       <div className="container ">
         <li className="nav-item d-flex">
           <Link to="/">
@@ -127,7 +105,7 @@ const Login = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color="blue"/>
+                  <CgProfile size={25} variant="primary"/>
                   {user.firstName}
                 </a>
 
@@ -149,14 +127,17 @@ const Login = () => {
                   <li>
                   <li  class="dropdown-divider" />
                     <Link to="/">
-                    <button  className="dropdown-item">
+                    <button onClick={handleClick} className="dropdown-item">
                       Logout
                     </button>
                     </Link>
                   </li>
                 </ul>
               </li>
-              </>    
+              </>
+
+               
+                    
             ) : (
               <li className="nav-item dropdown">
                 <a
@@ -192,66 +173,17 @@ const Login = () => {
           </ul>
           {/* Profile End */}
 
-          <div>
-        <Link to="/admin">Admin</Link>
-      </div>
         </div>
       </div>
     </nav>
 
     <br/><br/><br/>
  
-      <div className="color-overlay d-flex justify-content-center align-items-center">
-        <div className="containerForm">
-          <Form onSubmit={handleSubmit} className="rounded p-4 p-sm-3">
-            <Form.Group
-              onSubmit={handleSubmit}
-              className="mb-3"
-              controlId="formBasicEmail"
-            >
-              <Form.Label>Email Adress</Form.Label>
-              <Form.Control
-                {...inputEmail}
-                type="email"
-                placeholder="Enter Email"
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                {...inputPassword}
-                type="password"
-                placeholder="Enter Password"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check tupe="checkbox" label="Remember Me"></Form.Check>
-            </Form.Group>
-            <div className="d-grid gap-2">
-              <Button variant="primary" size="lg" type="submit">
-                Submit
-              </Button>
-            </div>
-            <br></br>
-            <br></br>
-            <p>You dont have an account</p>
-            <Link to="/register">
-              <p>Register</p>
-            </Link>
-            <Link to="/google">
-              <FcGoogle size={32} />
-            </Link>{' '}
-            <Link to="/facebook">
-              <BsFacebook size={30} />
-            </Link>
-          </Form>
-        </div>
       </div>
-    </div>
-  );
-};
+  )
+  };
 
-export default Login;
+ 
+
+
+export default SubNavBar;
