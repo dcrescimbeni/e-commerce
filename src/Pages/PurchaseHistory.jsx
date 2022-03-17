@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { Table } from "react-bootstrap";
-
+import axios from "axios";
 import NavBar from "../components/NavBar";
-// import Product from "../../api/models/Product";
+import { useParams } from "react-router-dom";
 
 const PurchaseHistory = () => {
+  const [orders, setOrders] = useState();
+  const { id } = useParams();
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/api/users/userOrders/${id}`)
+      .then((res) => setOrders(res.data));
+  }, []);
 
-
-
+  console.log("orders =>", orders);
   return (
     <div>
       <br />
@@ -37,77 +43,20 @@ const PurchaseHistory = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                {" "}
-                <AiOutlineShoppingCart />
-              </td>
-              {/* {Product.price} */}
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>$ Table cell</td>
-            </tr>
-            <tr>
-              <td>
-                <AiOutlineShoppingCart />
-              </td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>$ Table cell</td>
-            </tr>
-            <tr>
-              <td>
-                <AiOutlineShoppingCart />
-              </td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>$ Table cell</td>
-            </tr>
-            <tr>
-              <td>
-                {" "}
-                <AiOutlineShoppingCart />
-              </td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>$ Table cell</td>
-            </tr>
-            <tr>
-              <td>
-                {" "}
-                <AiOutlineShoppingCart />
-              </td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>$ Table cell</td>
-            </tr>
-            <tr>
-              <td>
-                {" "}
-                <AiOutlineShoppingCart />
-              </td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>$ Table cell</td>
-            </tr>
-            <tr>
-              <td>
-                {" "}
-                <AiOutlineShoppingCart />
-              </td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>$ Table cell</td>
-            </tr>
-            <tr>
-              <td>
-                {" "}
-                <AiOutlineShoppingCart />
-              </td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>$ Table cell</td>
-            </tr>
+            {orders?.map((order) => {
+              return (
+                <tr>
+                  <td>
+                    {" "}
+                    <AiOutlineShoppingCart />
+                  </td>
+                  {/* {Product.price} */}
+                  <td>{order.productId}</td>
+                  <td>Table cell</td>
+                  <td>${order.price}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </Table>
       </div>
