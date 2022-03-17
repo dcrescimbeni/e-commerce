@@ -102,7 +102,7 @@ const Login = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
                 {" "}
-                <AiOutlineShoppingCart size={25} />
+                <AiOutlineShoppingCart size={25} color="black" />
               </Link>
             </li>
 
@@ -127,8 +127,9 @@ const Login = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color="blue"/>
-                  {user.firstName}
+                  <CgProfile size={25} color="black"/>{" "}{" "}
+                  <b>{user.firstName}</b>
+                 
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -167,7 +168,7 @@ const Login = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} />
+                  <CgProfile size={25} color= "black"/>
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -191,10 +192,20 @@ const Login = () => {
           
           </ul>
           {/* Profile End */}
-
+        {user.isAdmin?(
           <div>
-        <Link to="/admin">Admin</Link>
-      </div>
+          <Link to="/admin">Admin</Link>
+          </div>
+        ):(console.log("Hola"))}
+       
+       <div>
+          <Link to="/admin">
+            <Button>
+             Admin
+            </Button>
+           
+          </Link>
+          </div>
         </div>
       </div>
     </nav>
@@ -236,10 +247,9 @@ const Login = () => {
               </Button>
             </div>
             <br></br>
-            <br></br>
-            <p>You dont have an account</p>
+            <p>You don't have an account?</p>
             <Link to="/register">
-              <p>Register</p>
+            <div className="d-flex justify-content-center"><b>Register</b></div> 
             </Link>
             <Link to="/google">
               <FcGoogle size={32} />

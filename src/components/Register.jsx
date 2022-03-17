@@ -7,6 +7,7 @@ import { FcGoogle} from "react-icons/fc";
 import { BsFacebook }  from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import style from "../styles/Login.module.css";
+import SubNavBar from './SubNavBar';
 
 
 const Register = () => {
@@ -34,6 +35,7 @@ const Register = () => {
 
     return (
       <div>
+        <SubNavBar />
       <div className={style.masthead}>
       <div className="color-overlay d-flex justify-content-center align-items-center">
           <div className="containerForm">
@@ -74,9 +76,10 @@ const Register = () => {
             Submit
           </Button>
           </div>
-     
+         <br/>
+         <p>Already have an account?</p>
           <Link to="/login">
-            <p>Login</p>
+            <div className="d-flex justify-content-center"><b>Login</b></div> 
           </Link>
           <Link to="/google"><FcGoogle size={32} /></Link> <Link to="/facebook"><BsFacebook size={30}/></Link>
         </Form>

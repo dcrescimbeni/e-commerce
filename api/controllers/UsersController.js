@@ -1,5 +1,4 @@
 const User = require('../models/User');
-
 const nodemailer = require('nodemailer');
 const { transport } = require('../config/email');
 const { Order } = require('../models');

@@ -1,9 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import SubNavBar from "../components/SubNavBar";
-import { CgProfile } from "react-icons/cg";
-import style from "../styles/Profile.module.css"
+import NavBar from "../components/NavBar";
 
 
 const Profile = () => {
@@ -16,140 +14,80 @@ const Profile = () => {
     return state.user;
   });
 
+
   return (
     <div>
-      <SubNavBar />
-      <div className={style.Profile} id="edit-template">
-        <div className="main-section">
-          <div className="side-nav db-sm">
-            <div id="user-short">
-              <div className="fx-c">
-                <div>
-                  {" "}
-                  <CgProfile size={25} />
-                </div>
-                <hgroup class="tooltip-container">
-                  <h2>{user.firstName}</h2>
-                  <span class="tooltip tooltip-neutral bottom">
-                    <span class="tooltip-inner">{user.firstName}</span>
-                  </span>
-                  <h3></h3>
-                </hgroup>
+      <NavBar />
+      <br/><br/><br/>
+      <>
+      <h2 className="fs-4 mb-3 text-center text-uppercase">Edit Profile</h2>
+      <section className="container mt-5">
+        <div className="card">
+          <div className="card-body">
+            <form  className="row g-3">
+              <div className="col-md-6">
+                <label htmlFor="inputAddress" className="form-label">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputEmail4"
+                />
               </div>
-              <ul class="unstyled-list">
-                <li class="">
-                  <a href="/user/pamela-bueno-2/" data-purpose="">
-                    View public profile
-                  </a>
-                </li>
-                <li class=" on ">
-                  <a
-                    href="/user/edit-profile/"
-                    data-purpose="user_manage:edit-profile"
-                  >
-                    Profile
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    href="/user/edit-photo/"
-                    data-purpose="user_manage:edit-photo"
-                  >
-                    Photo
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    href="/user/edit-account/"
-                    data-purpose="user_manage:edit-account"
-                  >
-                    Account
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    href="/user/edit-payment-methods/"
-                    data-purpose="user_manage:edit-payment-methods"
-                  >
-                    Payment methods
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    href="/user/edit-privacy/"
-                    data-purpose="user_manage:edit-privacy"
-                  >
-                    Privacy
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    href="/user/edit-notifications/"
-                    data-purpose="user_manage:edit-notifications"
-                  >
-                    Notifications
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    href="/user/edit-api-clients/"
-                    data-purpose="user_manage:edit-api-clients"
-                  >
-                    API clients
-                  </a>
-                </li>
-                <li class="">
-                  <a
-                    href="/user/close-account/"
-                    data-purpose="user_manage:close-account"
-                  >
-                    Close account
-                  </a>
-                </li>
-              </ul>
-            </div>
+
+              <div className="col-md-6">
+                <label htmlFor="inputAddress" className="form-label">
+                 Last Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputEmail4"
+                />
+              </div>
+             
+              <div className="col-md-6">
+                <label htmlFor="inputAddress" className="form-label">
+                  Email
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputEmail4"
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="inputAddress" className="form-label">
+                 Address
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputPassword4"
+                />
+              </div>
+              <div className="col-md-6">
+                <label htmlFor="inputAddress" className="form-label">
+                  Shipping Address
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputPassword4"
+                />
+              </div>
+              <div className="col-12 modal-footer">
+                <button type="submit" className="btn btn-primary pe-2">
+                  Save
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-      </div>
-      <div className="form-wrapper">
-        <h2>Public profile</h2>
-        <h3>Add information about yourself</h3>
-     
-        <form action="http://localhost3001/user/edit-profile" method="post">
-            
-            <div className="manage-fields-wrapper sectioned">
-            <div className="form-field-container  labeled form-section labeled--sr-only" id="form-item-name">
-            <label className="udheavy-form-label control-label " for="id_name">Name</label>
-            <div id="tooltip-reference-name" className="tooltip-reference pos-r ">
-                <input type="text" name="name" value="" maxlength="64" placeholder="First Name" className="textinput textInput form-control"/>
-            </div>
-            </div>
-            <div className="form-field-container  labeled form-section labeled--sr-only" id="form-item-name">
-            <label className="udheavy-form-label control-label " for="id_name">Last Name</label>
-            <div id="tooltip-reference-name" className="tooltip-reference pos-r ">
-                <input type="text" name="name" value="" maxlength="64" placeholder="Last Name" className="textinput textInput form-control"/>
-            </div>
-            </div>
-            <div className="form-field-container  labeled form-section labeled--sr-only" id="form-item-name">
-            <label className="udheavy-form-label control-label " for="id_name">Address</label>
-            <div id="tooltip-reference-name" className="tooltip-reference pos-r ">
-                <input type="text" name="name" value="" maxlength="64" placeholder="First Name" className="textinput textInput form-control"/>
-            </div>
-            </div>
-            <div className="form-field-container  labeled form-section labeled--sr-only" id="form-item-name">
-            <label className="udheavy-form-label control-label " for="id_name">Name</label>
-            <div id="tooltip-reference-name" className="tooltip-reference pos-r ">
-                <input type="text" name="name" value="" maxlength="64" placeholder="First Name" className="textinput textInput form-control"/>
-            </div>
-            </div>
-            </div>
-            <div className="form-actions"> 
-            <div className="submit-row"> 
-            <input type="submit" name="submit" value="Save" className="btn btn-primary " />
-</div>
-</div>
-        </form>
-      </div>
+      </section>
+    </>
+    <br/><br/><br/><br/><br/><br/><br/>
     </div>
   );
 };

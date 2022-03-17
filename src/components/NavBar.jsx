@@ -119,15 +119,13 @@ const NavBar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
                 {' '}
-                <AiOutlineShoppingCart size={25} />
+                <AiOutlineShoppingCart size={25} color="black"/>
               </Link>
             </li>
-
+          
             {/* Profile Register/Login*/}
 
-            {/* {user.adminId? ( <Link to="/admin">Admin</Link>):(
-              otra cosa
-             )} */}
+          
 
             {user.userId ? (
               <>
@@ -141,7 +139,7 @@ const NavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color="blue"/>
+                  <CgProfile size={25} color="black"/>{" "}
                   {user.firstName}
                 </a>
 
@@ -181,7 +179,7 @@ const NavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} />
+                  <CgProfile size={25} color="black"/>{" "}
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
