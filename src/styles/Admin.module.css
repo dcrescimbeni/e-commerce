@@ -1,8 +1,20 @@
 .container{
     display: flex;
+    flex-direction: row;
 }
 
 .navBar{
-    height: 50%;
+    height: 7%;
     width: 100%;
+
+}
+
+.admContainer{
+display: flex;
+flex-direction: column;
+width: 100%;
+}
+
+.testForm{
+    width: 80%;
 }

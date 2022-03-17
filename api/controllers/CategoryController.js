@@ -21,7 +21,7 @@ exports.editCategory = (req, res, next) => {
     },
     returning: true,
   })
-    .then((response) => response[1])
+    .then((response) => response[1][0])
     .then((editedCategory) => res.status(201).send(editedCategory))
     .catch((err) => next(err));
 };

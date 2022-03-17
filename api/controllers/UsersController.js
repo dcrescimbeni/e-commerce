@@ -102,6 +102,15 @@ exports.getOrders = (req, res, next) => {
 
 // Admin controllers
 
+exports.getOneUser = async (req, res, next) => {
+  try {
+    let user = await User.findOne({ where: { userId: req.params.id } });
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.getAllUsers = (req, res, next) => {
   User.findAll({ attributes: { exclude: ['password'] } })
     .then((users) => {
@@ -110,23 +119,25 @@ exports.getAllUsers = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-exports.editUser = (req, res, next) => {
+exports.editUser = async (req, res, next) => {
   let adminId = req.user.dataValues.userId;
   let userId = parseInt(req.params.id);
 
-  if (adminId === userId && req.body.isAdmin === false) {
-    let err = new Error('Cannot revoke admin access to itself');
-    return next(err);
-  }
+  try {
+    if (adminId === userId && req.body.isAdmin === false) {
+      throw new Error('Cannot revoke admin access to itself');
+    }
 
-  User.update(req.body, {
-    where: {
-      userId: req.params.id,
-    },
-    returning: true,
-  })
-    .then((user) => res.send(user[1]))
-    .catch((err) => next(err));
+    let updatedUser = await User.update(req.body, {
+      where: {
+        userId: req.params.id,
+      },
+      returning: true,
+    });
+    res.send(updatedUser[1][0]);
+  } catch (err) {
+    next(err);
+  }
 };
 
 exports.deleteUser = (req, res, next) => {
