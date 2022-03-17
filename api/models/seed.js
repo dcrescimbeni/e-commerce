@@ -238,27 +238,27 @@ const orders = [
     products: [
       {
         productId: 9,
-        quantity: 5,
+        qty: 5,
         price: 108,
       },
       {
         productId: 5,
-        quantity: 5,
+        qty: 5,
         price: 108,
       },
       {
         productId: 3,
-        quantity: 4,
+        qty: 4,
         price: 117,
       },
       {
         productId: 8,
-        quantity: 4,
+        qty: 4,
         price: 134,
       },
       {
         productId: 3,
-        quantity: 3,
+        qty: 3,
         price: 112,
       },
     ],
@@ -270,7 +270,7 @@ const orders = [
     products: [
       {
         productId: 7,
-        quantity: 3,
+        qty: 3,
         price: 128,
       },
     ],
@@ -282,12 +282,12 @@ const orders = [
     products: [
       {
         productId: 4,
-        quantity: 1,
+        qty: 1,
         price: 103,
       },
       {
         productId: 8,
-        quantity: 4,
+        qty: 4,
         price: 137,
       },
     ],
@@ -299,17 +299,17 @@ const orders = [
     products: [
       {
         productId: 8,
-        quantity: 5,
+        qty: 5,
         price: 126,
       },
       {
         productId: 7,
-        quantity: 1,
+        qty: 1,
         price: 137,
       },
       {
         productId: 2,
-        quantity: 5,
+        qty: 5,
         price: 102,
       },
     ],
@@ -321,22 +321,22 @@ const orders = [
     products: [
       {
         productId: 8,
-        quantity: 3,
+        qty: 3,
         price: 140,
       },
       {
         productId: 8,
-        quantity: 3,
+        qty: 3,
         price: 105,
       },
       {
         productId: 7,
-        quantity: 2,
+        qty: 2,
         price: 121,
       },
       {
         productId: 5,
-        quantity: 1,
+        qty: 1,
         price: 102,
       },
     ],
@@ -348,12 +348,12 @@ const orders = [
     products: [
       {
         productId: 5,
-        quantity: 4,
+        qty: 4,
         price: 138,
       },
       {
         productId: 8,
-        quantity: 1,
+        qty: 1,
         price: 134,
       },
     ],
@@ -399,8 +399,8 @@ const createOrder = async (order) => {
 };
 
 const fillOrderItems = async (orderId, items) => {
-  const { productId, quantity, price } = items;
-  await OrderDetails.create({ orderId, productId, quantity, price });
+  const { productId, qty, price } = items;
+  await OrderDetails.create({ orderId, productId, qty, price });
 };
 
 seedDatabase();
