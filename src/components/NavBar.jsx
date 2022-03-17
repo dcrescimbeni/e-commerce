@@ -1,5 +1,5 @@
-import React, { useState }  from "react";
-import { Link , useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { getSession, sendLogoutRequest } from "../state/user";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -7,13 +7,14 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { GiConverseShoe } from "react-icons/gi";
 import "bootstrap/dist/js/bootstrap.bundle.js";
+import { BsFillKeyFill } from "react-icons/bs";
 
 
 
 
 const NavBar = () => {
   // esta es la logica para togglear register y login cuando el user esta logueado 
-  
+
   const dispatch = useDispatch();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,7 +25,7 @@ const NavBar = () => {
 
     e.preventDefault()
     navigate(`/search?query=${searchTerm}`)
-  
+
   };
 
   const handleClick = () => {
@@ -80,7 +81,7 @@ const NavBar = () => {
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
-                
+
                 id="navbarDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -108,12 +109,12 @@ const NavBar = () => {
             </li>
 
             {/* Search */}
-            <form onSubmit={(e) => {handleSearchSubmit(e)}} className="d-flex">
-              <input 
+            <form onSubmit={(e) => { handleSearchSubmit(e) }} className="d-flex">
+              <input
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="form-control me-2"
                 aria-label="Search"
-                hint="Search" 
+                hint="Search"
                 type="text"
                 placeholder="Search"
               />
@@ -127,60 +128,69 @@ const NavBar = () => {
               </Link>
             </li>
 
+            {/* Inicio Enlace Temporal === Borrar */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/admin">
+                {" "}
+                <BsFillKeyFill size={25} />
+              </Link>
+            </li>
+            {/* Fin Enlace Temporal === Borrar */}
+
             {/* Profile Register/Login*/}
 
             {/* {user.adminId? ( <Link to="/admin">Admin</Link>):(
               otra cosa
              )} */}
-           
+
 
             {user.userId ? (
               <>
                 {/* Test menu dropdown user logueado */}
-                 {/* Test menu dropdown user logueado */}
+                {/* Test menu dropdown user logueado */}
 
-                 <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <CgProfile size={25} color="blue"/>
-                  {user.firstName}
-                </a>
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
 
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                    <Link to="/profile">
-                      <a className="dropdown-item" >
-                        Profile
-                      </a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/purchaseHistory">
-                      <a className="dropdown-item" >
-                        Purchase History
-                      </a>
-                    </Link>
-                  </li>
-                  <li>
-                  <li  class="dropdown-divider" />
-                    <Link to="/">
-                    <button onClick={handleClick} className="dropdown-item">
-                      Logout
-                    </button>
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <CgProfile size={25} color="blue" />
+                    {user.firstName}
+                  </a>
+
+                  <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                      <Link to="/profile">
+                        <a className="dropdown-item" >
+                          Profile
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/purchaseHistory">
+                        <a className="dropdown-item" >
+                          Purchase History
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
+                      <li class="dropdown-divider" />
+                      <Link to="/">
+                        <button onClick={handleClick} className="dropdown-item">
+                          Logout
+                        </button>
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
               </>
 
-               
-                    
+
+
             ) : (
               <li className="nav-item dropdown">
                 <a
@@ -212,7 +222,7 @@ const NavBar = () => {
                 </ul>
               </li>
             )}
-          
+
           </ul>
           {/* Profile End */}
         </div>
