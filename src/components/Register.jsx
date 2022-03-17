@@ -8,6 +8,7 @@ import { BsFacebook }  from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import style from "../styles/Login.module.css";
 import SubNavBar from './SubNavBar';
+import { getSession } from '../state/user';
 
 
 const Register = () => {

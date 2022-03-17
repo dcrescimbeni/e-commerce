@@ -30,6 +30,7 @@ const Checkout = ({ cartItems }) => {
   const placeOrderHandler = (id, order) => {
 
     const myorder = {
+      id : user.userId,
       address: user.shippingAddress,
       total,
       products: order,
@@ -39,8 +40,8 @@ const Checkout = ({ cartItems }) => {
     console.log(myorder);
 
     // console.log(id)
-    dispatch(saveOrder(id, myorder))
-    // localStorage.removeItem('cart-products')
+    dispatch(saveOrder(myorder))
+    localStorage.removeItem('cart-products')
     console.log("Guardar Orden")
   }
 
