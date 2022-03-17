@@ -50,8 +50,6 @@ describe('Routes User', () => {
           })
           .catch((err) => {
             console.log(err.errors);
-            // expect(err.errors[0].message).to.equals('notNull Violation');
-            // expect(err.errors[0].path).to.equals('password');
           });
       });
       it('Cannot create a user without first name', () => {});
@@ -398,7 +396,7 @@ describe('Admin routes', () => {
             .set('Cookie', session)
             .send({ name: newName });
 
-          expect(editedProduct.body[0].name).to.equals(newName);
+          expect(editedProduct.body.name).to.equals(newName);
         } catch (err) {
           expect(err).to.not.exist();
         }
@@ -420,7 +418,6 @@ describe('Admin routes', () => {
           .send(modifiedProduct);
 
         let productId = await newProduct.body.productId;
-        console.log('New product ID: ', productId);
 
         await agent
           .put(`/api/products/product/${productId}`)
@@ -454,7 +451,6 @@ describe('Admin routes', () => {
           .send(modifiedProduct);
 
         let productId = await newProduct.body.productId;
-        console.log('New product ID: ', productId);
 
         await agent
           .put(`/api/products/product/${productId}`)
@@ -488,7 +484,6 @@ describe('Admin routes', () => {
           .send(modifiedProduct);
 
         let productId = await newProduct.body.productId;
-        console.log('New product ID: ', productId);
 
         await agent
           .put(`/api/products/product/${productId}`)
@@ -503,7 +498,33 @@ describe('Admin routes', () => {
         expect(foundProduct.dataValues.categories).to.have.lengthOf(1);
       });
 
-      it('Can edit images', async () => {});
+      it('Can edit images', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(product);
+
+        let productId = await newProduct.body.productId;
+
+        let editedProduct = await agent
+          .put(`/api/products/product/${productId}`)
+          .set('Cookie', session)
+          .send({
+            img: 'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/d8bbfd4d-a3c4-4a04-9900-687285e8a82d/air-jordan-1-retro-high-og-zapatillas.png , https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/74195b1e-525e-4c7c-8fa4-651a66445239/air-jordan-1-low-zapatillas-ZdMg83.png,      https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/197cbaa9-5815-4985-9081-95890d95458e/air-jordan-1-low-zapatillas-ZdMg83.png,      https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/28b1ea02-d216-4151-8035-7583d125106d/air-max-90-zapatillas-XD9b13.png',
+          });
+
+        expect(editedProduct.body.img).to.have.lengthOf(4);
+      });
 
       it('Cannot edit a product if not logged in', async () => {
         let loginAdmin = await agent
@@ -737,7 +758,7 @@ describe('Admin routes', () => {
           })
           .set('Cookie', session);
 
-        expect(promoteUser.body[0].isAdmin).to.equals(true);
+        expect(promoteUser.body.isAdmin).to.equals(true);
       });
 
       it('Can revoke admin status', async () => {
@@ -764,7 +785,7 @@ describe('Admin routes', () => {
           })
           .set('Cookie', session);
 
-        expect(revokeUser.body[0].isAdmin).to.equals(false);
+        expect(revokeUser.body.isAdmin).to.equals(false);
       });
 
       it('Cannot revoke admin status to itself', async () => {
@@ -830,7 +851,6 @@ describe('Admin routes', () => {
         });
 
         let firstUserId = firstUserDetails.dataValues.userId;
-        console.log('User ID =>', firstUserId);
 
         let promoteUser = await agent
           .put(`/api/users/edit/${firstUserId}`)
@@ -869,7 +889,7 @@ describe('Admin routes', () => {
           })
           .set('Cookie', session);
 
-        expect(editedUser.body[0].firstName).to.equals('Modified First');
+        expect(editedUser.body.firstName).to.equals('Modified First');
       });
 
       it('Admin can edit its own profile', async () => {
@@ -896,7 +916,7 @@ describe('Admin routes', () => {
           })
           .set('Cookie', session);
 
-        expect(ownUser.body[0].firstName).to.equals('Modified Admin');
+        expect(ownUser.body.firstName).to.equals('Modified Admin');
       });
     });
   });
@@ -974,10 +994,7 @@ describe('Admin routes', () => {
           .send({ name: 'editedCategory' });
 
         expect(editedCategory.status).to.equal(201);
-        expect(editedCategory.body[0]).to.have.property(
-          'name',
-          'editedCategory'
-        );
+        expect(editedCategory.body).to.have.property('name', 'editedCategory');
       });
 
       it('Cannot edit a category if not admin', async () => {

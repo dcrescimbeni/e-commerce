@@ -83,6 +83,12 @@ exports.newProduct = async (req, res, next) => {
 
 exports.editProduct = async (req, res, next) => {
   try {
+    if (typeof req.body.img === 'string') {
+      let imagesArray = req.body.img.split(', ');
+      let trimmedImages = imagesArray.map((image) => image.trim());
+      req.body.img = [...trimmedImages];
+    }
+
     await Products.update(req.body, {
       where: {
         productId: req.params.id,
@@ -111,12 +117,6 @@ exports.editProduct = async (req, res, next) => {
       let product = await Products.findByPk(req.params.id);
 
       await product.setCategories(foundCategories);
-
-      let modified = await Products.findOne({
-        where: { productId: req.params.id },
-        include: Category,
-      });
-      console.log(modified);
     }
 
     let productResult = await Products.findOne({
@@ -124,7 +124,7 @@ exports.editProduct = async (req, res, next) => {
       include: Category,
     });
 
-    res.status(201).send([productResult]);
+    res.status(201).send(productResult);
   } catch (err) {
     next(err);
   }

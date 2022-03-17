@@ -26,7 +26,7 @@ app.use(passport.session());
 app.use('/api', route);
 
 app.use((err, req, res, next) => {
-  let enableConsoleLog = true;
+  let enableConsoleLog = false;
 
   if (enableConsoleLog) {
     console.log('Error');
