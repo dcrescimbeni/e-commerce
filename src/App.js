@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -17,14 +17,14 @@ import WriteReview from './components/WriteReview';
 import Checkout from './Pages/Checkout';
 
 import UsersManagement from './Pages/UsersManagement';
-import CategoriesManagement from './Pages/CategoriesManagement';
-import ProductsManagement from './Pages/ProductsManagement';
 import Thanks from './Pages/Thanks';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSession } from './state/user';
 import Profile from './Pages/Profile';
 import PurchaseHistory from './Pages/PurchaseHistory.jsx';
 import NewProduct from './Pages/NewProduct';
+import ProductEdit from './Pages/ProductEdit';
+
 
 function App() {
   // const { products } = data;
@@ -97,8 +97,6 @@ function App() {
     setCartItems(cartItems.filter((x) => x.productId !== product.productId));
   };
 
-  const location = useLocation();
-
   return (
     <div>
       <main>
@@ -148,9 +146,10 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/productsManagement" element={<Admin />} />
           <Route path="/usersManagement" element={<Admin />} />
-          <Route path="/categoriesManagement" element={<Admin />} />
           <Route path="/users/:id" element={<UsersManagement/>}/>
           <Route path="/newProduct" element={<NewProduct/>}/>
+          <Route path="/products/edit/:id" element={<ProductEdit/>}/>
+
         </Routes >
       </main >
       <Footer />
