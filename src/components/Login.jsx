@@ -1,19 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import useInput from '../Hooks/useInputs';
 import { sendLoginRequest } from '../state/user';
 import { FcGoogle } from 'react-icons/fc';
 import { BsFacebook } from 'react-icons/bs';
 import style from '../styles/Login.module.css';
 import axios from 'axios';
+import { getSession } from '../state/user';
+
 
 const Login = () => {
   const inputEmail = useInput();
   const inputPassword = useInput();
-
+  const navigate = useNavigate()
   const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getSession());
+  }, [dispatch]);
+
+  const user = useSelector((state) => {
+    return state.user;
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,8 +31,8 @@ const Login = () => {
       email: inputEmail.value,
       password: inputPassword.value,
     };
-
     dispatch(sendLoginRequest(form));
+    if(user) navigate('/')
   };
 
   const handleGoogle = (e) => {
@@ -72,7 +82,7 @@ const Login = () => {
               <Form.Check tupe="checkbox" label="Remember Me"></Form.Check>
             </Form.Group>
             <div className="d-grid gap-2">
-              <Button variant="primary" size="lg" type="submit">
+              <Button variant="primary" size="lg"  type="submit">
                 Submit
               </Button>
             </div>

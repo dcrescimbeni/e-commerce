@@ -135,6 +135,7 @@ exports.editUser = (req, res, next) => {
 };
 
 exports.deleteUser = (req, res, next) => {
+  
   let adminId = req.user.dataValues.userId;
   let userId = parseInt(req.params.id);
 

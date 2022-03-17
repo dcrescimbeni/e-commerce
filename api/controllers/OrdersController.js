@@ -4,7 +4,7 @@ const OrderDetails = require('../models/OrderDetails');
 
 
 exports.createOrder = (req, res, next) => {
-  
+  console.log(req.body)
   User.findOne({ where: { userId: req.params.id } })
   .then(() => {
     const orderObj = {
