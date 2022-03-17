@@ -80,7 +80,7 @@ const SubNavBar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
                 {" "}
-                <AiOutlineShoppingCart size={25} />
+                <AiOutlineShoppingCart size={25} color="black" />
               </Link>
             </li>
 
@@ -93,9 +93,6 @@ const SubNavBar = () => {
 
             {user.userId ? (
               <>
-                {/* Test menu dropdown user logueado */}
-                 {/* Test menu dropdown user logueado */}
-
                  <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
@@ -105,7 +102,7 @@ const SubNavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} variant="primary"/>
+                   <CgProfile size={25} color="black"/>
                   {user.firstName}
                 </a>
 
@@ -134,10 +131,7 @@ const SubNavBar = () => {
                   </li>
                 </ul>
               </li>
-              </>
-
-               
-                    
+              </>    
             ) : (
               <li className="nav-item dropdown">
                 <a
@@ -148,7 +142,7 @@ const SubNavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} />
+                  <CgProfile size={25} color= "black" />
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -182,8 +176,5 @@ const SubNavBar = () => {
       </div>
   )
   };
-
- 
-
-
+  
 export default SubNavBar;
