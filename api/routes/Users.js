@@ -16,7 +16,8 @@ router.post(
   UsersController.userLogin
 );
 
-router.put('/:id', UsersController.editOwnUser);
+router.get('/details', isAuth, UsersController.getOwnDetails);
+router.put('/details', isAuth, UsersController.editOwnUser);
 
 router.get('/logout', UsersController.userLogout);
 
