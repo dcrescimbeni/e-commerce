@@ -40,7 +40,7 @@ const Checkout = ({ cartItems }) => {
 
     // console.log(id)
     dispatch(saveOrder(id, myorder))
-    // localStorage.removeItem('cart-products')
+    localStorage.removeItem('cart-products')
     console.log("Guardar Orden")
   }
 

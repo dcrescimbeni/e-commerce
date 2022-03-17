@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 const Thanks = () => {
+
+  const handleStorage = () =>{
+
+    localStorage.removeItem('cart-products')
+  }
+
+
   return (
     <div>
       <NavBar />
@@ -24,7 +31,7 @@ const Thanks = () => {
               Problems? <Link to="/"> Contac Us</Link>
             </p>
             <p className="lead">
-              <Link to="/" className="btn btn-primary btn-sm" role="button">
+              <Link to="/" className="btn btn-primary btn-sm" role="button" onClick={handleStorage}>
                 Keep Buying
               </Link>
             </p>
