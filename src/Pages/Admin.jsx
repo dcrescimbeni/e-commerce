@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProductsManagement from "../Pages/ProductsManagement";
 import UsersList from "./UsersList";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Admin = () => {
 
@@ -41,7 +41,7 @@ const Admin = () => {
         {/* <AdminTable/> */}
         {location.pathname === "/usersManagement" ? <UsersList /> : ""}
         {/* {location.pathname === "/categoriesManagement" ? < /> : ""} */}
-        {location.pathname === "/productsManagement" ? < ProductsManagement/> : ""}
+        {location.pathname === "/productsManagement" ? < ProductsManagement /> : ""}
       </div>
     </div>
   );

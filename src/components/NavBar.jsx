@@ -1,5 +1,5 @@
-import React, { useState }  from "react";
-import { Link , useNavigate} from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { getSession, sendLogoutRequest } from "../state/user";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -57,7 +57,7 @@ const NavBar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-      
+
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             <li className="nav-item d-flex">
@@ -79,19 +79,19 @@ const NavBar = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link to="/men" >
-                <li>
-                  <a className="dropdown-item">Men</a>
-                </li>
+                  <li>
+                    <a className="dropdown-item">Men</a>
+                  </li>
                 </Link>
                 <Link to="/women" >
-                <li>
-                  <a className="dropdown-item">Women</a>
-                </li>
+                  <li>
+                    <a className="dropdown-item">Women</a>
+                  </li>
                 </Link>
                 <Link to="/kids">
-                <li>
-                  <a className="dropdown-item">Kids</a>
-                </li>
+                  <li>
+                    <a className="dropdown-item">Kids</a>
+                  </li>
                 </Link>
               </ul>
             </li>
@@ -113,7 +113,7 @@ const NavBar = () => {
               />
             </form>
             {/* Search End*/}
-      
+
 
 
             <li className="nav-item">
@@ -123,6 +123,15 @@ const NavBar = () => {
               </Link>
             </li>
 
+            {/* Inicio Enlace Temporal === Borrar */}
+            <li className="nav-item">
+              <Link className="nav-link" to="/admin">
+                {" "}
+                <BsFillKeyFill size={25} />
+              </Link>
+            </li>
+            {/* Fin Enlace Temporal === Borrar */}
+
             {/* Profile Register/Login*/}
 
             {/* {user.adminId? ( <Link to="/admin">Admin</Link>):(
@@ -131,45 +140,45 @@ const NavBar = () => {
 
             {user.userId ? (
               <>
-               
-                 <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <CgProfile size={25} color="blue"/>
-                  {user.firstName}
-                </a>
 
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                    <Link to="/profile">
-                      <a className="dropdown-item" >
-                        Profile
-                      </a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/purchaseHistory">
-                      <a className="dropdown-item" >
-                        Purchase History
-                      </a>
-                    </Link>
-                  </li>
-                  <li>
-                  <li  className="dropdown-divider" />
-                    <Link to="/">
-                    <button onClick={handleClick} className="dropdown-item">
-                      Logout
-                    </button>
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <CgProfile size={25} color="blue" />
+                    {user.firstName}
+                  </a>
+
+                  <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                      <Link to="/profile">
+                        <a className="dropdown-item" >
+                          Profile
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/purchaseHistory">
+                        <a className="dropdown-item" >
+                          Purchase History
+                        </a>
+                      </Link>
+                    </li>
+                    <li>
+                      <li className="dropdown-divider" />
+                      <Link to="/">
+                        <button onClick={handleClick} className="dropdown-item">
+                          Logout
+                        </button>
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
               </>
             ) : (
               <li className="nav-item dropdown">
@@ -202,11 +211,11 @@ const NavBar = () => {
                 </ul>
               </li>
             )}
-          </ul>
+          </ul >
           {/* Profile End */}
-        </div>
-      </div>
-    </nav>
+        </div >
+      </div >
+    </nav >
   );
 };
 
