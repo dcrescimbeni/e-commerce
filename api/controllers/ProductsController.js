@@ -3,7 +3,6 @@ const Category = require('../models/Category');
 const { Op } = require('sequelize');
 const id = require('volleyball/lib/id');
 
-
 exports.allProducts = (req, res) => {
   Products.findAll({ include: Category })
     .then((products) => res.send(products))
@@ -11,7 +10,7 @@ exports.allProducts = (req, res) => {
 };
 
 exports.productFind = (req, res) => {
-  console.log("");
+  console.log('');
   Products.findOne({
     where: {
       productId: req.params.id,
@@ -22,21 +21,45 @@ exports.productFind = (req, res) => {
 };
 
 exports.productFindCategory = (req, res) => {
-  Products.findAll({ include: [{
-    model: Category,
-    where: {categoryId: req.params.id}
-  }]})
+  Products.findAll({
+    include: [
+      {
+        model: Category,
+        where: { categoryId: req.params.id },
+      },
+    ],
+  })
     .then((products) => res.send(products))
     .catch((err) => console.log(err));
 };
 
-exports.newProduct = (req, res) => {
-  Products.create(req.body)
-    .then((response) => response.dataValues)
-    .then((createdProduct) => {
-      res.status(201).send(createdProduct);
-    })
-    .catch((err) => console.log(err));
+exports.newProduct = async (req, res, next) => {
+  if (typeof req.body.img === 'string') {
+    let imagesArray = req.body.img.split(', ');
+    let trimmedImages = imagesArray.map((image) => image.trim());
+    req.body.img = [...trimmedImages];
+  }
+
+  if (req.body.categories) {
+    let categoryArray = req.body.categories.split(',');
+    let parsedArray = categoryArray.map((category) =>
+      parseInt(category.trim())
+    );
+    req.body.categories = [...parsedArray];
+  }
+
+  try {
+    let createdProduct = await Products.create(req.body);
+    res.status(201).send(createdProduct.dataValues);
+  } catch (err) {
+    next(err);
+  }
+  // await Products.create(req.body)
+  //   .then((response) => response.dataValues)
+  //   .then((createdProduct) => {
+  //     res.status(201).send(createdProduct);
+  //   })
+  //   .catch((err) => console.log(err));
 };
 
 exports.editProduct = (req, res) => {

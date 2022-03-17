@@ -6,7 +6,7 @@ const app = require('../server');
 const supertest = require('supertest');
 const after = require('mocha').after;
 const before = require('mocha').before;
-const { User } = require('../models');
+const { User, Product, Category } = require('../models');
 let agent;
 
 beforeEach('Initializes supertest', () => {
@@ -148,6 +148,108 @@ describe('Admin routes', () => {
           expect(err).to.not.exist();
         }
       });
+
+      it('Can add a product with a string of images', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({
+            email: adminUser.email,
+            password: adminUser.password,
+          })
+          .expect(200);
+
+        let modifiedProduct = { ...product };
+
+        modifiedProduct.img =
+          'https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/d8bbfd4d-a3c4-4a04-9900-687285e8a82d/air-jordan-1-retro-high-og-zapatillas.png , https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/74195b1e-525e-4c7c-8fa4-651a66445239/air-jordan-1-low-zapatillas-ZdMg83.png,      https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5,q_80/197cbaa9-5815-4985-9081-95890d95458e/air-jordan-1-low-zapatillas-ZdMg83.png,      https://static.nike.com/a/images/t_PDP_864_v1/f_auto,b_rgb:f5f5f5/28b1ea02-d216-4151-8035-7583d125106d/air-max-90-zapatillas-XD9b13.png';
+
+        session = loginAdmin.header['set-cookie'];
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(modifiedProduct);
+
+        expect(newProduct.status).to.equal(201);
+        expect(newProduct.body).to.have.property('name', product.name);
+        expect(newProduct.body).to.have.property('price', product.price);
+        expect(newProduct.body).to.have.property('color', product.color);
+        expect(newProduct.body).to.have.property('size', product.size);
+        expect(newProduct.body).to.have.property('stock', product.stock);
+        expect(newProduct.body.img).to.have.lengthOf(4);
+        expect(newProduct.body).to.have.property(
+          'description',
+          product.description
+        );
+      });
+
+      it('Can add one category to a product', async () => {});
+
+      it('Can add more than one category to a product', async () => {
+        let loginAdmin = await agent
+          .post('/api/users/login')
+          .send({ email: adminUser.email, password: adminUser.password })
+          .expect(200);
+
+        session = loginAdmin.header['set-cookie'];
+
+        let modifiedProduct = { ...product };
+        modifiedProduct.categories = '1,2';
+
+        let newProduct = await agent
+          .post('/api/products/newProduct')
+          .set('Cookie', session)
+          .send(modifiedProduct);
+
+        expect(newProduct.status).to.equal(201);
+
+        // await Category.create({ name: 'Category 1' });
+        // let category = await Category.findOne({
+        //   where: { name: 'Category 1' },
+        // });
+
+        let foundProduct = await Product.findOne({
+          where: { productId: newProduct.body.productId },
+          include: Category,
+        });
+
+        // await foundProduct.addCategory(category);
+
+        // let productAgain = await Product.findOne({
+        //   where: { productId: newProduct.body.productId },
+        //   include: Category,
+        // });
+
+        expect(foundProduct.dataValues).to.have.property(
+          'name',
+          modifiedProduct.name
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'price',
+          modifiedProduct.price
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'color',
+          modifiedProduct.color
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'size',
+          modifiedProduct.size
+        );
+        expect(foundProduct.dataValues).to.have.property(
+          'stock',
+          modifiedProduct.stock
+        );
+        expect(foundProduct.dataValues.img).to.have.lengthOf(4);
+        expect(foundProduct.dataValues).to.have.property(
+          'description',
+          modifiedProduct.description
+        );
+        expect(
+          foundProduct.dataValues.categories[0].dataValues
+        ).to.have.property('name', 'Category 1');
+      });
+
+      it('Handles categories as numbers instead of strings', async () => {});
 
       it('Cannot add a product if not admin', async () => {
         try {
