@@ -20,11 +20,15 @@ if (!productsList) return <div></div>;
 
 console.log(productsList)
 
-// const handleDelete = (e) =>{
-// e.preventDefault();
-// axios.
-// delete("/api/users/delete/:id")
-// }
+const handleDelete = (e, productId) =>{
+e.preventDefault();
+axios.
+delete(`/api/products/product/${productId}`)
+.then(()=> {
+   const newProductsList = productsList.filter((product) => product.productId !== productId)
+   setProductsList(newProductsList)
+})
+}
 
     return (
         <div className="container-fluid px-4">
@@ -50,8 +54,8 @@ console.log(productsList)
                                     <td>{product.stock}</td>
                                     <td>{`${product.price} €`}</td>
                                     <td>{product.description}</td>
-                                    <td><Link to={`/users/${product.userId}`} className='btn btn-warning'>Edit</Link></td>
-                                    <td><button className='btn btn-danger'>Delete</button></td>
+                                    <td><Link to={`/products/edit/${product.productId}`} className='btn btn-warning'>Edit</Link></td>
+                                    <td><button onClick={(e)=> handleDelete(e, product.productId)} className='btn btn-danger'>Delete</button></td>
                                     </tr>
                                 )
                             })}

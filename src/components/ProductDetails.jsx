@@ -56,7 +56,7 @@ const ProductDetails = ({ onAdd }) => {
             <Card.Title className={styles.name}>
               {productInfo['name']}{' '}
               <Link to="/writeReview">
-                <Button variant="warning">Escribir reseña</Button>
+                {/* <Button variant="warning">Escribir reseña</Button> */}
               </Link>
             </Card.Title>
             <br></br>

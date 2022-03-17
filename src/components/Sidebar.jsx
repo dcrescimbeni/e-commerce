@@ -27,7 +27,6 @@ const Sidebar = () => {
     <ul className="nav nav-pills flex-column mb-auto">
         <li> <Link to="/usersManagement" className="nav-link text-white"> <i className="fa fa-user"></i><span className="ms-2">Manage Users</span> </Link> </li>
         <li> <Link to="/productsManagement" className="nav-link text-white"> <i className="fa fa-briefcase"></i><span className="ms-2">Manage Products</span> </Link> </li>
-        <li> <Link to="/categoriesManagement" className="nav-link text-white"> <i className="fa fa-window-restore"></i><span className="ms-2">Manage Categories</span> </Link> </li>
     </ul>
     <hr/>
     <div className={styles.logBtn}> <Link to="/" className="d-flex align-items-center text-white text-decoration-none "  > <RiLogoutBoxLine onClick={handleClick} className={styles.logButton} size={23} /> <strong> Log out</strong> </Link>

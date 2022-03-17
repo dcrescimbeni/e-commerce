@@ -35,7 +35,7 @@ const ProductsList = () => {
     }
   }, [window.location.href]);
 
-  if(!productInfo) return <div></div>
+  if (!productInfo) return <div></div>
 
   return (
     <>
