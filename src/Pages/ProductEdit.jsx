@@ -16,7 +16,7 @@ const ProductEdit = () => {
   }
 
   let productId = parseInt(reducedURL);
-
+  //api/products/product/id
   //axios para editar usuario
 
   const productName = useInput();

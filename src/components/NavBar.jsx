@@ -7,6 +7,8 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { GiConverseShoe } from 'react-icons/gi';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
+import { BsFillKeyFill } from "react-icons/bs";
+
 
 const NavBar = () => {
   // esta es la logica para togglear register y login cuando el user esta logueado
