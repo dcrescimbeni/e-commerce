@@ -4,8 +4,8 @@ const { Op } = require('sequelize');
 
 exports.allProducts = async (req, res, next) => {
   try {
-    let products = Products.findAll({ include: Category });
-    res.send(products.dataValues);
+    let products = await Products.findAll({ include: Category });
+    res.send(products);
   } catch (err) {
     next(err);
   }
