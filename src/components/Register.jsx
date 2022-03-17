@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { Link ,useNavigate} from 'react-router-dom';
+import { useDispatch ,useSelector} from "react-redux";
 import useInput from "../Hooks/useInputs";
 import { sendRegister } from "../state/user";
 import { FcGoogle} from "react-icons/fc";
@@ -8,6 +8,7 @@ import { BsFacebook }  from "react-icons/bs";
 import { Form, Button } from "react-bootstrap";
 import style from "../styles/Login.module.css";
 import SubNavBar from './SubNavBar';
+import { getSession } from '../state/user';
 
 
 const Register = () => {
@@ -19,6 +20,15 @@ const Register = () => {
   const inputPassword = useInput();
  
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  React.useEffect(() => {
+    dispatch(getSession());
+  }, [dispatch]);
+
+  const user = useSelector((state) => {
+    return state.user;
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,8 +39,10 @@ const Register = () => {
         billingAddress: inputBillingAddress.value,
         password: inputPassword.value,
       }
-    console.log("Form =>", form)
-    dispatch(sendRegister(form))    
+    
+    dispatch(sendRegister(form))
+    if(user) navigate('/login')
+
   };
 
     return (

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/ProductDetails.module.css';
-import { Card, Button, Carousel, ListGroup } from 'react-bootstrap';
+import { Card, Button, Carousel, ListGroup, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import NavBar from './NavBar';
 
 const ProductDetails = ({ onAdd }) => {
   //obtener id del producto a partir de la url
@@ -31,6 +32,8 @@ const ProductDetails = ({ onAdd }) => {
 
   if (!productInfo.img) return <div></div>;
   return (
+    <div>
+      <NavBar />
     <div className={styles.container}>
       <Carousel className={styles.image} fade variant="dark">
         {productInfo.img.map((imgSource) => {
@@ -53,7 +56,7 @@ const ProductDetails = ({ onAdd }) => {
             <Card.Title className={styles.name}>
               {productInfo['name']}{' '}
               <Link to="/writeReview">
-                <Button variant="warning">Escribir reseña</Button>
+                {/* <Button variant="warning">Escribir reseña</Button> */}
               </Link>
             </Card.Title>
             <br></br>
@@ -91,6 +94,7 @@ const ProductDetails = ({ onAdd }) => {
           </Card.Body>
         </Card>
       </div>
+    </div>
     </div>
   );
 };

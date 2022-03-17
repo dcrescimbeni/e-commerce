@@ -8,6 +8,7 @@ const route = require('./routes');
 const cors = require('cors');
 require('./config/auth');
 // const { auth } = require('express-openid-connect');
+
 const app = express();
 
 app.use(cors());
@@ -26,7 +27,7 @@ app.use(passport.session());
 app.use('/api', route);
 
 app.use((err, req, res, next) => {
-  let enableConsoleLog = false;
+  let enableConsoleLog = true;
 
   if (enableConsoleLog) {
     console.log('Error');

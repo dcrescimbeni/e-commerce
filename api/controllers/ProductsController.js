@@ -16,7 +16,7 @@ exports.productFind = async (req, res, next) => {
     let product = await Products.findOne({
       where: {
         productId: req.params.id,
-      },
+      }, include: Category
     });
 
     res.send(product.dataValues);
