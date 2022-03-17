@@ -8,7 +8,6 @@ const Profile = () => {
   let firstName = useInput();
   let lastName = useInput();
   let email = useInput();
-  let password = useInput();
   let billingAddress = useInput();
   let shippingAddress = useInput();
 
@@ -21,7 +20,6 @@ const Profile = () => {
     firstName.setValue(user.firstName);
     lastName.setValue(user.lastName);
     email.setValue(user.email);
-    password.setValue(user.password);
     billingAddress.setValue(user.billingAddress);
     shippingAddress.setValue(user.shippingAddress);
   }, [user]);
@@ -55,7 +53,7 @@ const Profile = () => {
                     {...firstName}
                     type="text"
                     className="form-control"
-                    id="inputEmail4"
+                    id="inputFirstName"
                   />
                 </div>
 
@@ -67,7 +65,7 @@ const Profile = () => {
                     {...lastName}
                     type="text"
                     className="form-control"
-                    id="inputEmail4"
+                    id="inputLastName"
                   />
                 </div>
 
@@ -79,7 +77,7 @@ const Profile = () => {
                     {...email}
                     type="text"
                     className="form-control"
-                    id="inputEmail4"
+                    id="inputEmail"
                   />
                 </div>
                 <div className="col-md-6">
@@ -90,7 +88,7 @@ const Profile = () => {
                     {...billingAddress}
                     type="text"
                     className="form-control"
-                    id="inputPassword4"
+                    id="inputBillingAddress"
                   />
                 </div>
                 <div className="col-md-6">
@@ -101,7 +99,7 @@ const Profile = () => {
                     {...shippingAddress}
                     type="text"
                     className="form-control"
-                    id="inputPassword4"
+                    id="inputShippingAddress"
                   />
                 </div>
                 <div className="col-12 modal-footer">
