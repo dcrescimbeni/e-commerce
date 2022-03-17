@@ -11,19 +11,29 @@ import { GiConverseShoe } from "react-icons/gi"
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import style from '../styles/Login.module.css';
+import axios from 'axios';
+import { getSession } from '../state/user';
+
 
 const Login = () => {
 
   const inputEmail = useInput();
   const inputPassword = useInput();
-
+  const navigate = useNavigate()
   const dispatch = useDispatch();
-  let navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleClick = () => {
     dispatch(sendLogoutRequest());
   };
+
+  React.useEffect(() => {
+    dispatch(getSession());
+  }, [dispatch]);
+
+  const user = useSelector((state) => {
+    return state.user;
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,8 +41,8 @@ const Login = () => {
       email: inputEmail.value,
       password: inputPassword.value,
     };
-
     dispatch(sendLoginRequest(form));
+    if(user) navigate('/')
   };
 
   const handleSearchSubmit = async (e) => {
@@ -46,11 +56,6 @@ const Login = () => {
   //   e.preventDefault();
   //   navigate("/")
   // };
-
-  const user = useSelector((state) => {
-    console.log(state.user);
-    return state.user;
-  });
 
   return (
     
@@ -242,7 +247,7 @@ const Login = () => {
               <Form.Check tupe="checkbox" label="Remember Me"></Form.Check>
             </Form.Group>
             <div className="d-grid gap-2">
-              <Button variant="primary" size="lg" type="submit">
+              <Button variant="primary" size="lg"  type="submit">
                 Submit
               </Button>
             </div>
@@ -253,11 +258,15 @@ const Login = () => {
             </Link>
             <Link to="/google">
               <FcGoogle size={32} />
+  
             </Link>{' '}
+            
             <Link to="/facebook">
               <BsFacebook size={30} />
             </Link>
           </Form>
+
+          <button></button>
         </div>
       </div>
     </div>
