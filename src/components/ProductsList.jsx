@@ -5,6 +5,7 @@ import axios from 'axios';
 import NavBar from './NavBar';
 
 const ProductsList = () => {
+  
   const [productInfo, setProductInfo] = useState([]);
   let [searchParams] = useSearchParams();
   const searchProduct = searchParams.get('query');
@@ -34,6 +35,8 @@ const ProductsList = () => {
     }
   }, [window.location.href]);
 
+  if(!productInfo) return <div></div>
+
   return (
     <>
       <div>
@@ -43,7 +46,8 @@ const ProductsList = () => {
       <br />
 
       <ul className={styles.container}>
-        {productInfo.map((product) => {
+        {productInfo?.map((product) => {
+
           return (
             <div key={product.productId}>
               <Link to={`/products/${product.productId}`}>
