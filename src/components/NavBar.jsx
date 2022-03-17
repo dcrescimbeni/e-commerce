@@ -151,7 +151,7 @@ const NavBar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/purchaseHistory">
+                    <Link to={`/userOrders/${user.userId}`}>
                       <a className="dropdown-item" >
                         Purchase History
                       </a>
