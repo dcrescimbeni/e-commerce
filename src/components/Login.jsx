@@ -190,15 +190,7 @@ const Login = () => {
             </ul>
             {/* Profile End */}
 
-            <div>
-              {user.isAdmin ? (
-                <Link to="/admin">
-                  <Button>Admin</Button>
-                </Link>
-              ) : (
-                <></>
-              )}
-            </div>
+            <div></div>
           </div>
         </div>
       </nav>

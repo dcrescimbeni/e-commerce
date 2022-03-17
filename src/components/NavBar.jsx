@@ -4,11 +4,9 @@ import { getSession, sendLogoutRequest } from '../state/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
-
 import { CgProfile } from 'react-icons/cg';
 import { GiConverseShoe } from 'react-icons/gi';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-
 
 const NavBar = () => {
   // esta es la logica para togglear register y login cuando el user esta logueado
@@ -119,55 +117,59 @@ const NavBar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
                 {' '}
-                <AiOutlineShoppingCart size={25} color="black"/>
+                <AiOutlineShoppingCart size={25} color="black" />
               </Link>
             </li>
-          
-            {/* Profile Register/Login*/}
 
-          
+            {/* Profile Register/Login*/}
 
             {user.userId ? (
               <>
-               
-                 <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <CgProfile size={25} color="black"/>{" "}
-                  {user.firstName}
-                </a>
+                <li className="nav-item dropdown">
+                  <a
+                    className="nav-link dropdown-toggle"
+                    id="navbarDropdown"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <CgProfile size={25} color="black" /> {user.firstName}
+                  </a>
 
-                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                    <Link to="/profile">
-                      <a className="dropdown-item" >
-                        Profile
-                      </a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to={`/userOrders/${user.userId}`}>
-                      <a className="dropdown-item" >
-                        Purchase History
-                      </a>
-                    </Link>
-                  </li>
-                  <li>
-                  <li  className="dropdown-divider" />
-                    <Link to="/">
-                    <button onClick={handleClick} className="dropdown-item">
-                      Logout
-                    </button>
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <li>
+                      <Link to="/profile">
+                        <a className="dropdown-item">Profile</a>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to={`/userOrders/${user.userId}`}>
+                        <a className="dropdown-item">Purchase History</a>
+                      </Link>
+                    </li>
+                    {user.isAdmin ? (
+                      <li>
+                        <Link to="/admin" className="dropdown-item">
+                          Admin panel
+                        </Link>
+                      </li>
+                    ) : (
+                      <></>
+                    )}
+
+                    <li>
+                      <li className="dropdown-divider" />
+                      <Link to="/">
+                        <button onClick={handleClick} className="dropdown-item">
+                          Logout
+                        </button>
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
               </>
             ) : (
               <li className="nav-item dropdown">
@@ -179,7 +181,7 @@ const NavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color="black"/>{" "}
+                  <CgProfile size={25} color="black" />{' '}
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
