@@ -27,7 +27,7 @@ exports.productFind = async (req, res, next) => {
 
 exports.productFindCategory = async (req, res, next) => {
   try {
-    let products = Products.findAll({
+    let products = await Products.findAll({
       include: [
         {
           model: Category,
@@ -36,7 +36,7 @@ exports.productFindCategory = async (req, res, next) => {
       ],
     });
 
-    res.send(products.dataValues);
+    res.send(products);
   } catch (err) {
     next(err);
   }

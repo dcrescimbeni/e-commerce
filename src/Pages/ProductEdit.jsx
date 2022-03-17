@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import  axios  from "axios";
+import axios from "axios";
 import useInput from "../Hooks/useInputs";
+import {Button} from 'react-bootstrap';
 
 const ProductEdit = () => {
   //obtener id del usuario a partir de la url
@@ -16,8 +17,28 @@ const ProductEdit = () => {
   }
 
   let productId = parseInt(reducedURL);
-  //api/products/product/id
+
   //axios para editar usuario
+
+  const [productInfo, setProductInfo] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`/api/products/product/${productId}`)
+      .then((res) => res.data)
+      .then((product) => {
+        setProductInfo(product);
+        price.setValue(product.price);
+        productName.setValue(product.name);
+        color.setValue(product.color);
+        size.setValue(product.size);
+        stock.setValue(product.stock);
+        img.setValue(product.img);
+        description.setValue(product.description);
+      });
+  }, []);
+
+  //enviar datos del nuevo producto al servidor
 
   const productName = useInput();
   const price = useInput();
@@ -28,22 +49,24 @@ const ProductEdit = () => {
   const description = useInput();
 
   const handleSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
     axios
-    .put(`/api/products/product/${productId}`, {
+      .put(`/api/products/product/${productId}`, {
         name: productName.value,
         price: price.value,
         color: color.value,
         size: size.value,
         stock: stock.value,
-        description: description.value
-    })
-    .then((res) => res.data)
+        description: description.value,
+      })
+      .then((res) => res.data);
   };
+
+  if (!productInfo) return <div></div>;
 
   return (
     <>
-      <h2 className="fs-4 mb-3 text-center text-uppercase">Edit Product</h2>
+      <h2 className="fs-4 mb-3 text-center text-uppercase">Edit Product </h2>
       <section className="container mt-5">
         <div className="card">
           <div className="card-body">
@@ -101,7 +124,6 @@ const ProductEdit = () => {
                   type="number"
                   className="form-control"
                   id="inputAddress"
-                  placeholder=""
                 />
               </div>
               <div className="col-12">
@@ -113,7 +135,6 @@ const ProductEdit = () => {
                   type="text"
                   className="form-control"
                   id="inputAddress2"
-                  placeholder=""
                 />
               </div>
               <div className="col-12">
@@ -125,18 +146,33 @@ const ProductEdit = () => {
                   type="text"
                   className="form-control"
                   id="inputAddress2"
-                  placeholder=""
                 />
               </div>
               <div className="col-12 modal-footer">
+              <Link to="/productsManagement"><Button variant="primary">Back</Button>{' '}</Link>
                 <button type="submit" className="btn btn-primary pe-2">
-                  Aceptar
+                  Accept
                 </button>
               </div>
             </form>
           </div>
         </div>
       </section>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
     </>
   );
 };

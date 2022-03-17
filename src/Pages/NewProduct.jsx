@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import  axios  from "axios";
 import useInput from "../Hooks/useInputs";
+import {Button} from 'react-bootstrap';
 
 const NewProduct = () => {
 
@@ -25,6 +26,7 @@ const NewProduct = () => {
         size: size.value,
         stock: stock.value,
         categories: categories.value,
+        img: pictures.value,
         pictures: pictures.value,
         description: description.value
     })
@@ -103,7 +105,7 @@ const NewProduct = () => {
                   type="text"
                   className="form-control"
                   id="inputAddress"
-                  placeholder=""
+                  placeholder="URL de imágenes separadas por comas"
                 />
               </div>
               <div className="col-md-6">
@@ -115,6 +117,7 @@ const NewProduct = () => {
                   type="text"
                   className="form-control"
                   id="inputPassword4"
+                  placeholder="Números para cada categoría separados por comas"
                 />
               </div>
               <div className="col-12">
@@ -130,6 +133,7 @@ const NewProduct = () => {
                 />
               </div>
               <div className="col-12 modal-footer">
+              <Link to="/productsManagement"><Button variant="primary">Back</Button>{' '}</Link>
                 <button type="submit" className="btn btn-primary pe-2">
                   Create
                 </button>

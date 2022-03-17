@@ -8,7 +8,6 @@ import { BsFillKeyFill } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
 import { GiConverseShoe } from 'react-icons/gi';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import { BsFillKeyFill } from "react-icons/bs";
 
 
 const NavBar = () => {
