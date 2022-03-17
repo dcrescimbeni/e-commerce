@@ -1,8 +1,9 @@
-const { User, Product, Category } = require('./index');
+const { User, Product, Category, Order, OrderDetails } = require('./index');
 
 // Users
 let users = [
   {
+    // ID: 1
     email: 'admin@admin.com',
     password: '123',
     firstName: 'Mr Admin',
@@ -12,7 +13,8 @@ let users = [
     shippingAddress: 'Not so Important Building 123',
   },
   {
-    email: 'user@usuer.com',
+    // ID: 2
+    email: 'user@user.com',
     password: '123',
     firstName: 'User',
     lastName: 'Common',
@@ -21,6 +23,7 @@ let users = [
     shippingAddress: 'Neighbours house 321',
   },
   {
+    // ID: 3
     email: 'pharetra.nam@icloud.couk',
     password: 'CLU85YKG1IO',
     firstName: 'Elvis',
@@ -30,6 +33,7 @@ let users = [
     shippingAddress: '157-812 Nisl Road',
   },
   {
+    // ID: 4
     email: 'taciti.sociosqu@aol.net',
     password: 'VUH43RDE7YE',
     firstName: 'Lucas',
@@ -39,6 +43,7 @@ let users = [
     shippingAddress: '451-6556 Pellentesque St.',
   },
   {
+    // ID: 5
     email: 'ac.urna@google.edu',
     password: 'KEA66UKB1YG',
     firstName: 'Ira',
@@ -48,6 +53,7 @@ let users = [
     shippingAddress: 'P.O. Box 581, 4491 Accumsan Road',
   },
   {
+    // ID: 6
     email: 'nec@icloud.net',
     password: 'ACQ37IVL9KO',
     firstName: 'Lynn',
@@ -57,6 +63,7 @@ let users = [
     shippingAddress: '315-4089 Elit, Rd.',
   },
   {
+    // ID: 7
     email: 'tempor@google.net',
     password: 'LWF18IEV6MY',
     firstName: 'Audrey',
@@ -223,10 +230,143 @@ const categoriesRelationships = [
   { productId: 9, categoryId: 1 },
 ];
 
+const orders = [
+  {
+    userId: 5,
+    address: users[4].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 9,
+        quantity: 5,
+        price: 108,
+      },
+      {
+        productId: 5,
+        quantity: 5,
+        price: 108,
+      },
+      {
+        productId: 3,
+        quantity: 4,
+        price: 117,
+      },
+      {
+        productId: 8,
+        quantity: 4,
+        price: 134,
+      },
+      {
+        productId: 3,
+        quantity: 3,
+        price: 112,
+      },
+    ],
+  },
+  {
+    userId: 6,
+    address: users[5].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 7,
+        quantity: 3,
+        price: 128,
+      },
+    ],
+  },
+  {
+    userId: 5,
+    address: users[4].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 4,
+        quantity: 1,
+        price: 103,
+      },
+      {
+        productId: 8,
+        quantity: 4,
+        price: 137,
+      },
+    ],
+  },
+  {
+    userId: 4,
+    address: users[3].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 8,
+        quantity: 5,
+        price: 126,
+      },
+      {
+        productId: 7,
+        quantity: 1,
+        price: 137,
+      },
+      {
+        productId: 2,
+        quantity: 5,
+        price: 102,
+      },
+    ],
+  },
+  {
+    userId: 3,
+    address: users[2].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 8,
+        quantity: 3,
+        price: 140,
+      },
+      {
+        productId: 8,
+        quantity: 3,
+        price: 105,
+      },
+      {
+        productId: 7,
+        quantity: 2,
+        price: 121,
+      },
+      {
+        productId: 5,
+        quantity: 1,
+        price: 102,
+      },
+    ],
+  },
+  {
+    userId: 5,
+    address: users[4].shippingAddress,
+    total: 1,
+    products: [
+      {
+        productId: 5,
+        quantity: 4,
+        price: 138,
+      },
+      {
+        productId: 8,
+        quantity: 1,
+        price: 134,
+      },
+    ],
+  },
+];
+
 const seedDatabase = async () => {
-  users.forEach((user) => {
-    User.create(user);
-  });
+  await Promise.all(
+    users.map(async (user) => {
+      return await User.create(user);
+    })
+  );
+
   await Product.bulkCreate(products);
   await Category.bulkCreate(categories);
 
@@ -234,14 +374,33 @@ const seedDatabase = async () => {
     assignCategory(relationship);
   });
 
+  await Promise.all(
+    orders.map(async (order) => {
+      return await createOrder(order);
+    })
+  );
+
   console.log('Database seeded!');
 };
 
 const assignCategory = async (relationship) => {
   let product = await Product.findByPk(relationship.productId);
   let category = await Category.findByPk(relationship.categoryId);
-
   await category.addProducts([product]);
+};
+
+const createOrder = async (order) => {
+  let { userId, address, total } = order;
+  let newOrder = await Order.create({ userId, address, total });
+
+  order.products.forEach(async (product) => {
+    await fillOrderItems(newOrder.dataValues.orderId, product);
+  });
+};
+
+const fillOrderItems = async (orderId, items) => {
+  const { productId, quantity, price } = items;
+  await OrderDetails.create({ orderId, productId, quantity, price });
 };
 
 seedDatabase();
