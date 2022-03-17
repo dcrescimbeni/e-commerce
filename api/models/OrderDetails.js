@@ -10,7 +10,7 @@ OrderDetails.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    quantity: {
+    qty: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

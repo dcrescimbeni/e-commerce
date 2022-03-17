@@ -1,20 +1,48 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 const Thanks = () => {
-    return (
-        <div className="jumbotron text-center">
-            <h1 className="display-3">Gracias por su orden!</h1>
-            <p className="lead"><strong>Por favor revise su email</strong> para ver los detalles de su orden.</p>
+
+  const handleStorage = () =>{
+
+    localStorage.removeItem('cart-products')
+  }
+
+
+  return (
+    <div>
+      <NavBar />
+      <br />
+      <br />
+      <br />
+      <section className="container mt-5">
+        <div className="card-body">
+          <div className="jumbotron text-center">
+            <h1 className="display-3">Thanks For Your Order!</h1>
+            <p className="lead">
+              <strong>Please check your email, 
+                  <br/>
+              </strong> 
+                  to see the details of your order.
+            </p>
             <hr />
             <p>
-                Problemas? <Link to="/">Contactenos</Link>
+              Problems? <Link to="/"> Contac Us</Link>
             </p>
             <p className="lead">
-                <Link to="/" className="btn btn-primary btn-sm" role="button">Siga comprando</Link>
+              <Link to="/" className="btn btn-primary btn-sm" role="button" onClick={handleStorage}>
+                Keep Buying
+              </Link>
             </p>
+          </div>
         </div>
-    )
-}
+      </section>
+      <br/><br/><br/><br/><br/>
+      <br/><br/><br/><br/><br/>
+      <br/><br/>
+    </div>
+  );
+};
 
-export default Thanks
+export default Thanks;

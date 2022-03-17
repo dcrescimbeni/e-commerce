@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getSession, sendLogoutRequest } from '../state/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { BsFillKeyFill } from 'react-icons/bs';
+
 
 import { CgProfile } from 'react-icons/cg';
 import { GiConverseShoe } from 'react-icons/gi';
@@ -119,63 +119,55 @@ const NavBar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
                 {' '}
-                <AiOutlineShoppingCart size={25} />
+                <AiOutlineShoppingCart size={25} color="black"/>
               </Link>
             </li>
-
-            {/* Inicio Enlace Temporal === Borrar */}
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin">
-                {' '}
-                <BsFillKeyFill size={25} />
-              </Link>
-            </li>
-            {/* Fin Enlace Temporal === Borrar */}
-
+          
             {/* Profile Register/Login*/}
 
-            {/* {user.adminId? ( <Link to="/admin">Admin</Link>):(
-              otra cosa
-             )} */}
+          
 
             {user.userId ? (
               <>
-                <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    id="navbarDropdown"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <CgProfile size={25} color="blue" />
-                    {user.firstName}
-                  </a>
+               
+                 <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <CgProfile size={25} color="black"/>{" "}
+                  {user.firstName}
+                </a>
 
-                  <ul
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <li>
-                      <Link to="/profile">
-                        <a className="dropdown-item">Profile</a>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/purchaseHistory">
-                        <a className="dropdown-item">Purchase History</a>
-                      </Link>
-                    </li>
-                    <li>
-                      <li className="dropdown-divider" />
-                      <Link to="/">
-                        <button onClick={handleClick} className="dropdown-item">
-                          Logout
-                        </button>
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                    <Link to="/profile">
+                      <a className="dropdown-item" >
+                        Profile
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={`/userOrders/${user.userId}`}>
+                      <a className="dropdown-item" >
+                        Purchase History
+                      </a>
+                    </Link>
+                  </li>
+                  <li>
+                  <li  className="dropdown-divider" />
+                    <Link to="/">
+                    <button onClick={handleClick} className="dropdown-item">
+                      Logout
+                    </button>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
               </>
             ) : (
               <li className="nav-item dropdown">
@@ -187,7 +179,7 @@ const NavBar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} />
+                  <CgProfile size={25} color="black"/>{" "}
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">

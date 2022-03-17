@@ -137,7 +137,7 @@ function App() {
           <Route path="/thanks" element={<Thanks />} />
           <Route path="/search" element={<ProductsList />} />
           <Route path="/profile" element={<Profile />}/>
-          <Route path="/purchaseHistory" element={<PurchaseHistory />}/>
+          <Route path="/userOrders/:id" element={<PurchaseHistory />}/>
           <Route path="/men" element={<ProductsList />} />
           <Route path="/women" element={<ProductsList />} />
           <Route path="/kids" element={<ProductsList />} />

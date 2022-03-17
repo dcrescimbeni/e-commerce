@@ -11,19 +11,29 @@ import { GiConverseShoe } from "react-icons/gi"
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import style from '../styles/Login.module.css';
+import axios from 'axios';
+import { getSession } from '../state/user';
+
 
 const Login = () => {
 
   const inputEmail = useInput();
   const inputPassword = useInput();
-
+  const navigate = useNavigate()
   const dispatch = useDispatch();
-  let navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleClick = () => {
     dispatch(sendLogoutRequest());
   };
+
+  React.useEffect(() => {
+    dispatch(getSession());
+  }, [dispatch]);
+
+  const user = useSelector((state) => {
+    return state.user;
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,8 +41,8 @@ const Login = () => {
       email: inputEmail.value,
       password: inputPassword.value,
     };
-
     dispatch(sendLoginRequest(form));
+    if(user) navigate('/')
   };
 
   const handleSearchSubmit = async (e) => {
@@ -46,11 +56,6 @@ const Login = () => {
   //   e.preventDefault();
   //   navigate("/")
   // };
-
-  const user = useSelector((state) => {
-    console.log(state.user);
-    return state.user;
-  });
 
   return (
     
@@ -102,7 +107,7 @@ const Login = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/shoppingcart">
                 {" "}
-                <AiOutlineShoppingCart size={25} />
+                <AiOutlineShoppingCart size={25} color="black" />
               </Link>
             </li>
 
@@ -127,8 +132,9 @@ const Login = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} color="blue"/>
-                  {user.firstName}
+                  <CgProfile size={25} color="black"/>{" "}{" "}
+                  <b>{user.firstName}</b>
+                 
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -167,7 +173,7 @@ const Login = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CgProfile size={25} />
+                  <CgProfile size={25} color= "black"/>
                 </a>
 
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -191,10 +197,20 @@ const Login = () => {
           
           </ul>
           {/* Profile End */}
-
+        {user.isAdmin?(
           <div>
-        <Link to="/admin">Admin</Link>
-      </div>
+          <Link to="/admin">Admin</Link>
+          </div>
+        ):(console.log("Hola"))}
+       
+       <div>
+          <Link to="/admin">
+            <Button>
+             Admin
+            </Button>
+           
+          </Link>
+          </div>
         </div>
       </div>
     </nav>
@@ -231,23 +247,26 @@ const Login = () => {
               <Form.Check tupe="checkbox" label="Remember Me"></Form.Check>
             </Form.Group>
             <div className="d-grid gap-2">
-              <Button variant="primary" size="lg" type="submit">
+              <Button variant="primary" size="lg"  type="submit">
                 Submit
               </Button>
             </div>
             <br></br>
-            <br></br>
-            <p>You dont have an account</p>
+            <p>You don't have an account?</p>
             <Link to="/register">
-              <p>Register</p>
+            <div className="d-flex justify-content-center"><b>Register</b></div> 
             </Link>
             <Link to="/google">
               <FcGoogle size={32} />
+  
             </Link>{' '}
+            
             <Link to="/facebook">
               <BsFacebook size={30} />
             </Link>
           </Form>
+
+          <button></button>
         </div>
       </div>
     </div>
