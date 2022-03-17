@@ -31,10 +31,22 @@ exports.getUser = (req, res, next) => {
   }
 };
 
+exports.getOwnDetails = async (req, res, next) => {
+  try {
+    const { userId } = req.user.dataValues;
+    let user = await User.findByPk(userId);
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.editOwnUser = (req, res, next) => {
+  const { userId } = req.user.dataValues;
+
   User.update(req.body, {
     where: {
-      id: req.params.id,
+      userId,
     },
   })
     .then(() => res.send(204))
