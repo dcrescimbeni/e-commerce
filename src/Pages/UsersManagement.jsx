@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import  axios  from "axios";
 import useInput from "../Hooks/useInputs";
+import {Button} from 'react-bootstrap';
 
 const UsersManagement = () => {
   //obtener id del usuario a partir de la url
@@ -17,14 +18,47 @@ const UsersManagement = () => {
 
   let userId = parseInt(reducedURL);
 
+  //obtener info de 1 usuario
+
+  const [userInfo, setUserInfo] = useState();
+
+useEffect(() => {
+  axios.
+  get(`/api/users/user/${userId}`)
+  .then((res) => 
+    res.data
+  )
+  .then((user) => {setUserInfo(user)
+  firstName.setValue(user.firstName)
+  lastName.setValue(user.lastName)
+  email.setValue(user.email)
+  billingAddress.setValue(user.billingAddress)
+  shippingAddress.setValue(user.shippingAddress)
+  setAdmin(user.isAdmin)
+})
+}, [])
+
+
   //axios para editar usuario
 
   const firstName = useInput();
   const lastName = useInput();
   const email = useInput();
-  const password = useInput();
   const billingAddress = useInput();
   const shippingAddress = useInput();
+
+
+  //setAdmin
+  const [admin, setAdmin] = useState(false);
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    setAdmin(!admin)
+  }
+  
+
+  //edit user
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
       e.preventDefault();
@@ -33,17 +67,20 @@ const UsersManagement = () => {
         firstName: firstName.value,
         lastName: lastName.value,
         email: email.value,
-        password: password.value,
         billingAddress: billingAddress.value,
-        shippingAddress: shippingAddress.value
+        shippingAddress: shippingAddress.value,
+        isAdmin: admin
     })
     .then((res) => res.data)
     .then((editedUser) => console.log(editedUser))
+    navigate("/usersManagement")
   };
+
+  if (!userInfo) return <div></div>
 
   return (
     <>
-      <h2 className="fs-4 mb-3 text-center text-uppercase">User</h2>
+      <h2 className="fs-4 mb-3 text-center text-uppercase">MANAGE USER</h2>
       <section className="container mt-5">
         <div className="card">
           <div className="card-body">
@@ -54,7 +91,6 @@ const UsersManagement = () => {
                 </label>
                 <input
                   {...firstName}
-                  type="text"
                   className="form-control"
                   id="inputEmail4"
                 />
@@ -65,6 +101,7 @@ const UsersManagement = () => {
                 </label>
                 <input
                   {...lastName}
+                  placeholder={userInfo.lastName}
                   type="text"
                   className="form-control"
                   id="inputPassword4"
@@ -77,19 +114,9 @@ const UsersManagement = () => {
                 <input
                   {...email}
                   type="email"
+                  placeholder={userInfo.email}
                   className="form-control"
                   id="inputEmail4"
-                />
-              </div>
-              <div className="col-md-6">
-                <label htmlFor="inputPassword4" className="form-label">
-                  Password
-                </label>
-                <input
-                  {...password}
-                  type="password"
-                  className="form-control"
-                  id="inputPassword4"
                 />
               </div>
               <div className="col-12">
@@ -99,9 +126,9 @@ const UsersManagement = () => {
                 <input
                   {...billingAddress}
                   type="text"
+                  placeholder={userInfo.billingAddress}
                   className="form-control"
                   id="inputAddress"
-                  placeholder=""
                 />
               </div>
               <div className="col-12">
@@ -112,14 +139,16 @@ const UsersManagement = () => {
                   {...shippingAddress}
                   type="text"
                   className="form-control"
+                  placeholder={userInfo.shippingAddress}
                   id="inputAddress2"
-                  placeholder=""
                 />
               </div>
 
               <div className="col-12">
                 <div className="form-check">
                   <input
+                    defaultChecked={userInfo.isAdmin}
+                    onChange={(e) => {handleChange(e)}}
                     className="form-check-input"
                     type="checkbox"
                     id="gridCheck"
@@ -130,8 +159,9 @@ const UsersManagement = () => {
                 </div>
               </div>
               <div className="col-12 modal-footer">
+              <Link to="/usersManagement"><Button variant="primary">Back</Button>{' '}</Link>
                 <button type="submit" className="btn btn-primary pe-2">
-                  Aceptar
+                  Accept
                 </button>
                 <Link to="/admin" className="btn btn-secondary">
                   Cancel
@@ -141,6 +171,7 @@ const UsersManagement = () => {
           </div>
         </div>
       </section>
+      <br></br>
     </>
   );
 };
