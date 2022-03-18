@@ -4,6 +4,8 @@ import SubNavBar from "../components/SubNavBar";
 import { useDispatch, useSelector } from 'react-redux'
 import useScript from "../Hooks/useScript";
 import { saveOrder } from '../state/orders';
+import { getSession } from '../state/user';
+import axios from "axios";
 
 const Checkout = ({ cartItems }) => {
   useScript("../script.js");
@@ -13,19 +15,12 @@ const Checkout = ({ cartItems }) => {
   //Ve el usuario que esta conectado
   const user = useSelector((state) => state.user);
 
-  // console.log("Articulos Checkout")
-  // console.log(cartItems)
-
-  // console.log("Usuario en Checkout")
-  // console.log(user);
 
   const subtotal = cartItems.reduce(
     (total, curr) => total + curr.price * curr.qty, 0);
 
   const shipping = 0;
   const total = subtotal + shipping;
-
-
 
   const placeOrderHandler = (id, order) => {
 
@@ -39,12 +34,14 @@ const Checkout = ({ cartItems }) => {
     console.log("MyOrder")
     console.log(myorder);
 
-    // console.log(id)
     dispatch(saveOrder(myorder))
     localStorage.removeItem('cart-products')
-    console.log("Guardar Orden")
+    let email = user.email
+    axios
+      .post('http://localhost:3001/api/users/sendMail' , {email})
+      .then(() => console.log('enviado'))
+      
   }
-
   return (
     <>
       <SubNavBar />
