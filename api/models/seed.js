@@ -217,17 +217,15 @@ const categories = [{ name: 'woman' }, { name: 'man' }, { name: 'kids' }];
 
 // Categories relationships
 const categoriesRelationships = [
-  { productId: 1, categoryId: 2 },
+  { productId: 1, categoryId: 1 },
   { productId: 2, categoryId: 1 },
-  { productId: 3, categoryId: 2 },
+  { productId: 3, categoryId: 1 },
   { productId: 4, categoryId: 1 },
-  { productId: 4, categoryId: 2 },
   { productId: 5, categoryId: 3 },
-  { productId: 6, categoryId: 2 },
-  { productId: 6, categoryId: 3 },
+  { productId: 6, categoryId: 1 },
   { productId: 7, categoryId: 1 },
   { productId: 8, categoryId: 1 },
-  { productId: 9, categoryId: 1 },
+  { productId: 9, categoryId: 2 },
 ];
 
 const orders = [
@@ -370,9 +368,11 @@ const seedDatabase = async () => {
   await Product.bulkCreate(products);
   await Category.bulkCreate(categories);
 
-  categoriesRelationships.forEach((relationship) => {
-    assignCategory(relationship);
-  });
+  await Promise.all(
+    categoriesRelationships.map(async (relationship) => {
+      return await assignCategory(relationship);
+    })
+  );
 
   await Promise.all(
     orders.map(async (order) => {
