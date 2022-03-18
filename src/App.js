@@ -25,7 +25,6 @@ import PurchaseHistory from './Pages/PurchaseHistory.jsx';
 import NewProduct from './Pages/NewProduct';
 import ProductEdit from './Pages/ProductEdit';
 
-
 function App() {
   // const { products } = data;
   const locaStorageProducts =
@@ -134,10 +133,15 @@ function App() {
               )
             }
           />
-          <Route path="/thanks" element={<Thanks />} />
+          <Route
+            path="/thanks"
+            element={
+              <Thanks cartItems={cartItems} setCartItems={setCartItems} />
+            }
+          />
           <Route path="/search" element={<ProductsList />} />
-          <Route path="/profile" element={<Profile />}/>
-          <Route path="/userOrders/:id" element={<PurchaseHistory />}/>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/userOrders/:id" element={<PurchaseHistory />} />
           <Route path="/men" element={<ProductsList />} />
           <Route path="/women" element={<ProductsList />} />
           <Route path="/kids" element={<ProductsList />} />
@@ -146,12 +150,11 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/productsManagement" element={<Admin />} />
           <Route path="/usersManagement" element={<Admin />} />
-          <Route path="/users/:id" element={<UsersManagement/>}/>
-          <Route path="/newProduct" element={<NewProduct/>}/>
-          <Route path="/products/edit/:id" element={<ProductEdit/>}/>
-
-        </Routes >
-      </main >
+          <Route path="/users/:id" element={<UsersManagement />} />
+          <Route path="/newProduct" element={<NewProduct />} />
+          <Route path="/products/edit/:id" element={<ProductEdit />} />
+        </Routes>
+      </main>
       <Footer />
     </div>
   );
