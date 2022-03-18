@@ -37,6 +37,7 @@ const PurchaseHistory = () => {
           <thead>
             <tr>
               <th></th>
+              <th>Order Number</th>
               <th>Products</th>
               <th>Date</th>
               <th>Price</th>
@@ -44,18 +45,21 @@ const PurchaseHistory = () => {
           </thead>
           <tbody>
             {orders?.map((order) => {
-              return (
-                <tr>
-                  <td>
-                    {" "}
-                    <AiOutlineShoppingCart />
-                  </td>
-                  {/* {Product.price} */}
-                  <td>{order.productId}</td>
-                  <td>Table cell</td>
-                  <td>${order.price}</td>
-                </tr>
-              );
+              return order.orderDetails?.map(product => {
+                return (
+                  <tr>  
+                    <td>
+                      {" "}
+                      <AiOutlineShoppingCart />
+                    </td>
+                    {/* {Product.price} */}
+                    <td>{order.orderId}</td>
+                    <td>{product.name}</td>
+                    <td>{product.createdAt.substring(0,10)}</td>
+                    <td>${product.price}</td>
+                  </tr>
+                );
+              })
             })}
           </tbody>
         </Table>

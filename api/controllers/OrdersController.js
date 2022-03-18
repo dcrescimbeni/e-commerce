@@ -12,6 +12,7 @@ exports.createOrder = (req, res, next) => {
         total: req.body.total,
         userId: req.params.id
       };
+      
       Order.create(orderObj)
         .then((data) => {
           req.body.products.map(product => {

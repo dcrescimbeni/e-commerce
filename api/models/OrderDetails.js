@@ -10,6 +10,10 @@ OrderDetails.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    name : {
+      type: DataTypes.STRING,
+      allowNull:false
+    },
     qty: {
       type: DataTypes.INTEGER,
       allowNull: false,
