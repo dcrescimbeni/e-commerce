@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useInput from "../Hooks/useInputs";
 import {Button} from 'react-bootstrap';
@@ -18,7 +18,7 @@ const ProductEdit = () => {
 
   let productId = parseInt(reducedURL);
 
-  //axios para editar usuario
+  //axios para editar producto
 
   const [productInfo, setProductInfo] = useState();
 
@@ -38,7 +38,8 @@ const ProductEdit = () => {
       });
   }, []);
 
-  //enviar datos del nuevo producto al servidor
+  //enviar del producto editado al servidor
+  const navigate = useNavigate();
 
   const productName = useInput();
   const price = useInput();
@@ -60,6 +61,7 @@ const ProductEdit = () => {
         description: description.value,
       })
       .then((res) => res.data);
+      navigate("/productsManagement")
   };
 
   if (!productInfo) return <div></div>;
