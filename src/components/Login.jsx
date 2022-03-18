@@ -240,12 +240,12 @@ const Login = () => {
                 <b>Register</b>
               </div>
             </Link>
-            <Link to="/google">
+            {/* <Link to="/google">
               <FcGoogle size={32} />
             </Link>{' '}
             <Link to="/facebook">
               <BsFacebook size={30} />
-            </Link>
+            </Link> */}
           </Form>
         </div>
       </div>
