@@ -87,6 +87,7 @@ exports.giveAdmin = (req, res, next) => {
 };
 
 exports.sendEmail = (req, res, next) => {
+  console.log('llegue a mail' )
   async function main() {
     let mailOptions = {
       from: '"SNikers 👻" <fabriberdina@gmail.com>', // sender address
