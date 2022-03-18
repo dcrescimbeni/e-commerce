@@ -44,8 +44,8 @@ const ProductsList = () => {
       </div>
       <br />
       <br />
-
-      <ul className={styles.container}>
+      <div className="container">
+      <ul className={`${styles.container}`}>
         {productInfo?.map((product) => {
 
           return (
@@ -64,6 +64,7 @@ const ProductsList = () => {
           );
         })}
       </ul>
+      </div>
     </>
   );
 };

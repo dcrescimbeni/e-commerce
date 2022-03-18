@@ -247,8 +247,6 @@ const Login = () => {
               <BsFacebook size={30} />
             </Link>
           </Form>
-
-          <button></button>
         </div>
       </div>
     </div>
