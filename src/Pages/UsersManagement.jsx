@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import  axios  from "axios";
 import useInput from "../Hooks/useInputs";
 import {Button} from 'react-bootstrap';
@@ -58,6 +58,8 @@ useEffect(() => {
   
 
   //edit user
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
       e.preventDefault();
     axios
@@ -71,6 +73,7 @@ useEffect(() => {
     })
     .then((res) => res.data)
     .then((editedUser) => console.log(editedUser))
+    navigate("/usersManagement")
   };
 
   if (!userInfo) return <div></div>

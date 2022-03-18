@@ -50,7 +50,7 @@ const ProductDetails = ({ onAdd }) => {
       </Carousel>
 
       <div className={styles.card}>
-        <Card style={{ width: '30rem', height: '56rem' }}>
+        <Card style={{ width: '30rem', height: '40rem' }}>
           <Card.Body>
             <br></br>
             <Card.Title className={styles.name}>
@@ -75,22 +75,17 @@ const ProductDetails = ({ onAdd }) => {
             <br></br>
             <div className={styles.buttonsContainer}>
               <Button variant="dark" onClick={() => onAdd(productInfo)}>
-                Sumar al carrito
+                Add to Cart
               </Button>
             </div>
             <br></br>
             <br></br>
-            <div className={styles.scoreTitle}>Valoración Promedio</div>
-            <div className={styles.score}>5</div>
             <br></br>
             <br></br>
-            <ListGroup>
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-              <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-            </ListGroup>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
           </Card.Body>
         </Card>
       </div>
