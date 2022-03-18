@@ -374,12 +374,6 @@ const seedDatabase = async () => {
     })
   );
 
-  await Promise.all(
-    orders.map(async (order) => {
-      return await createOrder(order);
-    })
-  );
-
   console.log('Database seeded!');
 };
 
