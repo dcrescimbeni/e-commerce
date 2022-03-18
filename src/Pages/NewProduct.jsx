@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import  axios  from "axios";
 import useInput from "../Hooks/useInputs";
 import {Button} from 'react-bootstrap';
@@ -15,6 +15,8 @@ const NewProduct = () => {
   const categories = useInput();
   const pictures = useInput();
   const description = useInput();
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
       e.preventDefault();
@@ -32,6 +34,7 @@ const NewProduct = () => {
     })
     .then((res) => res.data)
     .then((newProduct) => console.log(newProduct))
+    navigate("/productsManagement")
   };
 
   return (
