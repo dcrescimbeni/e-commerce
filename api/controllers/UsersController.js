@@ -103,6 +103,13 @@ exports.getOrders = (req, res, next) => {
     })
   }
 
+// exports.getOrders = (req,res,next) => {
+//   Order.findAll({where: { userId: req.params.id }})
+//   .then(data => {
+//     res.send(data)
+//   })
+// }
+
 
 // Admin controllers
 
