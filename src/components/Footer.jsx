@@ -1,12 +1,10 @@
-import React from "react";
-import { GiConverseShoe } from "react-icons/gi";
-import { Link } from "react-router-dom";
-
+import React from 'react';
+import { GiConverseShoe } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
     <>
-     
       <div className=".container-fluid">
         <footer className="bg-dark text-center text-white">
           {/* <!-- Grid container --> */}
@@ -40,10 +38,10 @@ const Footer = () => {
           <div className="text-center text-justify p-3">
             © 2022 Copyright:
             <a className="text-white navbar-brand">
-              {" "}
+              {' '}
               <Link to="/">
-                {" "}
-                <GiConverseShoe size={30} color={"white"} />{" "}
+                {' '}
+                <GiConverseShoe size={30} color={'white'} />{' '}
               </Link>
               SNikers - All Rights Reserved.
             </a>

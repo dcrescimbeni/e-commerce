@@ -58,6 +58,10 @@ const Thanks = ({ cartItems, setCartItems }) => {
       <br />
       <br />
       <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };
