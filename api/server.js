@@ -8,6 +8,13 @@ const route = require('./routes');
 const cors = require('cors');
 require('./config/auth');
 // const { auth } = require('express-openid-connect');
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function(app) {
+  app.use(
+    createProxyMiddleware(["/api", "/otherApi"], { target: "http://localhost:5000" })
+  );
+};
 
 const app = express();
 
@@ -23,6 +30,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 // app.use(auth(config));
+
+
 
 app.use('/api', route);
 
