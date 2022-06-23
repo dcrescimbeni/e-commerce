@@ -152,7 +152,7 @@ const NavBar = () => {
                     </li>
                     {user.isAdmin ? (
                       <li>
-                        <Link to="/admin" className="dropdown-item">
+                        <Link to="/usersManagement" className="dropdown-item">
                           Admin panel
                         </Link>
                       </li>

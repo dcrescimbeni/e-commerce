@@ -217,9 +217,9 @@ const categories = [{ name: 'woman' }, { name: 'man' }, { name: 'kids' }];
 
 // Categories relationships
 const categoriesRelationships = [
-  { productId: 1, categoryId: 1 },
+  { productId: 1, categoryId: 2 },
   { productId: 2, categoryId: 1 },
-  { productId: 3, categoryId: 1 },
+  { productId: 3, categoryId: 2 },
   { productId: 4, categoryId: 1 },
   { productId: 5, categoryId: 3 },
   { productId: 6, categoryId: 1 },
@@ -371,12 +371,6 @@ const seedDatabase = async () => {
   await Promise.all(
     categoriesRelationships.map(async (relationship) => {
       return await assignCategory(relationship);
-    })
-  );
-
-  await Promise.all(
-    orders.map(async (order) => {
-      return await createOrder(order);
     })
   );
 
