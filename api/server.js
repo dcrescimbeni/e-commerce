@@ -8,13 +8,6 @@ const route = require('./routes');
 const cors = require('cors');
 require('./config/auth');
 // const { auth } = require('express-openid-connect');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-
-module.exports = function(app) {
-  app.use(
-    createProxyMiddleware(["/api", "/otherApi"], { target: "http://localhost:5000" })
-  );
-};
 
 const app = express();
 
@@ -30,8 +23,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 // app.use(auth(config));
-
-
 
 app.use('/api', route);
 
@@ -50,7 +41,7 @@ const PORT = process.env.PORT || 3001
 db.sync({ force: false }).then(() => {
   if (!module.parent) {
     app.listen(PORT, () => {
-      console.log(`Server up on port ${PORT}`);
+      console.log(`Server up on port Port ${PORT}`);
     });
   }
 });
