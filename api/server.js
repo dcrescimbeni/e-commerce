@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const route = require('./routes');
 const cors = require('cors');
+const path = require('path')
 require('./config/auth');
 // const { auth } = require('express-openid-connect');
 
@@ -37,6 +38,13 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3001
+
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static('../public'))
+  app.get('*' , (req, res) => {
+    req.sendFile(path.resolve(__dirname, '../public ' , 'index,html'))
+  })
+}
 
 db.sync({ force: false }).then(() => {
   if (!module.parent) {
