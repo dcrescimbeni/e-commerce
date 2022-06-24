@@ -5,7 +5,6 @@ import axios from 'axios';
 
 import './App.css';
 import HomePage from './Pages/HomePage';
-import NavBar from './components/NavBar';
 import ProductsList from './components/ProductsList';
 import ProductDetails from './components/ProductDetails';
 import ShoppingCart from './Pages/ShoppingCart';
